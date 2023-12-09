@@ -94,6 +94,7 @@
 		243086272B23FE86006C78E9 /* WeatherIsMyMood */ = {
 			isa = PBXGroup;
 			children = (
+				248E3F402B23FECA001B10C3 /* Views */,
 				243086282B23FE86006C78E9 /* WeatherIsMyMoodApp.swift */,
 				2430862A2B23FE86006C78E9 /* ContentView.swift */,
 				2430862C2B23FE89006C78E9 /* Assets.xcassets */,
@@ -125,6 +126,13 @@
 				243086452B23FE8A006C78E9 /* WeatherIsMyMoodUITestsLaunchTests.swift */,
 			);
 			path = WeatherIsMyMoodUITests;
+			sourceTree = "<group>";
+		};
+		248E3F402B23FECA001B10C3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
