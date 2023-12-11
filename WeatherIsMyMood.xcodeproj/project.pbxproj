@@ -28,6 +28,9 @@
 		248E3F562B25B3CC001B10C3 /* SunTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248E3F552B25B3CC001B10C3 /* SunTimeView.swift */; };
 		24A66DED2B269F1400B348CC /* UIScreen+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A66DEC2B269F1400B348CC /* UIScreen+Extensions.swift */; };
 		24A66DEF2B26B18800B348CC /* CityCurrentWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A66DEE2B26B18800B348CC /* CityCurrentWeatherView.swift */; };
+		24A66DF12B26DDCB00B348CC /* WeatherCondition+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A66DF02B26DDCA00B348CC /* WeatherCondition+Extensions.swift */; };
+		24A66DF32B26EEBB00B348CC /* EmojiViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A66DF22B26EEBB00B348CC /* EmojiViewCell.swift */; };
+		24A66DF52B2711A600B348CC /* DynamicIslandPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A66DF42B2711A600B348CC /* DynamicIslandPreviewView.swift */; };
 		24C7D98C2B26145000453434 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7D98B2B26145000453434 /* AppColors.swift */; };
 		24C7D98E2B26160E00453434 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7D98D2B26160E00453434 /* Color+Extension.swift */; };
 /* End PBXBuildFile section */
@@ -75,6 +78,9 @@
 		248E3F552B25B3CC001B10C3 /* SunTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunTimeView.swift; sourceTree = "<group>"; };
 		24A66DEC2B269F1400B348CC /* UIScreen+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Extensions.swift"; sourceTree = "<group>"; };
 		24A66DEE2B26B18800B348CC /* CityCurrentWeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityCurrentWeatherView.swift; sourceTree = "<group>"; };
+		24A66DF02B26DDCA00B348CC /* WeatherCondition+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WeatherCondition+Extensions.swift"; sourceTree = "<group>"; };
+		24A66DF22B26EEBB00B348CC /* EmojiViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiViewCell.swift; sourceTree = "<group>"; };
+		24A66DF42B2711A600B348CC /* DynamicIslandPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicIslandPreviewView.swift; sourceTree = "<group>"; };
 		24C7D98B2B26145000453434 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
 		24C7D98D2B26160E00453434 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -185,6 +191,8 @@
 			isa = PBXGroup;
 			children = (
 				2458CD272B25F8BF008F4AFE /* DecorationView.swift */,
+				24A66DF22B26EEBB00B348CC /* EmojiViewCell.swift */,
+				24A66DF42B2711A600B348CC /* DynamicIslandPreviewView.swift */,
 			);
 			path = DynamicIsland;
 			sourceTree = "<group>";
@@ -213,6 +221,7 @@
 				248E3F4B2B2583E1001B10C3 /* Date+Extensions.swift */,
 				24C7D98D2B26160E00453434 /* Color+Extension.swift */,
 				24A66DEC2B269F1400B348CC /* UIScreen+Extensions.swift */,
+				24A66DF02B26DDCA00B348CC /* WeatherCondition+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -359,6 +368,8 @@
 				2458CD242B25F5F3008F4AFE /* MainView.swift in Sources */,
 				248E3F502B2598C3001B10C3 /* HourlyPrecipitationChartView.swift in Sources */,
 				24C7D98C2B26145000453434 /* AppColors.swift in Sources */,
+				24A66DF12B26DDCB00B348CC /* WeatherCondition+Extensions.swift in Sources */,
+				24A66DF32B26EEBB00B348CC /* EmojiViewCell.swift in Sources */,
 				2430862B2B23FE86006C78E9 /* WeatherView.swift in Sources */,
 				243086292B23FE86006C78E9 /* WeatherIsMyMoodApp.swift in Sources */,
 				248E3F492B258120001B10C3 /* TenDayForcastView.swift in Sources */,
@@ -368,6 +379,7 @@
 				24A66DED2B269F1400B348CC /* UIScreen+Extensions.swift in Sources */,
 				248E3F472B25769E001B10C3 /* HourlyForcastView.swift in Sources */,
 				248E3F452B249369001B10C3 /* LocationManager.swift in Sources */,
+				24A66DF52B2711A600B348CC /* DynamicIslandPreviewView.swift in Sources */,
 				248E3F4C2B2583E1001B10C3 /* Date+Extensions.swift in Sources */,
 				248E3F4E2B25959A001B10C3 /* WeatherTitleView.swift in Sources */,
 				248E3F522B259C04001B10C3 /* DataAttributionView.swift in Sources */,

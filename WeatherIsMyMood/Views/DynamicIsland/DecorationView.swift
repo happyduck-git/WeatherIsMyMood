@@ -14,9 +14,39 @@ struct DecorationView: View {
     @State private var weather: Weather?
     @State private var condition: WeatherCondition = .clear
     
+    private let numberOfColumns = 3
+    @State private var weatherIcons: [String] = ["clear_cloudy", "clear_cloudy"]
+    @State private var otherIcons: [String] = ["clear_cloudy", "clear_cloudy"]
+    
     var body: some View {
         VStack {
+            Text("Preview")
+                .fontWeight(.bold)
+                .frame(alignment: .leading)
+            
+            DynamicIslandPreviewView(weather: $weather)
+            
+            Text("Weather")
+                .fontWeight(.bold)
+                .frame(alignment: .leading)
+            
+            self.emojiCollectionView(self.weatherIcons)
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 50, trailing: 0))
+            
+            Text("Others")
+                .fontWeight(.bold)
+                .frame(alignment: .leading)
+            
+            self.emojiCollectionView(self.otherIcons)
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 50, trailing: 0))
+            
             Text(condition.rawValue)
+            
+            self.saveButtonView()
+        }
+        .background {
+            AppColors.main
+                .ignoresSafeArea()
         }
         .task(id: locationManager.currentLocation) {
             if let location = locationManager.currentLocation {
@@ -34,69 +64,55 @@ struct DecorationView: View {
             }
         }
     }
+    
+}
+
+extension DecorationView {
+    
+    private func saveButtonView() -> some View {
+        Button {
+            //TODO: Save as Dynamic island
+            
+        } label: {
+            Text("Save")
+                .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
+        }
+        .background {
+            Color.blue.opacity(0.8)
+        }
+        .foregroundStyle(.white)
+        .clipShape(Capsule(style: .continuous))
+        .padding(EdgeInsets(top: 0, leading: 0, bottom: 50, trailing: 0))
+    }
+    
+    private func emojiCollectionView(_ icons: [String]) -> some View {
+        return  ScrollView(.vertical, showsIndicators: false) {
+            let numberOfRows = (icons.count + 2) / numberOfColumns
+            
+            ForEach(0..<numberOfRows, id: \.self) { row in
+                HStack {
+                    ForEach(0..<numberOfColumns, id: \.self) { col in
+                        let index = row * numberOfColumns + col
+                        
+                        if index < icons.count {
+                            EmojiViewCell(emojiName: icons[index])
+                        } else {
+                            EmojiViewCell(emojiName: "")
+                        }
+                    }
+                }
+            }
+        }
+        .padding()
+        .background {
+            RoundedRectangle(cornerRadius: 15)
+                .fill(Color.gray.opacity(0.1))
+        }
+    }
 }
 
 #Preview {
     DecorationView()
 }
 
-extension WeatherCondition {
-    var weatherIcon: String {
-        switch self {
 
-        case .blizzard, .snow, .heavySnow, .sunFlurries, .blowingSnow:
-            "snow"
-
-        case .flurries:
-            "snow_flurries"
-
-        case .rain, .heavyRain, .freezingRain:
-            "showers"
-            
-        case .drizzle, .freezingDrizzle, .sunShowers:
-            "drizzle"
-             
-        case .cloudy:
-            "cloudy"
-        
-        case .mostlyCloudy:
-            "mostly_cloudy"
-            
-        case .partlyCloudy:
-            "partly_cloudy"
-            
-        case .clear, .hot:
-            "sunny"
-
-        case .mostlyClear:
-            "clear_cloudy"
-            
-        case .breezy, .windy, .blowingDust:
-            "windy"
-            
-        case .hurricane:
-            "tornado"
-        
-        case .foggy, .haze, .smoky:
-            "haze"
-        
-        case .frigid:
-            "cold"
-            
-        case .hail:
-            "hail"
-      
-        case .isolatedThunderstorms:
-            "isolated_thunderstroms"
-        
-        case .scatteredThunderstorms, .strongStorms, .thunderstorms, .tropicalStorm:
-            "thunderstroms"
-       
-        case .sleet, .wintryMix:
-            "sleet"
-        
-        @unknown default:
-            "sunny"
-        }
-    }
-}
