@@ -8,12 +8,28 @@
 
 /* Begin PBXBuildFile section */
 		243086292B23FE86006C78E9 /* WeatherIsMyMoodApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243086282B23FE86006C78E9 /* WeatherIsMyMoodApp.swift */; };
-		2430862B2B23FE86006C78E9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2430862A2B23FE86006C78E9 /* ContentView.swift */; };
+		2430862B2B23FE86006C78E9 /* WeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2430862A2B23FE86006C78E9 /* WeatherView.swift */; };
 		2430862D2B23FE89006C78E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2430862C2B23FE89006C78E9 /* Assets.xcassets */; };
 		243086302B23FE89006C78E9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2430862F2B23FE89006C78E9 /* Preview Assets.xcassets */; };
 		2430863A2B23FE8A006C78E9 /* WeatherIsMyMoodTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243086392B23FE8A006C78E9 /* WeatherIsMyMoodTests.swift */; };
 		243086442B23FE8A006C78E9 /* WeatherIsMyMoodUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243086432B23FE8A006C78E9 /* WeatherIsMyMoodUITests.swift */; };
 		243086462B23FE8A006C78E9 /* WeatherIsMyMoodUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243086452B23FE8A006C78E9 /* WeatherIsMyMoodUITestsLaunchTests.swift */; };
+		2458CD222B25D720008F4AFE /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2458CD212B25D720008F4AFE /* TitleView.swift */; };
+		2458CD242B25F5F3008F4AFE /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2458CD232B25F5F3008F4AFE /* MainView.swift */; };
+		2458CD282B25F8BF008F4AFE /* DecorationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2458CD272B25F8BF008F4AFE /* DecorationView.swift */; };
+		248E3F452B249369001B10C3 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248E3F442B249369001B10C3 /* LocationManager.swift */; };
+		248E3F472B25769E001B10C3 /* HourlyForcastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248E3F462B25769E001B10C3 /* HourlyForcastView.swift */; };
+		248E3F492B258120001B10C3 /* TenDayForcastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248E3F482B258120001B10C3 /* TenDayForcastView.swift */; };
+		248E3F4C2B2583E1001B10C3 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248E3F4B2B2583E1001B10C3 /* Date+Extensions.swift */; };
+		248E3F4E2B25959A001B10C3 /* WeatherTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248E3F4D2B25959A001B10C3 /* WeatherTitleView.swift */; };
+		248E3F502B2598C3001B10C3 /* HourlyPrecipitationChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248E3F4F2B2598C3001B10C3 /* HourlyPrecipitationChartView.swift */; };
+		248E3F522B259C04001B10C3 /* DataAttributionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248E3F512B259C04001B10C3 /* DataAttributionView.swift */; };
+		248E3F542B25B1DE001B10C3 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248E3F532B25B1DE001B10C3 /* SearchView.swift */; };
+		248E3F562B25B3CC001B10C3 /* SunTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248E3F552B25B3CC001B10C3 /* SunTimeView.swift */; };
+		24A66DED2B269F1400B348CC /* UIScreen+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A66DEC2B269F1400B348CC /* UIScreen+Extensions.swift */; };
+		24A66DEF2B26B18800B348CC /* CityCurrentWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A66DEE2B26B18800B348CC /* CityCurrentWeatherView.swift */; };
+		24C7D98C2B26145000453434 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7D98B2B26145000453434 /* AppColors.swift */; };
+		24C7D98E2B26160E00453434 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7D98D2B26160E00453434 /* Color+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +52,7 @@
 /* Begin PBXFileReference section */
 		243086252B23FE86006C78E9 /* WeatherIsMyMood.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherIsMyMood.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		243086282B23FE86006C78E9 /* WeatherIsMyMoodApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherIsMyMoodApp.swift; sourceTree = "<group>"; };
-		2430862A2B23FE86006C78E9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		2430862A2B23FE86006C78E9 /* WeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
 		2430862C2B23FE89006C78E9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2430862F2B23FE89006C78E9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		243086352B23FE89006C78E9 /* WeatherIsMyMoodTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeatherIsMyMoodTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,6 +60,23 @@
 		2430863F2B23FE8A006C78E9 /* WeatherIsMyMoodUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeatherIsMyMoodUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		243086432B23FE8A006C78E9 /* WeatherIsMyMoodUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherIsMyMoodUITests.swift; sourceTree = "<group>"; };
 		243086452B23FE8A006C78E9 /* WeatherIsMyMoodUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherIsMyMoodUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		2458CD212B25D720008F4AFE /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
+		2458CD232B25F5F3008F4AFE /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		2458CD272B25F8BF008F4AFE /* DecorationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecorationView.swift; sourceTree = "<group>"; };
+		248E3F422B24887C001B10C3 /* WeatherIsMyMood.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WeatherIsMyMood.entitlements; sourceTree = "<group>"; };
+		248E3F442B249369001B10C3 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		248E3F462B25769E001B10C3 /* HourlyForcastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyForcastView.swift; sourceTree = "<group>"; };
+		248E3F482B258120001B10C3 /* TenDayForcastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenDayForcastView.swift; sourceTree = "<group>"; };
+		248E3F4B2B2583E1001B10C3 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
+		248E3F4D2B25959A001B10C3 /* WeatherTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTitleView.swift; sourceTree = "<group>"; };
+		248E3F4F2B2598C3001B10C3 /* HourlyPrecipitationChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyPrecipitationChartView.swift; sourceTree = "<group>"; };
+		248E3F512B259C04001B10C3 /* DataAttributionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAttributionView.swift; sourceTree = "<group>"; };
+		248E3F532B25B1DE001B10C3 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		248E3F552B25B3CC001B10C3 /* SunTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunTimeView.swift; sourceTree = "<group>"; };
+		24A66DEC2B269F1400B348CC /* UIScreen+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Extensions.swift"; sourceTree = "<group>"; };
+		24A66DEE2B26B18800B348CC /* CityCurrentWeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityCurrentWeatherView.swift; sourceTree = "<group>"; };
+		24C7D98B2B26145000453434 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
+		24C7D98D2B26160E00453434 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,9 +127,12 @@
 		243086272B23FE86006C78E9 /* WeatherIsMyMood */ = {
 			isa = PBXGroup;
 			children = (
+				24C7D98A2B26144300453434 /* Utilities */,
+				248E3F4A2B2583D3001B10C3 /* Extensions */,
+				248E3F432B2492E4001B10C3 /* Managers */,
+				248E3F422B24887C001B10C3 /* WeatherIsMyMood.entitlements */,
 				248E3F402B23FECA001B10C3 /* Views */,
 				243086282B23FE86006C78E9 /* WeatherIsMyMoodApp.swift */,
-				2430862A2B23FE86006C78E9 /* ContentView.swift */,
 				2430862C2B23FE89006C78E9 /* Assets.xcassets */,
 				2430862E2B23FE89006C78E9 /* Preview Content */,
 			);
@@ -128,11 +164,65 @@
 			path = WeatherIsMyMoodUITests;
 			sourceTree = "<group>";
 		};
+		2458CD252B25F88A008F4AFE /* WeatherInfo */ = {
+			isa = PBXGroup;
+			children = (
+				2430862A2B23FE86006C78E9 /* WeatherView.swift */,
+				248E3F462B25769E001B10C3 /* HourlyForcastView.swift */,
+				248E3F482B258120001B10C3 /* TenDayForcastView.swift */,
+				248E3F4D2B25959A001B10C3 /* WeatherTitleView.swift */,
+				248E3F4F2B2598C3001B10C3 /* HourlyPrecipitationChartView.swift */,
+				248E3F512B259C04001B10C3 /* DataAttributionView.swift */,
+				248E3F532B25B1DE001B10C3 /* SearchView.swift */,
+				248E3F552B25B3CC001B10C3 /* SunTimeView.swift */,
+				2458CD212B25D720008F4AFE /* TitleView.swift */,
+				24A66DEE2B26B18800B348CC /* CityCurrentWeatherView.swift */,
+			);
+			path = WeatherInfo;
+			sourceTree = "<group>";
+		};
+		2458CD262B25F89E008F4AFE /* DynamicIsland */ = {
+			isa = PBXGroup;
+			children = (
+				2458CD272B25F8BF008F4AFE /* DecorationView.swift */,
+			);
+			path = DynamicIsland;
+			sourceTree = "<group>";
+		};
 		248E3F402B23FECA001B10C3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2458CD262B25F89E008F4AFE /* DynamicIsland */,
+				2458CD252B25F88A008F4AFE /* WeatherInfo */,
+				2458CD232B25F5F3008F4AFE /* MainView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		248E3F432B2492E4001B10C3 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				248E3F442B249369001B10C3 /* LocationManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		248E3F4A2B2583D3001B10C3 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				248E3F4B2B2583E1001B10C3 /* Date+Extensions.swift */,
+				24C7D98D2B26160E00453434 /* Color+Extension.swift */,
+				24A66DEC2B269F1400B348CC /* UIScreen+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		24C7D98A2B26144300453434 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				24C7D98B2B26145000453434 /* AppColors.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -265,8 +355,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2430862B2B23FE86006C78E9 /* ContentView.swift in Sources */,
+				248E3F542B25B1DE001B10C3 /* SearchView.swift in Sources */,
+				2458CD242B25F5F3008F4AFE /* MainView.swift in Sources */,
+				248E3F502B2598C3001B10C3 /* HourlyPrecipitationChartView.swift in Sources */,
+				24C7D98C2B26145000453434 /* AppColors.swift in Sources */,
+				2430862B2B23FE86006C78E9 /* WeatherView.swift in Sources */,
 				243086292B23FE86006C78E9 /* WeatherIsMyMoodApp.swift in Sources */,
+				248E3F492B258120001B10C3 /* TenDayForcastView.swift in Sources */,
+				24C7D98E2B26160E00453434 /* Color+Extension.swift in Sources */,
+				248E3F562B25B3CC001B10C3 /* SunTimeView.swift in Sources */,
+				2458CD282B25F8BF008F4AFE /* DecorationView.swift in Sources */,
+				24A66DED2B269F1400B348CC /* UIScreen+Extensions.swift in Sources */,
+				248E3F472B25769E001B10C3 /* HourlyForcastView.swift in Sources */,
+				248E3F452B249369001B10C3 /* LocationManager.swift in Sources */,
+				248E3F4C2B2583E1001B10C3 /* Date+Extensions.swift in Sources */,
+				248E3F4E2B25959A001B10C3 /* WeatherTitleView.swift in Sources */,
+				248E3F522B259C04001B10C3 /* DataAttributionView.swift in Sources */,
+				24A66DEF2B26B18800B348CC /* CityCurrentWeatherView.swift in Sources */,
+				2458CD222B25D720008F4AFE /* TitleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -427,12 +533,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = WeatherIsMyMood/WeatherIsMyMood.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"WeatherIsMyMood/Preview Content\"";
 				DEVELOPMENT_TEAM = KZ7GPQGAGJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "WeatherIsMyMood에서 위치 정보를 사용하고자 합니다.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "WeatherIsMyMood에서 위치 정보를 사용하고자 합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -456,12 +565,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = WeatherIsMyMood/WeatherIsMyMood.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"WeatherIsMyMood/Preview Content\"";
 				DEVELOPMENT_TEAM = KZ7GPQGAGJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "WeatherIsMyMood에서 위치 정보를 사용하고자 합니다.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "WeatherIsMyMood에서 위치 정보를 사용하고자 합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
