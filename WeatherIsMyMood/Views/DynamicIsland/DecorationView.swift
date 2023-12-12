@@ -10,6 +10,8 @@ import WeatherKit
 
 struct DecorationView: View {
     
+    @State private var isLoading = false
+    
     @StateObject private var locationManager = LocationManager()
     private let weatherService = WeatherService.shared
     private let storageManager = FirestoreManager.shared
@@ -23,35 +25,43 @@ struct DecorationView: View {
     @State private var selectedIcon: Data?
     
     var body: some View {
-        VStack {
-            Text("Preview")
-                .fontWeight(.bold)
-                .frame(alignment: .leading)
-                .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
+        ZStack {
+            VStack {
+                Text("Preview")
+                    .fontWeight(.bold)
+                    .frame(alignment: .leading)
+                    .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
+                
+                DynamicIslandPreviewView(weather: $weather, selectedIcon: $selectedIcon)
+                
+                Text("Weather")
+                    .fontWeight(.bold)
+                    .frame(alignment: .leading)
+                    .padding(EdgeInsets(top: 30, leading: 0, bottom: 0, trailing: 0))
+                
+                self.emojiCollectionView(self.weatherIcons)
+                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 30, trailing: 0))
+                
+                Text("Others")
+                    .fontWeight(.bold)
+                    .frame(alignment: .leading)
+                
+                self.emojiCollectionView(self.otherIcons)
+                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 30, trailing: 0))
+                
+                self.saveButtonView()
+            }
+            .background {
+                AppColors.main
+                    .ignoresSafeArea()
+            }
             
-            DynamicIslandPreviewView(weather: $weather, selectedIcon: $selectedIcon)
             
-            Text("Weather")
-                .fontWeight(.bold)
-                .frame(alignment: .leading)
-                .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
-            
-            self.emojiCollectionView(self.weatherIcons)
-                .padding(EdgeInsets(top: 0, leading: 0, bottom: 50, trailing: 0))
-            
-            Text("Others")
-                .fontWeight(.bold)
-                .frame(alignment: .leading)
-            
-            self.emojiCollectionView(self.otherIcons)
-                .padding(EdgeInsets(top: 0, leading: 0, bottom: 30, trailing: 0))
-            
-            self.saveButtonView()
+            if isLoading {
+                LoadingView()
+            }
         }
-        .background {
-            AppColors.main
-                .ignoresSafeArea()
-        }
+
         .task(id: locationManager.currentLocation) {
             if let location = locationManager.currentLocation {
                 do {
@@ -60,6 +70,19 @@ struct DecorationView: View {
                 catch {
                     print(error)
                 }
+            }
+        }
+        .onAppear() {
+            self.isLoading = true
+            
+            Task {
+                do {
+                    self.otherIcons = try await storageManager.fetchOtherIcons(maxResults: 20).data
+                }
+                catch {
+                    print("Error fetching other icons -- \(error)")
+                }
+                self.isLoading = false
             }
         }
         .onChange(of: self.weather) { _, weather in
@@ -75,17 +98,7 @@ struct DecorationView: View {
                 }
             }
         }
-        .task {
-           
-            Task {
-                do {
-                    self.otherIcons = try await storageManager.fetchOtherIcons(maxResults: 20).data
-                }
-                catch {
-                    print("Error fetching other icons -- \(error)")
-                }
-            }
-        }
+
     }
     
 }
