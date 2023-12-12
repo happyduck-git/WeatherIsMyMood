@@ -6,32 +6,35 @@
 //
 
 import SwiftUI
+import UIKit.UIImage
+import PDFKit
 
 struct EmojiViewCell: View {
-    @State var emojiName: String
+    @State var emojiData: Data
     private let width = (UIScreen.main.bounds.width - 50) / 5
+    private let gradientBold: Color = .gray.opacity(0.4)
     
     var body: some View {
         ZStack(alignment: .center) {
             
             RoundedRectangle(cornerRadius: 15)
                 .fill(Color.clear)
-                .background(content: {
-                    LinearGradient(colors: [.white, .clear, .white],
-                                   startPoint: .topLeading,
-                                   endPoint: /*@START_MENU_TOKEN@*/.trailing/*@END_MENU_TOKEN@*/)
+                .background {
+                    LinearGradient(colors: [gradientBold, .clear, gradientBold],
+                                   startPoint: .top,
+                                   endPoint: .bottomTrailing)
                     .clipShape(RoundedRectangle(cornerRadius: 15))
-                })
+                }
+            
+            if let image = UIImage(data: emojiData) {
+                Image(uiImage: image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .padding()
                 
-            Image(emojiName)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .padding()
+            }
+           
         }
         .frame(width: width, height: width)
     }
-}
-
-#Preview {
-    EmojiViewCell(emojiName: "clear_cloudy")
 }

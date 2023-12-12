@@ -18,7 +18,7 @@ struct HourlyPrecipitationChartView: View {
             VStack(alignment: .leading) {
                 WeatherTitleView(title: "Precipitation")
                     .shadow(radius: 10)
-                if !noPrecipitation.contains(true) {
+                if noPrecipitation.contains(true) {
                     Text("No rain is expected for 7hrs!")
                         .padding()
                 }
@@ -47,6 +47,7 @@ struct HourlyPrecipitationChartView: View {
         }
         .onChange(of: hourWeatherList) { _, _ in
             self.checkForPrecipitation()
+            print(noPrecipitation)
         }
     }
 }

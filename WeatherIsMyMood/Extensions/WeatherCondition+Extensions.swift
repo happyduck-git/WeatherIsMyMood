@@ -1,9 +1,9 @@
+
+// WeatherCondition+Extensions.swift
+// WeatherIsMyMood
 //
-//  WeatherCondition+Extensions.swift
-//  WeatherIsMyMood
-//
-//  Created by HappyDuck on 12/11/23.
-//
+// Created by HappyDuck on 12/11/23.
+
 
 import Foundation
 import WeatherKit
@@ -12,59 +12,48 @@ extension WeatherCondition {
     var weatherIcon: String {
         switch self {
 
-        case .blizzard, .snow, .heavySnow, .sunFlurries, .blowingSnow:
+        case .blizzard, .snow, .heavySnow, .sunFlurries, .blowingSnow, .flurries, .sleet, .wintryMix:
             "snow"
 
-        case .flurries:
-            "snow_flurries"
-
         case .rain, .heavyRain, .freezingRain:
-            "showers"
+            "rain"
             
-        case .drizzle, .freezingDrizzle, .sunShowers:
+        case .drizzle, .freezingDrizzle, .sunShowers: 
             "drizzle"
              
-        case .cloudy:
+        case .cloudy, .mostlyCloudy, .partlyCloudy:
             "cloudy"
-        
-        case .mostlyCloudy:
-            "mostly_cloudy"
             
-        case .partlyCloudy:
-            "partly_cloudy"
-            
-        case .clear, .hot:
+        case .clear, .hot, .mostlyClear:
             "sunny"
 
-        case .mostlyClear:
-            "clear_cloudy"
-            
-        case .breezy, .windy, .blowingDust:
+        case .breezy, .windy, .blowingDust: 
             "windy"
             
-        case .hurricane:
+        case .hurricane: 
             "tornado"
         
-        case .foggy, .haze, .smoky:
+        case .foggy, .haze, .smoky: 
             "haze"
         
         case .frigid:
             "cold"
             
-        case .hail:
+        case .hail: 
             "hail"
-      
-        case .isolatedThunderstorms:
-            "isolated_thunderstroms"
         
-        case .scatteredThunderstorms, .strongStorms, .thunderstorms, .tropicalStorm:
-            "thunderstroms"
-       
-        case .sleet, .wintryMix:
-            "sleet"
+        case .scatteredThunderstorms, .strongStorms, .thunderstorms, .tropicalStorm, .isolatedThunderstorms: 
+            "thunderstorms"
         
         @unknown default:
             "sunny"
         }
+    }
+    
+    static func getWeatherIconName(of condition: String) -> String {
+        guard let condition = WeatherCondition(rawValue: condition) else {
+            return "sunny"
+        }
+        return condition.weatherIcon
     }
 }

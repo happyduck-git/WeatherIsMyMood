@@ -9,26 +9,32 @@ import SwiftUI
 import WeatherKit
 
 struct DecorationView: View {
+    
     @StateObject private var locationManager = LocationManager()
     private let weatherService = WeatherService.shared
+    private let storageManager = FirestoreManager.shared
+    
     @State private var weather: Weather?
     @State private var condition: WeatherCondition = .clear
     
-    private let numberOfColumns = 3
-    @State private var weatherIcons: [String] = ["clear_cloudy", "clear_cloudy"]
-    @State private var otherIcons: [String] = ["clear_cloudy", "clear_cloudy"]
+    private let numberOfColumns = 4
+    @State private var weatherIcons: [Data] = []
+    @State private var otherIcons: [Data] = []
+    @State private var selectedIcon: Data?
     
     var body: some View {
         VStack {
             Text("Preview")
                 .fontWeight(.bold)
                 .frame(alignment: .leading)
+                .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
             
-            DynamicIslandPreviewView(weather: $weather)
+            DynamicIslandPreviewView(weather: $weather, selectedIcon: $selectedIcon)
             
             Text("Weather")
                 .fontWeight(.bold)
                 .frame(alignment: .leading)
+                .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
             
             self.emojiCollectionView(self.weatherIcons)
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 50, trailing: 0))
@@ -38,9 +44,7 @@ struct DecorationView: View {
                 .frame(alignment: .leading)
             
             self.emojiCollectionView(self.otherIcons)
-                .padding(EdgeInsets(top: 0, leading: 0, bottom: 50, trailing: 0))
-            
-            Text(condition.rawValue)
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 30, trailing: 0))
             
             self.saveButtonView()
         }
@@ -58,9 +62,28 @@ struct DecorationView: View {
                 }
             }
         }
-        .onChange(of: self.weather) { _, newValue in
-            if let newValue {
-                condition = newValue.currentWeather.condition
+        .onChange(of: self.weather) { _, weather in
+            if let weather {
+                Task {
+                    do {
+                        let condition = WeatherCondition.getWeatherIconName(of: weather.currentWeather.condition.rawValue)
+                        self.weatherIcons = try await storageManager.fetchWeatherIcons(condition)
+                    }
+                    catch {
+                        print("Error fetching weather icons -- \(error)")
+                    }
+                }
+            }
+        }
+        .task {
+           
+            Task {
+                do {
+                    self.otherIcons = try await storageManager.fetchOtherIcons(maxResults: 20).data
+                }
+                catch {
+                    print("Error fetching other icons -- \(error)")
+                }
             }
         }
     }
@@ -85,7 +108,7 @@ extension DecorationView {
         .padding(EdgeInsets(top: 0, leading: 0, bottom: 50, trailing: 0))
     }
     
-    private func emojiCollectionView(_ icons: [String]) -> some View {
+    private func emojiCollectionView(_ icons: [Data]) -> some View {
         return  ScrollView(.vertical, showsIndicators: false) {
             let numberOfRows = (icons.count + 2) / numberOfColumns
             
@@ -95,9 +118,10 @@ extension DecorationView {
                         let index = row * numberOfColumns + col
                         
                         if index < icons.count {
-                            EmojiViewCell(emojiName: icons[index])
-                        } else {
-                            EmojiViewCell(emojiName: "")
+                            EmojiViewCell(emojiData: icons[index])
+                                .onTapGesture {
+                                    self.selectedIcon = icons[index]
+                                }
                         }
                     }
                 }
@@ -107,6 +131,7 @@ extension DecorationView {
         .background {
             RoundedRectangle(cornerRadius: 15)
                 .fill(Color.gray.opacity(0.1))
+                .frame(minWidth: UIScreen.screenWidth - 80)
         }
     }
 }
