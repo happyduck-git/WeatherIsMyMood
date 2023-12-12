@@ -15,7 +15,8 @@ actor FirestoreManager {
     private init() {}
     
     private let storageRef = Storage.storage().reference()
-  
+    private let cacheManager = StorageCacheManager.shared
+    
     typealias PaginatedResult = (data: [Data], pageToken: String?)
 }
 
@@ -56,30 +57,22 @@ extension FirestoreManager {
             .child("background/\(condition).pdf")
             .data(maxSize: 1 * 1024 * 1024)
     }
-   
-    private func convertListResultToURLs(_ result: StorageListResult) async throws -> [URL] {
-        return try await withThrowingTaskGroup(of: URL.self, returning: [URL].self) { group in
-            for item in result.items {
-                group.addTask {
-                    try await item.downloadURL()
-                }
-            }
-            var urls = [URL]()
-            for try await url in group {
-                urls.append(url)
-            }
-            return urls
-        }
-    }
-    
+
     private func convertListResultToData(_ result: StorageListResult) async throws -> [Data] {
         return try await withThrowingTaskGroup(of: Data.self, returning: [Data].self) { group in
+            var dataList = [Data]()
             for item in result.items {
-                group.addTask {
-                    try await item.data(maxSize: 1 * 1024 * 1024)
+                if let cachedData = self.cacheManager.cachedResponse(for: item.fullPath) {
+                    dataList.append(cachedData)
+                }
+                else {
+                    group.addTask { [weak self] in
+                        let data = try await item.data(maxSize: 1 * 1024 * 1024)
+                        self?.cacheManager.setCache(for: item.fullPath, data: data)
+                        return data
+                    }
                 }
             }
-            var dataList = [Data]()
             for try await data in group {
                 dataList.append(data)
             }

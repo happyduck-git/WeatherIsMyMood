@@ -49,9 +49,11 @@ struct CityCurrentWeatherView: View {
                               weather: $weather)
                     
                     HStack {
-                        SunStatusTimeView(dailyWeather: weather.dailyForecast[0], status: .sunrise)
+                        SunStatusTimeView(status: .sunrise,
+                                          weather: $weather)
                             .padding()
-                        SunStatusTimeView(dailyWeather: weather.dailyForecast[0], status: .sunset)
+                        SunStatusTimeView(status: .sunset,
+                                          weather: $weather)
                             .padding()
                     }
                     .background {

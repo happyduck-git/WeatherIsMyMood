@@ -14,9 +14,10 @@ struct SunStatusTimeView: View {
         case sunset
     }
     
-    let dailyWeather: DayWeather
+//    let dailyWeather: DayWeather
     let status: Status
-    @State var dateTime: String = "aa"
+    @Binding var weather: Weather?
+    @State var dateTime = String()
     
     var body: some View {
         VStack {
@@ -24,18 +25,24 @@ struct SunStatusTimeView: View {
                 .foregroundStyle(status == .sunrise ? .orange : .indigo)
             Text(dateTime)
         }
-        .onAppear(perform: {
-            updateDateTime()
-        })
+//        .onAppear(perform: {
+//            updateDateTime()
+//        })
+        .onChange(of: self.weather) {
+            if let weather,
+               let latestForcast = weather.dailyForecast.last {
+                self.updateDateTime(latestForcast)
+            }
+        }
         
     }
     
-    private func updateDateTime() {
+    private func updateDateTime(_ dayWeather: DayWeather) {
             switch status {
             case .sunrise:
-                self.dateTime = dailyWeather.sun.sunrise?.formatted(.dateTime.hour().minute()) ?? "?"
+                self.dateTime = dayWeather.sun.sunrise?.formatted(.dateTime.hour().minute()) ?? "?"
             case .sunset:
-                self.dateTime = dailyWeather.sun.sunset?.formatted(.dateTime.hour().minute()) ?? "?"
+                self.dateTime = dayWeather.sun.sunset?.formatted(.dateTime.hour().minute()) ?? "?"
             }
         }
 }

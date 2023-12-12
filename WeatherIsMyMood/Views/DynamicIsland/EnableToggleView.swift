@@ -31,31 +31,52 @@ struct EnableToggleView: View {
         .onChange(of: self.isOn) {
             self.enableLiveActivity(self.isOn)
         }
+        .onChange(of: self.selectedIcon) {
+            self.updateLiveActivity(self.isOn)
+        }
     }
 }
 
 extension EnableToggleView {
-    private func enableLiveActivity(_ isOn: Bool) {
+    private func updateLiveActivity(_ isOn: Bool) {
         if isOn {
-            if let weather, let selectedIcon {
-                let attrib = WeatherAttributes()
+            Task {
+                guard let activity, let weather, let selectedIcon else {
+                    return
+                }
+                    
                 let content = ActivityContent.init(state: WeatherAttributes.ContentState(
                     icon: selectedIcon,
-                    temperature: "\(weather.currentWeather.temperature.formatted(.measurement(width: .narrow, numberFormatStyle: .number.precision(.fractionLength(0)))))"),
+                    temperature: self.formatTemperature(weather.currentWeather.temperature)),
                                                    staleDate: nil)
-                
-                
-                do {
-                    self.activity = try Activity<WeatherAttributes>.request(attributes: attrib,
-                                                                            content: content)
-                }
-                catch {
-                    print("Error unwrapping weather, selectedIcon optional value. -- \(error)")
-                }
-                
-            } else {
-                
+                await activity.update(content)
             }
+        }
+    }
+    
+    private func enableLiveActivity(_ isOn: Bool) {
+
+        if isOn {
+            guard let weather, let selectedIcon else {
+                return
+            }
+            
+            let attrib = WeatherAttributes()
+            
+            let content = ActivityContent.init(state: WeatherAttributes.ContentState(
+                icon: selectedIcon,
+                temperature: self.formatTemperature(weather.currentWeather.temperature)),
+                                               staleDate: nil
+            )
+            
+            do {
+                self.activity = try Activity<WeatherAttributes>.request(attributes: attrib,
+                                                                        content: content)
+            }
+            catch {
+                print("Error unwrapping weather, selectedIcon optional value. -- \(error)")
+            }
+            
             
         } else {
             Task {
@@ -68,3 +89,8 @@ extension EnableToggleView {
     }
 }
 
+extension EnableToggleView {
+    private func formatTemperature(_ temperature: Measurement<UnitTemperature>) -> String {
+        return "\(temperature.formatted(.measurement(width: .narrow, numberFormatStyle: .number.precision(.fractionLength(0)))))"
+    }
+}

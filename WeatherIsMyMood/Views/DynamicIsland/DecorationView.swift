@@ -10,6 +10,7 @@ import WeatherKit
 
 struct DecorationView: View {
     
+    @State private var isChangeDetected = true
     @State private var isLoading = false
     @State private var isOn = false
     
@@ -32,7 +33,7 @@ struct DecorationView: View {
                 EnableToggleView(isOn: $isOn,
                                  weather: $weather,
                                  selectedIcon: $selectedIcon)
-              
+                
                 Text("Preview")
                     .fontWeight(.bold)
                     .frame(alignment: .leading)
@@ -61,17 +62,17 @@ struct DecorationView: View {
                 AppColors.main
                     .ignoresSafeArea()
             }
-            
-            
+                    
             if isLoading {
                 LoadingView()
             }
         }
-
         .task(id: locationManager.currentLocation) {
             if let location = locationManager.currentLocation {
+                self.isChangeDetected = true
                 do {
                     self.weather = try await weatherService.weather(for: location)
+                    self.isChangeDetected = false
                 }
                 catch {
                     print(error)
@@ -80,15 +81,8 @@ struct DecorationView: View {
         }
         .onAppear() {
             self.isLoading = true
-            
-            Task {
-                do {
-                    self.otherIcons = try await storageManager.fetchOtherIcons(maxResults: 20).data
-                }
-                catch {
-                    print("Error fetching other icons -- \(error)")
-                }
-                self.isLoading = false
+            if !isChangeDetected {
+                locationManager.refreshLocation()
             }
         }
         .onChange(of: self.weather) { _, weather in
@@ -96,7 +90,12 @@ struct DecorationView: View {
                 Task {
                     do {
                         let condition = WeatherCondition.getWeatherIconName(of: weather.currentWeather.condition.rawValue)
-                        self.weatherIcons = try await storageManager.fetchWeatherIcons(condition)
+                        async let others = storageManager.fetchOtherIcons(maxResults: 20).data
+                        async let weathers = storageManager.fetchWeatherIcons(condition)
+                        
+                        self.otherIcons = try await others
+                        self.weatherIcons = try await weathers
+                        self.isLoading = false
                     }
                     catch {
                         print("Error fetching weather icons -- \(error)")
@@ -141,8 +140,8 @@ extension DecorationView {
     }
 }
 
-#Preview {
-    DecorationView()
-}
+//#Preview {
+//    DecorationView()
+//}
 
 

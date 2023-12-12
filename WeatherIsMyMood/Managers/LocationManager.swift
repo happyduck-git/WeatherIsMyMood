@@ -10,22 +10,15 @@ import CoreLocation
 
 final class LocationManager: NSObject, ObservableObject {
     
-    @Published var currentLocation: CLLocation? {
-        //TODO: 안 사용하면 didSet 지우기
-        didSet {
-            guard let loc = currentLocation else { return }
-            self.cityName(at: loc) { city in
-                self.cityName = city
-            }
-        }
-    }
+    @Published var currentLocation: CLLocation? 
     @Published var cityName: String?
     private let locationManager = CLLocationManager()
     
     override init() {
         super.init()
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.distanceFilter = kCLDistanceFilterNone
+        locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
+        locationManager.distanceFilter = 3_000
+        locationManager.pausesLocationUpdatesAutomatically = true
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
         locationManager.delegate = self
@@ -36,6 +29,10 @@ extension LocationManager: CLLocationManagerDelegate {
     
     func requestOnTimeLocation() {
         currentLocation = locationManager.location
+    }
+    
+    func refreshLocation() {
+        locationManager.startUpdatingLocation()
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

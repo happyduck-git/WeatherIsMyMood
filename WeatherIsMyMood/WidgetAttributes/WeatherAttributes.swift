@@ -7,6 +7,7 @@
 
 import Foundation
 import ActivityKit
+import UIKit.UIImage
 
 struct WeatherAttributes: ActivityAttributes {
     typealias WeatherAttributes = ContentState
