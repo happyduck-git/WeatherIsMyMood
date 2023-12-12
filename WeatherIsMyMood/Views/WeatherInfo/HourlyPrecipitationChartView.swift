@@ -47,7 +47,6 @@ struct HourlyPrecipitationChartView: View {
         }
         .onChange(of: hourWeatherList) { _, _ in
             self.checkForPrecipitation()
-            print(noPrecipitation)
         }
     }
 }

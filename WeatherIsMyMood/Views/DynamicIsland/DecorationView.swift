@@ -11,6 +11,7 @@ import WeatherKit
 struct DecorationView: View {
     
     @State private var isLoading = false
+    @State private var isOn = false
     
     @StateObject private var locationManager = LocationManager()
     private let weatherService = WeatherService.shared
@@ -27,12 +28,18 @@ struct DecorationView: View {
     var body: some View {
         ZStack {
             VStack {
+                    
+                EnableToggleView(isOn: $isOn,
+                                 weather: $weather,
+                                 selectedIcon: $selectedIcon)
+              
                 Text("Preview")
                     .fontWeight(.bold)
                     .frame(alignment: .leading)
                     .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
                 
-                DynamicIslandPreviewView(weather: $weather, selectedIcon: $selectedIcon)
+                DynamicIslandPreviewView(weather: $weather,
+                                         selectedIcon: $selectedIcon)
                 
                 Text("Weather")
                     .fontWeight(.bold)
@@ -48,8 +55,7 @@ struct DecorationView: View {
                 
                 self.emojiCollectionView(self.otherIcons)
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 30, trailing: 0))
-                
-                self.saveButtonView()
+               
             }
             .background {
                 AppColors.main
@@ -104,23 +110,7 @@ struct DecorationView: View {
 }
 
 extension DecorationView {
-    
-    private func saveButtonView() -> some View {
-        Button {
-            //TODO: Save as Dynamic island
-            
-        } label: {
-            Text("Save")
-                .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
-        }
-        .background {
-            Color.blue.opacity(0.8)
-        }
-        .foregroundStyle(.white)
-        .clipShape(Capsule(style: .continuous))
-        .padding(EdgeInsets(top: 0, leading: 0, bottom: 50, trailing: 0))
-    }
-    
+
     private func emojiCollectionView(_ icons: [Data]) -> some View {
         return  ScrollView(.vertical, showsIndicators: false) {
             let numberOfRows = (icons.count + 2) / numberOfColumns
@@ -131,9 +121,11 @@ extension DecorationView {
                         let index = row * numberOfColumns + col
                         
                         if index < icons.count {
+                            
                             EmojiViewCell(emojiData: icons[index])
                                 .onTapGesture {
                                     self.selectedIcon = icons[index]
+                                    print("Tapped Row: \(row), Col: \(col)")
                                 }
                         }
                     }
