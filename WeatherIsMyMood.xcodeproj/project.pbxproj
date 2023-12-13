@@ -10,6 +10,8 @@
 		241A803B2B29AD7800706BB8 /* WidgetConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241A803A2B29AD7800706BB8 /* WidgetConstants.swift */; };
 		241A803C2B29AD9800706BB8 /* WidgetConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241A803A2B29AD7800706BB8 /* WidgetConstants.swift */; };
 		241A803E2B29E04100706BB8 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 241A803D2B29E04000706BB8 /* Localizable.xcstrings */; };
+		241A80432B2A156500706BB8 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 241A80422B2A156500706BB8 /* Launch Screen.storyboard */; };
+		241A80472B2A177F00706BB8 /* Muli-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 241A80462B2A177F00706BB8 /* Muli-Black.ttf */; };
 		243086292B23FE86006C78E9 /* WeatherIsMyMoodApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243086282B23FE86006C78E9 /* WeatherIsMyMoodApp.swift */; };
 		2430862B2B23FE86006C78E9 /* WeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2430862A2B23FE86006C78E9 /* WeatherView.swift */; };
 		2430862D2B23FE89006C78E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2430862C2B23FE89006C78E9 /* Assets.xcassets */; };
@@ -100,6 +102,8 @@
 /* Begin PBXFileReference section */
 		241A803A2B29AD7800706BB8 /* WidgetConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetConstants.swift; sourceTree = "<group>"; };
 		241A803D2B29E04000706BB8 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		241A80422B2A156500706BB8 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		241A80462B2A177F00706BB8 /* Muli-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Muli-Black.ttf"; sourceTree = "<group>"; };
 		243086252B23FE86006C78E9 /* WeatherIsMyMood.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherIsMyMood.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		243086282B23FE86006C78E9 /* WeatherIsMyMoodApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherIsMyMoodApp.swift; sourceTree = "<group>"; };
 		2430862A2B23FE86006C78E9 /* WeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
@@ -185,6 +189,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		241A80442B2A176200706BB8 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				241A80452B2A176D00706BB8 /* Fonts */,
+				2430862C2B23FE89006C78E9 /* Assets.xcassets */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		241A80452B2A176D00706BB8 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				241A80462B2A177F00706BB8 /* Muli-Black.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		2430861C2B23FE86006C78E9 = {
 			isa = PBXGroup;
 			children = (
@@ -211,6 +232,7 @@
 		243086272B23FE86006C78E9 /* WeatherIsMyMood */ = {
 			isa = PBXGroup;
 			children = (
+				241A80442B2A176200706BB8 /* Assets */,
 				247212D82B282CB0009A6DE5 /* WidgetAttributes */,
 				24C7D98A2B26144300453434 /* Utilities */,
 				248E3F4A2B2583D3001B10C3 /* Extensions */,
@@ -219,9 +241,9 @@
 				248E3F402B23FECA001B10C3 /* Views */,
 				243086282B23FE86006C78E9 /* WeatherIsMyMoodApp.swift */,
 				24A66E082B275FB200B348CC /* GoogleService-Info.plist */,
-				2430862C2B23FE89006C78E9 /* Assets.xcassets */,
 				2430862E2B23FE89006C78E9 /* Preview Content */,
 				241A803D2B29E04000706BB8 /* Localizable.xcstrings */,
+				241A80422B2A156500706BB8 /* Launch Screen.storyboard */,
 			);
 			path = WeatherIsMyMood;
 			sourceTree = "<group>";
@@ -498,7 +520,9 @@
 				243086302B23FE89006C78E9 /* Preview Assets.xcassets in Resources */,
 				24A66E092B275FB200B348CC /* GoogleService-Info.plist in Resources */,
 				241A803E2B29E04100706BB8 /* Localizable.xcstrings in Resources */,
+				241A80432B2A156500706BB8 /* Launch Screen.storyboard in Resources */,
 				2430862D2B23FE89006C78E9 /* Assets.xcassets in Resources */,
+				241A80472B2A177F00706BB8 /* Muli-Black.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -740,6 +764,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = WeatherIsMyMood/WeatherIsMyMood.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -753,6 +778,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -777,6 +803,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = WeatherIsMyMood/WeatherIsMyMood.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -790,6 +817,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (

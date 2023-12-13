@@ -36,6 +36,7 @@ struct DynamicIslandPreviewView: View {
                           let image = UIImage(data: icon) {
                            Image(uiImage: image)
                                .resizable()
+                               .aspectRatio(contentMode: .fit)
                                .frame(width: 20, height: 20)
                                .padding(EdgeInsets(top: 0, leading: 130, bottom: 0, trailing: 0))
                        }

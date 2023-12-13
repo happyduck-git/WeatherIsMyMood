@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Muli-Black.ttf">
+            <string>Muli-Black</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="obG-Y5-kRd">
+                                <rect key="frame" x="0.0" y="832" width="393" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WEATHER" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BPs-EC-e4e">
+                                <rect key="frame" x="80.666666666666671" y="502.33333333333331" width="231.66666666666663" height="56.666666666666686"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56.666666666666742" id="0UA-Fz-kjX"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Muli-Black" family="Muli Black" pointSize="45"/>
+                                <color key="textColor" name="AccentColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ISLAND" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="le5-IV-dNp">
+                                <rect key="frame" x="109" y="561" width="175" height="57"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="57" id="rKu-dt-zmG"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Muli-Black" family="Muli Black" pointSize="45"/>
+                                <color key="textColor" name="AccentColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WeatherIslandLogo" translatesAutoresizingMaskIntoConstraints="NO" id="bhn-gH-piv">
+                                <rect key="frame" x="84" y="148.99999999999997" width="225" height="315.33333333333326"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
+                        <color key="backgroundColor" name="Main"/>
+                        <constraints>
+                            <constraint firstItem="Bcu-3y-fUS" firstAttribute="trailing" secondItem="bhn-gH-piv" secondAttribute="trailing" constant="84" id="KlS-aU-ItU"/>
+                            <constraint firstItem="le5-IV-dNp" firstAttribute="top" secondItem="BPs-EC-e4e" secondAttribute="bottom" constant="2" id="Mmx-hV-Mix"/>
+                            <constraint firstItem="BPs-EC-e4e" firstAttribute="top" secondItem="bhn-gH-piv" secondAttribute="bottom" constant="38" id="Pb3-AW-bEc"/>
+                            <constraint firstItem="le5-IV-dNp" firstAttribute="top" secondItem="BPs-EC-e4e" secondAttribute="bottom" constant="2" id="WDf-5h-n6m"/>
+                            <constraint firstItem="bhn-gH-piv" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Xgb-86-NP5"/>
+                            <constraint firstItem="Bcu-3y-fUS" firstAttribute="bottom" secondItem="le5-IV-dNp" secondAttribute="bottom" constant="200" id="iNd-na-Z1l"/>
+                            <constraint firstItem="bhn-gH-piv" firstAttribute="top" secondItem="Bcu-3y-fUS" secondAttribute="top" constant="90" id="jg0-Xz-r9b"/>
+                            <constraint firstItem="bhn-gH-piv" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" constant="84" id="lpe-eW-hiK"/>
+                            <constraint firstItem="BPs-EC-e4e" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="ret-mD-Nlm"/>
+                            <constraint firstItem="le5-IV-dNp" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="tBZ-sw-0q9"/>
+                            <constraint firstItem="le5-IV-dNp" firstAttribute="centerX" secondItem="obG-Y5-kRd" secondAttribute="centerX" id="uHg-mR-k8w"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="52.671755725190835" y="374.64788732394368"/>
+        </scene>
+    </scenes>
+    <color key="tintColor" name="Main"/>
+    <resources>
+        <image name="WeatherIslandLogo" width="633" height="781"/>
+        <namedColor name="AccentColor">
+            <color red="1" green="0.79199999570846558" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Main">
+            <color red="0.96078431372549022" green="0.96078431372549022" blue="0.86274509803921573" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

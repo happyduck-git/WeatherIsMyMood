@@ -41,7 +41,7 @@ struct WeatherWidget: Widget {
                         .foregroundStyle(.primary)
                         .padding()
                 }
-                .padding(EdgeInsets(top: 0, leading: sideInset, bottom: 0, trailing: sideInset))
+                .padding(EdgeInsets(top: 0, leading: sideInset, bottom: 10, trailing: sideInset))
             }
             .background {
                 ZStack {
@@ -52,10 +52,9 @@ struct WeatherWidget: Widget {
                         if let image = UIImage(data: ctx.state.icon) {
                             Image(uiImage: image)
                                 .resizable()
-                                .frame(width: 70, height: 70)
+                                .frame(width: 50, height: 50)
                                 .aspectRatio(contentMode: .fit)
-                                .padding()
-                                .opacity(0.7)
+                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: sideInset))
                         }
                     }
                     
@@ -91,6 +90,7 @@ struct WeatherWidget: Widget {
                     Image(uiImage: image)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
+                        .padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 0))
                 }
             } compactTrailing: {
                 Text(ctx.state.temperature)
