@@ -17,7 +17,10 @@ struct CityCurrentWeatherView: View {
     //MARK: - Properties
     @Binding var weather: Weather?
     @Binding var cityName: String
+    
+    @State var previousWeather: Weather?
     @State var weatherImage: UIImage?
+    @State var isFirstLoad = true
     
     //MARK: - View
     var body: some View {
@@ -65,20 +68,52 @@ struct CityCurrentWeatherView: View {
             }
             .task(id: self.weather) {
                 
-                do {
-                    let condition = WeatherCondition.getWeatherIconName(of: weather.currentWeather.condition.rawValue)
-                    let data = try await fireStoreManager.fetchBackground(condition)
-                    if let image = pdfToImage(pdfData: data) {
-                        self.weatherImage = image
-                    } else {
-                        self.weatherImage = UIImage(resource: .weatherMorningBright)
-                    } 
-                    
-                } catch {
-                    print(error)
+                if isFirstLoad {
+                    Task {
+                        do {
+                            self.previousWeather = self.weather
+                            
+                            let condition = WeatherCondition.getWeatherIconName(of: weather.currentWeather.condition.rawValue)
+                            let data = try await fireStoreManager.fetchBackground(condition)
+                            if let image = pdfToImage(pdfData: data) {
+                                self.weatherImage = image
+                            } else {
+                                self.weatherImage = UIImage(resource: .weatherMorningBright)
+                            }
+                            
+                        } catch {
+                            print(error)
+                        }
+                    }
+                    self.isFirstLoad = false
                 }
                 
             }
+            .onChange(of: self.weather, perform: { newWeather in
+                let oldTemp = self.previousWeather?.currentWeather.temperature.value ?? 0.0
+                let newTemp = newWeather?.currentWeather.temperature.value ?? 0.0
+                
+                if abs(oldTemp.rounded(.up) - newTemp.rounded(.up)) >= 1 ||
+                    self.previousWeather?.currentWeather.condition != newWeather?.currentWeather.condition {
+                    Task {
+                        do {
+                            self.previousWeather = newWeather
+                            
+                            let condition = WeatherCondition.getWeatherIconName(of: weather.currentWeather.condition.rawValue)
+                            let data = try await fireStoreManager.fetchBackground(condition)
+                            if let image = pdfToImage(pdfData: data) {
+                                self.weatherImage = image
+                            } else {
+                                self.weatherImage = UIImage(resource: .weatherMorningBright)
+                            }
+                            
+                        } catch {
+                            print(error)
+                        }
+                    }
+                }
+            })
+            
         }
             
     }

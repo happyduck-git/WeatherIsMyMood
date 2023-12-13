@@ -10,7 +10,7 @@ import WeatherKit
 
 struct DecorationView: View {
     
-    @State private var isChangeDetected = true
+    @State private var isFirstLoading = true
     @State private var isLoading = false
     @State private var isOn = false
     
@@ -19,6 +19,7 @@ struct DecorationView: View {
     private let storageManager = FirestoreManager.shared
     
     @State private var weather: Weather?
+    @State private var previousWeather: Weather?
     @State private var condition: WeatherCondition = .clear
     
     private let numberOfColumns = 4
@@ -69,43 +70,51 @@ struct DecorationView: View {
         }
         .task(id: locationManager.currentLocation) {
             if let location = locationManager.currentLocation {
-                self.isChangeDetected = true
                 do {
                     self.weather = try await weatherService.weather(for: location)
-                    self.isChangeDetected = false
+                    if self.isFirstLoading {
+                        self.isFirstLoading = false
+                    } else {
+                        self.previousWeather = self.weather
+                    }
                 }
                 catch {
                     print(error)
                 }
             }
         }
-        .onAppear() {
-            self.isLoading = true
-            if !isChangeDetected {
-                locationManager.refreshLocation()
-            }
-        }
-        .onChange(of: self.weather) { _, weather in
-            if let weather {
-                Task {
-                    do {
-                        let condition = WeatherCondition.getWeatherIconName(of: weather.currentWeather.condition.rawValue)
-                        async let others = storageManager.fetchOtherIcons(maxResults: 20).data
-                        async let weathers = storageManager.fetchWeatherIcons(condition)
-                        
-                        self.otherIcons = try await others
-                        self.weatherIcons = try await weathers
-                        self.isLoading = false
-                    }
-                    catch {
-                        print("Error fetching weather icons -- \(error)")
+        .onChange(of: self.weather, perform: { newWeather in
+            if self.previousWeather?.currentWeather.condition != newWeather?.currentWeather.condition {
+                self.isLoading = true
+                
+                if let newWeather {
+                    Task {
+                        do {
+                            try await self.updateWeatherData(newWeather)
+                            self.previousWeather = newWeather
+                            self.isLoading = false
+                        }
+                        catch {
+                            print("Error fetching weather icons -- \(error)")
+                        }
                     }
                 }
             }
-        }
-
+        })
     }
     
+}
+
+extension DecorationView {
+    private func updateWeatherData(_ weather: Weather) async throws {
+        let condition = WeatherCondition.getWeatherIconName(of: weather.currentWeather.condition.rawValue)
+        async let others = storageManager.fetchOtherIcons(maxResults: 20).data
+        async let weathers = storageManager.fetchWeatherIcons(condition)
+        
+        self.otherIcons = try await others
+        self.weatherIcons = try await weathers
+        self.isLoading = false
+    }
 }
 
 extension DecorationView {

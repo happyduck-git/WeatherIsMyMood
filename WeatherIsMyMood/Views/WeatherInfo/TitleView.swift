@@ -18,7 +18,7 @@ struct TitleView: View {
                 .font(.largeTitle)
                 .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
             
-            Text("\(weather.currentWeather.temperature.formatted())")
+            Text(weather.currentWeather.temperature.value.showTwoDecimalPlaces()+"\(weather.currentWeather.temperature.unit.symbol)")
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
                 .opacity(0.8)
         }

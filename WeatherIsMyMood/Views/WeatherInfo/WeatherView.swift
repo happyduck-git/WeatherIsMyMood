@@ -14,6 +14,7 @@ struct WeatherView: View {
     @State private var isLoading = false
     
     @StateObject private var locationManager = LocationManager()
+    
     private let weatherService = WeatherService.shared
     @State private var weather: Weather?
     @State var hourlyWeatherData: [HourWeather] = []
@@ -55,16 +56,19 @@ struct WeatherView: View {
             
             if let location = locationManager.currentLocation {
                 do {
-                    self.weather = try await weatherService.weather(for: location)
-                    self.attribution = try await weatherService.attribution
-                    locationManager.cityName(at: location, completion: { name in
-                        if let name {
-                            self.cityName = name
-                        }
-                    })
-                    self.hourlyWeatherData = Array(weather?.hourlyForecast.filter({ weather in
-                        weather.date.timeIntervalSince(Date()) >= 0
-                    }).prefix(24) ?? [])
+                    async let weather = weatherService.weather(for: location)
+                    async let attribution = weatherService.attribution
+                    async let cityName = locationManager.cityName(at: location)
+                    
+                    self.weather = try await weather
+                    self.attribution = try await attribution
+                    if let unwrappedCityName = await cityName {
+                        self.cityName = unwrappedCityName
+                    } else {
+                        self.locationFound = false
+                    }
+                    
+                    self.hourlyWeatherData = self.filterHours(of: self.weather?.hourlyForecast, count: 24)
                     
                     self.isLoading = false
                 }
@@ -76,10 +80,12 @@ struct WeatherView: View {
         .onTapGesture {
             self.endTextEditing()
         }
-        .onChange(of: self.searchedCityName) {
+        .onChange(of: self.searchedCityName, perform: { _ in
             self.locationFound = true
-        }
+        })
+        
     }
+    
 }
 
 extension WeatherView {
@@ -113,6 +119,7 @@ extension WeatherView {
                     
                     SearchView(searchCity: $searchedCityName) {
                         self.updateLocationStatus(to: searchedCityName)
+                        self.demoUpdateLocation(to: searchedCityName)
                     } backToCurrentLocation: {
                         self.locationManager.requestOnTimeLocation()
                         self.updateLocationStatus(to: self.locationManager.cityName ?? "Seoul")
@@ -132,15 +139,40 @@ extension WeatherView {
 extension WeatherView {
     private func updateLocationStatus(to city: String) {
         if !city.isEmpty {
-            self.locationManager.location(forCity: city) { loc in
-                if let loc {
-                    self.locationFound = true
-                    self.locationManager.currentLocation = loc
-                } else {
+            Task {
+                let loc = await self.locationManager.location(forCity: city)
+                guard let loc else {
                     self.locationFound = false
+                    return
                 }
+                self.locationFound = true
+                self.locationManager.currentLocation = loc
             }
         }
+    }
+    
+    private func demoUpdateLocation(to city: String) {
+    
+            Task {
+                let loc = await self.locationManager.location(forCity: city)
+                guard let loc else {
+                   print("No location found \(city)")
+                    return
+                }
+                print("DEMO City \(city): \(loc.coordinate)")
+            }
+        
+    }
+    
+    private func filterHours(of hourlyWeathers: Forecast<HourWeather>?,
+                             count: Int) -> [HourWeather] {
+        guard let weathers = hourlyWeathers else { return [] }
+        
+        return Array(
+            weathers.filter {
+                $0.date.timeIntervalSince(Date()) >= 0
+            }.prefix(count)
+        )
     }
 }
 

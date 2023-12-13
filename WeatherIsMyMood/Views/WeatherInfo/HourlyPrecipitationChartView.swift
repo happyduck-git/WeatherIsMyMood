@@ -29,7 +29,6 @@ struct HourlyPrecipitationChartView: View {
                             x: .value("Hour", weather .date.formatAsAbbreviatedTime()),
                             y: .value("Precipitation", weather.precipitationChance.rounded())
                         )
-                        .shadow(radius: 3)
                         .opacity(0.9)
                         .foregroundStyle(.indigo)
                         
@@ -45,9 +44,9 @@ struct HourlyPrecipitationChartView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 15.0))
                 .shadow(radius: 10)
         }
-        .onChange(of: hourWeatherList) { _, _ in
+        .onChange(of: hourWeatherList, perform: { _ in
             self.checkForPrecipitation()
-        }
+        })
     }
 }
 

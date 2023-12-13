@@ -14,7 +14,6 @@ struct SunStatusTimeView: View {
         case sunset
     }
     
-//    let dailyWeather: DayWeather
     let status: Status
     @Binding var weather: Weather?
     @State var dateTime = String()
@@ -25,16 +24,12 @@ struct SunStatusTimeView: View {
                 .foregroundStyle(status == .sunrise ? .orange : .indigo)
             Text(dateTime)
         }
-//        .onAppear(perform: {
-//            updateDateTime()
-//        })
-        .onChange(of: self.weather) {
+        .task(id: self.weather) {
             if let weather,
                let latestForcast = weather.dailyForecast.last {
                 self.updateDateTime(latestForcast)
             }
         }
-        
     }
     
     private func updateDateTime(_ dayWeather: DayWeather) {

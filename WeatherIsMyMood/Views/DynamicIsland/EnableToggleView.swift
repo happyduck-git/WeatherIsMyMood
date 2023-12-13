@@ -28,12 +28,12 @@ struct EnableToggleView: View {
                 .fill(Color.white)
                 .padding()
         }
-        .onChange(of: self.isOn) {
+        .onChange(of: self.isOn, perform: { newValue in
             self.enableLiveActivity(self.isOn)
-        }
-        .onChange(of: self.selectedIcon) {
+        })
+        .onChange(of: self.selectedIcon, perform: { _ in
             self.updateLiveActivity(self.isOn)
-        }
+        })
     }
 }
 

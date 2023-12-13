@@ -10,7 +10,9 @@ import CoreLocation
 
 final class LocationManager: NSObject, ObservableObject {
     
-    @Published var currentLocation: CLLocation? 
+    @Published var currentLocation: CLLocation?
+    @Published var previousLocation: CLLocation?
+    
     @Published var cityName: String?
     private let locationManager = CLLocationManager()
     
@@ -43,45 +45,28 @@ extension LocationManager: CLLocationManagerDelegate {
         print(error)
     }
     
-    func cityName(at location: CLLocation, completion: @escaping (String?) -> Void) {
+    func cityName(at location: CLLocation) async -> String? {
         let geocoder = CLGeocoder()
 
-        geocoder.reverseGeocodeLocation(location) { placemarks, error in
-            guard error == nil else {
-                print("Reverse geocoding error: \(error!.localizedDescription)")
-                completion(nil)
-                return
-            }
+        do {
+            let placemarks = try await geocoder.reverseGeocodeLocation(location, preferredLocale: .current)
+            return placemarks.first?.locality
+        } catch {
+            print("Reverse geocoding error: \(error.localizedDescription)")
+            return nil
+        }
+    }
 
-            guard let placemark = placemarks?.first else {
-                print("No placemarks found")
-                completion(nil)
-                return
-            }
+    func location(forCity cityName: String) async -> CLLocation? {
+        let geocoder = CLGeocoder()
 
-            let cityName = placemark.locality
-            completion(cityName)
+        do {
+            let placemarks = try await geocoder.geocodeAddressString(cityName)
+            return placemarks.first?.location
+        } catch {
+            print("Geocoding error: \(error.localizedDescription)")
+            return nil
         }
     }
     
-    func location(forCity cityName: String, completion: @escaping (CLLocation?) -> Void) {
-        let geocoder = CLGeocoder()
-
-        geocoder.geocodeAddressString(cityName) { placemarks, error in
-            guard error == nil else {
-                print("Geocoding error: \(error!.localizedDescription)")
-                completion(nil)
-                return
-            }
-
-            guard let placemark = placemarks?.first,
-                  let location = placemark.location else {
-                print("No location found for \(cityName)")
-                completion(nil)
-                return
-            }
-
-            completion(location)
-        }
-    }
 }
