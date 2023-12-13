@@ -15,7 +15,7 @@ struct SearchView: View {
     
     var body: some View {
         ZStack {
-            AppColors.main
+            Color(ColorConstants.main)
 
             HStack {
                 Button("", systemImage: "location") {
@@ -24,9 +24,9 @@ struct SearchView: View {
                 .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
                 
                 ZStack(alignment: .trailing) {
-                    TextField("City", text: $searchCity)
+                    TextField(WeatherConstants.city, text: $searchCity)
                         .padding()
-                        .background(Color(.white))
+                        .background(.background)
                         .cornerRadius(10)
                         .padding(.horizontal, 10)
                         .shadow(radius: 1)

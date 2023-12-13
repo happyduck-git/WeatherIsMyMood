@@ -34,7 +34,7 @@ struct WeatherView: View {
                     LoadingView()
                 }
             }
-            .toolbarBackground(AppColors.main, for: .navigationBar)
+            .toolbarBackground(Color(ColorConstants.main), for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
             .toolbar(content: {
                 ToolbarItem(placement: .principal) {
@@ -112,7 +112,7 @@ extension WeatherView {
                         DataAttributionView(weatherAttribution: self.attribution)
                             .padding(EdgeInsets(top: 30, leading: 0, bottom: 10, trailing: 0))
                     } else {
-                        AppColors.main
+                        Color(ColorConstants.main)
                             .ignoresSafeArea()
                     }
                 } header: {
@@ -130,7 +130,7 @@ extension WeatherView {
             .padding()
         }
         .background {
-            AppColors.main
+            Color(ColorConstants.main)
                 .ignoresSafeArea()
         }
     }

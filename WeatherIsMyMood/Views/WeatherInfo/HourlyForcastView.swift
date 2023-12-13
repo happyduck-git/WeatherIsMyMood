@@ -15,7 +15,7 @@ struct HourlyForcastView: View {
       
             VStack(alignment: .leading, content: {
                 
-                WeatherTitleView(title: "Hourly Weather")
+                WeatherTitleView(title: WeatherConstants.hourlyWeather)
                     .shadow(radius: 10)
                 
                 ScrollView(.horizontal) {

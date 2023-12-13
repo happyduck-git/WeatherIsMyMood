@@ -14,7 +14,7 @@ struct TenDayForcastView: View {
     var body: some View {
         ZStack {
             VStack(alignment: .leading) {
-                WeatherTitleView(title: "10-Day Forcast")
+                WeatherTitleView(title: WeatherConstants.tenDayForcast)
                     .shadow(radius: 10)
                 ForEach(dayWeatherList, id: \.date) {
                     item in
@@ -44,7 +44,6 @@ struct TenDayForcastView: View {
                     .shadow(radius: 10)
             )
             
-            .foregroundStyle(.white)
         }
         
     }

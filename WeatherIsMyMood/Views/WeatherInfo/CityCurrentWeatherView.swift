@@ -61,7 +61,7 @@ struct CityCurrentWeatherView: View {
                     }
                     .background {
                         RoundedRectangle(cornerRadius: 8)
-                            .fill(Color.white.opacity(0.3))
+                            .fill(Color.white.opacity(0.4))
                     }
                     
                 }

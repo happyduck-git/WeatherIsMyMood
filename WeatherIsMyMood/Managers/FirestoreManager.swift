@@ -57,7 +57,35 @@ extension FirestoreManager {
             .child("background/\(condition).pdf")
             .data(maxSize: 1 * 1024 * 1024)
     }
+    
+    /// Ordered result (test).
+    private func convertListResultToData(_ result: StorageListResult) async throws -> [Data] {
+        return try await withThrowingTaskGroup(of: (Int, Data).self, returning: [Data].self) { group in
+            var tempDataDict = [Int: Data]()
+            for (index, item) in result.items.enumerated() {
+                if let cachedData = self.cacheManager.cachedResponse(for: item.fullPath) {
+                    tempDataDict[index] = cachedData
+                } else {
+                    group.addTask { [weak self] in
+                        let data = try await item.data(maxSize: 1 * 1024 * 1024)
+                        self?.cacheManager.setCache(for: item.fullPath, data: data)
+                        return (index, data)
+                    }
+                }
+            }
 
+            for try await (index, data) in group {
+                tempDataDict[index] = data
+            }
+
+            let sortedData = tempDataDict.sorted(by: { $0.key < $1.key }).map { $0.value }
+            return sortedData
+        }
+    }
+
+
+    /// Not ordered result.
+    /*
     private func convertListResultToData(_ result: StorageListResult) async throws -> [Data] {
         return try await withThrowingTaskGroup(of: Data.self, returning: [Data].self) { group in
             var dataList = [Data]()
@@ -79,4 +107,5 @@ extension FirestoreManager {
             return dataList
         }
     }
+     */
 }

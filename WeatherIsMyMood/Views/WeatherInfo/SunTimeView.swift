@@ -21,7 +21,7 @@ struct SunStatusTimeView: View {
     var body: some View {
         VStack {
             Image(systemName: self.status.rawValue)
-                .foregroundStyle(status == .sunrise ? .orange : .indigo)
+                .foregroundStyle(status == .sunrise ? .pink : .indigo)
             Text(dateTime)
         }
         .task(id: self.weather) {

@@ -27,6 +27,7 @@ struct DynamicIslandPreviewView: View {
                
             ZStack(alignment: .leading) {
                 RoundedRectangle(cornerRadius: 100, style: .circular)
+                    .fill(.black)
                     .padding(EdgeInsets(top: 30, leading: 120, bottom: 30, trailing: 120))
                 
                 HStack {

@@ -30,12 +30,12 @@ struct DecorationView: View {
     var body: some View {
         ZStack {
             VStack {
-                    
+                
                 EnableToggleView(isOn: $isOn,
                                  weather: $weather,
                                  selectedIcon: $selectedIcon)
                 
-                Text("Preview")
+                Text(DecoConstants.preview)
                     .fontWeight(.bold)
                     .frame(alignment: .leading)
                     .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
@@ -43,27 +43,33 @@ struct DecorationView: View {
                 DynamicIslandPreviewView(weather: $weather,
                                          selectedIcon: $selectedIcon)
                 
-                Text("Weather")
-                    .fontWeight(.bold)
-                    .frame(alignment: .leading)
-                    .padding(EdgeInsets(top: 30, leading: 0, bottom: 0, trailing: 0))
+                
+                HStack {
+                    Text(DecoConstants.weather)
+                        .fontWeight(.bold)
+                        .frame(alignment: .leading)
+                        .padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 0))
+                    Spacer()
+                }
                 
                 self.emojiCollectionView(self.weatherIcons)
-                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 30, trailing: 0))
                 
-                Text("Others")
-                    .fontWeight(.bold)
-                    .frame(alignment: .leading)
+                HStack {
+                    Text(DecoConstants.others)
+                        .fontWeight(.bold)
+                        .frame(alignment: .leading)
+                        .padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 0))
+                    Spacer()
+                }
                 
                 self.emojiCollectionView(self.otherIcons)
-                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 30, trailing: 0))
-               
+                
             }
             .background {
-                AppColors.main
+                Color(ColorConstants.main)
                     .ignoresSafeArea()
             }
-                    
+            
             if isLoading {
                 LoadingView()
             }
@@ -118,7 +124,7 @@ extension DecorationView {
 }
 
 extension DecorationView {
-
+    
     private func emojiCollectionView(_ icons: [Data]) -> some View {
         return  ScrollView(.vertical, showsIndicators: false) {
             let numberOfRows = (icons.count + 2) / numberOfColumns
@@ -144,7 +150,7 @@ extension DecorationView {
         .background {
             RoundedRectangle(cornerRadius: 15)
                 .fill(Color.gray.opacity(0.1))
-                .frame(minWidth: UIScreen.screenWidth - 80)
+                .frame(minWidth: UIScreen.screenWidth - 60)
         }
     }
 }

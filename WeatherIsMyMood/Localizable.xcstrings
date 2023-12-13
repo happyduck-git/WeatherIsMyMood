@@ -1,0 +1,155 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+
+    },
+    "%@" : {
+
+    },
+    "10-Day Forcast" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "10일 예보"
+          }
+        }
+      }
+    },
+    "City" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "도시명"
+          }
+        }
+      }
+    },
+    "Current Temp" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "현재 기온"
+          }
+        }
+      }
+    },
+    "Deco" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "꾸미기"
+          }
+        }
+      }
+    },
+    "Enable Dynamic Island" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "활성화"
+          }
+        }
+      }
+    },
+    "Hour" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "시간"
+          }
+        }
+      }
+    },
+    "Hourly Weather" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "시간별 날씨"
+          }
+        }
+      }
+    },
+    "Location not found.\nPlease search other location!" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "찾으시는 지역 정보가 없습니다.\\n다른 지역명으로 검색해주세요!"
+          }
+        }
+      }
+    },
+    "No rain is expected for 7hrs!" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "7시간 내 강수 예보가 없습니다!"
+          }
+        }
+      }
+    },
+    "Others" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이모티콘"
+          }
+        }
+      }
+    },
+    "Precipitation" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "강수량"
+          }
+        }
+      }
+    },
+    "Preview" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "미리보기"
+          }
+        }
+      }
+    },
+    "Weather" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "날씨 아이콘"
+          }
+        }
+      }
+    },
+    "Weather Data Attribution" : {
+
+    },
+    "Weather Island" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "웨더 아일랜드"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

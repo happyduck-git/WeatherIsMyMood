@@ -23,7 +23,7 @@ struct WeatherWidget: Widget {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 40, height: 40)
-                    Text("Weather Island")
+                    Text(WidgetConstants.appName)
                         .foregroundStyle(.secondary)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
@@ -32,7 +32,7 @@ struct WeatherWidget: Widget {
                 .padding(EdgeInsets(top: topInset, leading: sideInset, bottom: 0, trailing: sideInset))
                 
                 HStack(alignment: .center) {
-                    Text(String(localized: "Current Temp"))
+                    Text(WidgetConstants.currentTemp)
                         .font(.title3)
                         .foregroundStyle(.secondary)
                         .padding()
@@ -46,13 +46,13 @@ struct WeatherWidget: Widget {
             .background {
                 ZStack {
                     RoundedRectangle(cornerRadius: 15)
-                        .fill(Color("Beige").gradient)
+                        .fill(Color(ColorConstants.widgetMain).gradient)
                     HStack {
                         Spacer()
                         if let image = UIImage(data: ctx.state.icon) {
                             Image(uiImage: image)
                                 .resizable()
-                                .frame(width: 80, height: 80)
+                                .frame(width: 70, height: 70)
                                 .aspectRatio(contentMode: .fit)
                                 .padding()
                                 .opacity(0.7)
@@ -67,11 +67,17 @@ struct WeatherWidget: Widget {
             
             DynamicIsland {
                 DynamicIslandExpandedRegion(.leading) {
-                    if let image = UIImage(data: ctx.state.icon) {
-                        Image(uiImage: image)
-                            .resizable()
-                            .frame(width: 50, height: 50)
-                            .aspectRatio(contentMode: .fit)
+                    HStack(alignment: .center) {
+                        if let image = UIImage(data: ctx.state.icon) {
+                            Image(uiImage: image)
+                                .resizable()
+                                .frame(width: 40, height: 40)
+                                .aspectRatio(contentMode: .fit)
+                        }
+                        Text(WidgetConstants.appName)
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                            .frame(maxHeight: .infinity)
                     }
                 }
                 DynamicIslandExpandedRegion(.trailing) {
@@ -79,7 +85,6 @@ struct WeatherWidget: Widget {
                         .font(.headline)
                         .padding()
                 }
-                
             } compactLeading: {
                 
                 if let image = UIImage(data: ctx.state.icon) {

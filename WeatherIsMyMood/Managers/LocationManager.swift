@@ -18,8 +18,8 @@ final class LocationManager: NSObject, ObservableObject {
     
     override init() {
         super.init()
-        locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
-        locationManager.distanceFilter = 3_000
+        locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
+        locationManager.distanceFilter = 1_000
         locationManager.pausesLocationUpdatesAutomatically = true
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
@@ -52,7 +52,7 @@ extension LocationManager: CLLocationManagerDelegate {
             let placemarks = try await geocoder.reverseGeocodeLocation(location, preferredLocale: .current)
             return placemarks.first?.locality
         } catch {
-            print("Reverse geocoding error: \(error.localizedDescription)")
+            print("Reverse geocoding error: \(error)")
             return nil
         }
     }
@@ -64,7 +64,7 @@ extension LocationManager: CLLocationManagerDelegate {
             let placemarks = try await geocoder.geocodeAddressString(cityName)
             return placemarks.first?.location
         } catch {
-            print("Geocoding error: \(error.localizedDescription)")
+            print("Geocoding error: \(error)")
             return nil
         }
     }

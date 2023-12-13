@@ -19,13 +19,13 @@ struct EnableToggleView: View {
     var body: some View {
         HStack {
             Toggle(isOn: $isOn) {
-                Text("Enable Dynamic island")
+                Text(DecoConstants.enable)
             }
             .padding(EdgeInsets(top: 20, leading: 30, bottom: 20, trailing: 30))
         }
         .background {
             RoundedRectangle(cornerRadius: 15, style: .continuous)
-                .fill(Color.white)
+                .fill(.tertiary)
                 .padding()
         }
         .onChange(of: self.isOn, perform: { newValue in
