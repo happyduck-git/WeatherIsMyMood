@@ -17,6 +17,8 @@ actor FirestoreManager {
     private let storageRef = Storage.storage().reference()
     private let cacheManager = StorageCacheManager.shared
     
+    private let fileFormat = "png"
+    
     typealias PaginatedResult = (data: [Data], pageToken: String?)
 }
 
@@ -54,7 +56,7 @@ extension FirestoreManager {
     
     func fetchBackground(_ condition: String) async throws -> Data {
         return try await self.storageRef
-            .child("background/\(condition).pdf")
+            .child("background/\(condition).\(fileFormat)")
             .data(maxSize: 1 * 1024 * 1024)
     }
     

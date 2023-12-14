@@ -7,7 +7,6 @@
 
 import SwiftUI
 import UIKit.UIImage
-import PDFKit
 
 struct EmojiViewCell: View {
     @State var emojiData: Data

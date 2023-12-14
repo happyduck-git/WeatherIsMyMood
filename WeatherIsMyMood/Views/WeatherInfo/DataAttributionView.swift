@@ -19,7 +19,7 @@ struct DataAttributionView: View {
                 AsyncImage(url: url) { image in
                     image.resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(maxWidth: 100)
+                        .frame(maxWidth: 100, maxHeight: 30)
                 } placeholder: {
                     ProgressView()
                 }

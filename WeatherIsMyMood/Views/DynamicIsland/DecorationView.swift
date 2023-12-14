@@ -12,7 +12,7 @@ struct DecorationView: View {
     
     @State private var isFirstLoading = true
     @State private var isLoading = false
-    @State private var isOn = false
+    @AppStorage("isDynamicIslandOn") private var isOn = false
     
     @StateObject private var locationManager = LocationManager()
     private let weatherService = WeatherService.shared

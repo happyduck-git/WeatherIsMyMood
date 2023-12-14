@@ -24,8 +24,11 @@ extension WeatherCondition {
         case .cloudy, .mostlyCloudy, .partlyCloudy:
             "cloudy"
             
-        case .clear, .hot, .mostlyClear:
+        case .clear, .mostlyClear:
             "sunny"
+            
+        case .hot:
+            "hot"
 
         case .breezy, .windy, .blowingDust: 
             "windy"
@@ -46,11 +49,12 @@ extension WeatherCondition {
             "thunderstorms"
         
         @unknown default:
-            "sunny"
+            "clear"
         }
     }
     
     static func getWeatherIconName(of condition: String) -> String {
+        print("Condiotion: \(condition)")
         guard let condition = WeatherCondition(rawValue: condition) else {
             return "sunny"
         }

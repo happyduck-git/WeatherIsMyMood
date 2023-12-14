@@ -41,7 +41,13 @@ extension EnableToggleView {
     private func updateLiveActivity(_ isOn: Bool) {
         if isOn {
             Task {
-                guard let activity, let weather, let selectedIcon else {
+                
+                guard let weather, let selectedIcon else {
+                    return
+                }
+
+                guard let activity else {
+                    self.enableLiveActivity(isOn)
                     return
                 }
                     

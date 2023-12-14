@@ -16,9 +16,9 @@ struct HourlyPrecipitationChartView: View {
     var body: some View {
         ZStack {
             VStack(alignment: .leading) {
-                WeatherTitleView(title: "Precipitation")
+                WeatherTitleView(title: WeatherConstants.precipitation)
                     .shadow(radius: 10)
-                if noPrecipitation.contains(true) {
+                if noPrecipitation.contains(true) && noPrecipitation.count == 1 {
                     Text("No rain is expected for 7hrs!")
                         .padding()
                 }

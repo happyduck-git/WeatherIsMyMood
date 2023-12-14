@@ -22,7 +22,7 @@ struct WeatherWidget: Widget {
                     Image(.logo)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 40, height: 40)
+                        .frame(width: 32, height: 32)
                     Text(WidgetConstants.appName)
                         .foregroundStyle(.secondary)
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -70,7 +70,7 @@ struct WeatherWidget: Widget {
                         if let image = UIImage(data: ctx.state.icon) {
                             Image(uiImage: image)
                                 .resizable()
-                                .frame(width: 40, height: 40)
+                                .frame(width: 32, height: 32)
                                 .aspectRatio(contentMode: .fit)
                         }
                         Text(WidgetConstants.appName)
@@ -89,8 +89,8 @@ struct WeatherWidget: Widget {
                 if let image = UIImage(data: ctx.state.icon) {
                     Image(uiImage: image)
                         .resizable()
+                        .frame(width: 24, height: 24)
                         .aspectRatio(contentMode: .fit)
-                        .padding(EdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 0))
                 }
             } compactTrailing: {
                 Text(ctx.state.temperature)
@@ -99,6 +99,7 @@ struct WeatherWidget: Widget {
                 if let image = UIImage(data: ctx.state.icon) {
                     Image(uiImage: image)
                         .resizable()
+                        .frame(width: 24, height: 24)
                         .aspectRatio(contentMode: .fit)
                         .padding()
                 }
@@ -109,16 +110,3 @@ struct WeatherWidget: Widget {
     }
 }
 
-extension UIImage {
-    func resize(newWidth: CGFloat) -> UIImage {
-        let scale = newWidth / self.size.width
-        let newHeight = self.size.height * scale
-        
-        let size = CGSize(width: newWidth, height: newHeight)
-        let render = UIGraphicsImageRenderer(size: size)
-        let renderImage = render.image { context in
-            self.draw(in: CGRect(origin: .zero, size: size))
-        }
-        return renderImage
-    }
-}

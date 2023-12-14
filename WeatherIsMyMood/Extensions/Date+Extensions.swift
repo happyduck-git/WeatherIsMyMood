@@ -16,7 +16,12 @@ extension Date {
     
     func formatAsAbbreviatedTime() -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "ha"
+        if formatter.locale == Locale(identifier: "ko_KR") {
+            formatter.dateFormat = "aK시"
+        } else {
+            formatter.dateFormat = "ha"
+        }
+    
         return formatter.string(from: self)
     }
 }

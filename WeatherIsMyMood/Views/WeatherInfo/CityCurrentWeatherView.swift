@@ -75,7 +75,7 @@ struct CityCurrentWeatherView: View {
                             
                             let condition = WeatherCondition.getWeatherIconName(of: weather.currentWeather.condition.rawValue)
                             let data = try await fireStoreManager.fetchBackground(condition)
-                            if let image = pdfToImage(pdfData: data) {
+                            if let image = UIImage(data: data) {
                                 self.weatherImage = image
                             } else {
                                 self.weatherImage = UIImage(resource: .weatherMorningBright)
@@ -90,18 +90,15 @@ struct CityCurrentWeatherView: View {
                 
             }
             .onChange(of: self.weather, perform: { newWeather in
-                let oldTemp = self.previousWeather?.currentWeather.temperature.value ?? 0.0
-                let newTemp = newWeather?.currentWeather.temperature.value ?? 0.0
-                
-                if abs(oldTemp.rounded(.up) - newTemp.rounded(.up)) >= 1 ||
-                    self.previousWeather?.currentWeather.condition != newWeather?.currentWeather.condition {
+               
+                if shouldUpdateWeather(prev: previousWeather, new: newWeather) {
                     Task {
                         do {
                             self.previousWeather = newWeather
                             
-                            let condition = WeatherCondition.getWeatherIconName(of: weather.currentWeather.condition.rawValue)
+                            let condition = WeatherCondition.getWeatherIconName(of: newWeather?.currentWeather.condition.rawValue ?? "sunny")
                             let data = try await fireStoreManager.fetchBackground(condition)
-                            if let image = pdfToImage(pdfData: data) {
+                            if let image = UIImage(data: data) {
                                 self.weatherImage = image
                             } else {
                                 self.weatherImage = UIImage(resource: .weatherMorningBright)
@@ -120,34 +117,40 @@ struct CityCurrentWeatherView: View {
 }
 
 extension CityCurrentWeatherView {
-
-    func pdfToImage(pdfData: Data) -> UIImage? {
-        // Create a PDF document from the data
-        guard let pdfDocument = PDFDocument(data: pdfData) else {
-            return nil
-        }
-
-        // Get the first page of the PDF
-        guard let pdfPage = pdfDocument.page(at: 0) else {
-            return nil
-        }
-
-        // Determine the size of the PDF page
-        let pdfPageBounds = pdfPage.bounds(for: .mediaBox)
-        let pdfPageRect = CGRect(origin: .zero, size: pdfPageBounds.size)
-
-        // Create a UIGraphicsImageRenderer to draw the PDF into an image
-        let renderer = UIGraphicsImageRenderer(size: pdfPageRect.size)
-        let img = renderer.image { ctx in
-            // Draw the PDF page into the image context
-            ctx.cgContext.translateBy(x: 0.0, y: pdfPageRect.size.height)
-            ctx.cgContext.scaleBy(x: 1.0, y: -1.0)
-            ctx.cgContext.drawPDFPage(pdfPage.pageRef!)
-        }
-
-        return img
+    private func shouldUpdateWeather(prev: Weather?, new: Weather?) -> Bool {
+        let oldTemp = prev?.currentWeather.temperature.value ?? 0.0
+        let newTemp = new?.currentWeather.temperature.value ?? 0.0
+        
+        print("PREV: \(prev?.currentWeather.condition)")
+        print("NEW: \(new?.currentWeather.condition)")
+        
+        let condA = abs(oldTemp.rounded(.up) - newTemp.rounded(.up)) >= 1
+        let condB = prev?.currentWeather.condition != new?.currentWeather.condition
+        let result = condA || condB
+        
+        print("PRE & NEW SAME? \(condA) , \(condB) -- \(result)")
+        
+        return result
     }
-
+    
+    private func updateWeatherView(with newWeather: Weather?) async throws {
+        if let weather = newWeather {
+            self.previousWeather = weather
+            
+            let newCondition = WeatherCondition.getWeatherIconName(of: weather.currentWeather.condition.rawValue)
+            
+            let data = try await fireStoreManager.fetchBackground(newCondition)
+            
+            guard let image = UIImage(data: data) else {
+                self.weatherImage = UIImage(resource: .weatherMorningBright)
+                return
+            }
+            self.weatherImage = image
+        }
+        else {
+            //TODO: `newWeather found to be nil` handling.
+        }
+    }
 }
 
 #Preview {
