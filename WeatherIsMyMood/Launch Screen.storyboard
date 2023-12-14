@@ -22,7 +22,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="obG-Y5-kRd">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="obG-Y5-kRd">
                                 <rect key="frame" x="0.0" y="832" width="393" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -53,11 +53,13 @@
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
                         <color key="backgroundColor" name="Main"/>
                         <constraints>
+                            <constraint firstItem="obG-Y5-kRd" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="-16" id="0w9-3A-EvL"/>
                             <constraint firstItem="Bcu-3y-fUS" firstAttribute="trailing" secondItem="bhn-gH-piv" secondAttribute="trailing" constant="84" id="KlS-aU-ItU"/>
                             <constraint firstItem="le5-IV-dNp" firstAttribute="top" secondItem="BPs-EC-e4e" secondAttribute="bottom" constant="2" id="Mmx-hV-Mix"/>
                             <constraint firstItem="BPs-EC-e4e" firstAttribute="top" secondItem="bhn-gH-piv" secondAttribute="bottom" constant="38" id="Pb3-AW-bEc"/>
                             <constraint firstItem="le5-IV-dNp" firstAttribute="top" secondItem="BPs-EC-e4e" secondAttribute="bottom" constant="2" id="WDf-5h-n6m"/>
                             <constraint firstItem="bhn-gH-piv" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Xgb-86-NP5"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="obG-Y5-kRd" secondAttribute="bottom" constant="-14" id="dIq-jb-zib"/>
                             <constraint firstItem="Bcu-3y-fUS" firstAttribute="bottom" secondItem="le5-IV-dNp" secondAttribute="bottom" constant="200" id="iNd-na-Z1l"/>
                             <constraint firstItem="bhn-gH-piv" firstAttribute="top" secondItem="Bcu-3y-fUS" secondAttribute="top" constant="90" id="jg0-Xz-r9b"/>
                             <constraint firstItem="bhn-gH-piv" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" constant="84" id="lpe-eW-hiK"/>
