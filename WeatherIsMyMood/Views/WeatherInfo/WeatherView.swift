@@ -163,17 +163,24 @@ extension WeatherView {
             }
         
     }
-    
-    private func filterHours(of hourlyWeathers: Forecast<HourWeather>?,
-                             count: Int) -> [HourWeather] {
-        guard let weathers = hourlyWeathers else { return [] }
+
+    private func filterHours(of hourlyWeathers: Forecast<HourWeather>?, count: Int) -> [HourWeather] {
+            guard let weathers = hourlyWeathers else { return [] }
+            guard let roundedCurrentDate = roundDownToNearestHour(Date()) else { return [] }
+            
+            return Array(
+                weathers.filter {
+                    $0.date >= roundedCurrentDate
+                }.prefix(count)
+            )
+        }
         
-        return Array(
-            weathers.filter {
-                $0.date.timeIntervalSince(Date()) >= 0
-            }.prefix(count)
-        )
-    }
+        // Round down to nearest hour (including current hour).
+        private func roundDownToNearestHour(_ date: Date) -> Date? {
+            let calendar = Calendar.current
+            let components = calendar.dateComponents([.year, .month, .day, .hour], from: date)
+            return calendar.date(from: components)
+        }
 }
 
 #Preview {

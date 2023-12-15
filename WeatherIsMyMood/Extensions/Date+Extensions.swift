@@ -16,12 +16,9 @@ extension Date {
     
     func formatAsAbbreviatedTime() -> String {
         let formatter = DateFormatter()
-        if formatter.locale == Locale(identifier: "ko_KR") {
-            formatter.dateFormat = "aK시"
-        } else {
-            formatter.dateFormat = "ha"
-        }
-    
+        formatter.dateFormat = "ha" // Custom format: Hour in 12-hour format + AM/PM designator
+        formatter.amSymbol = "AM"
+        formatter.pmSymbol = "PM"
         return formatter.string(from: self)
     }
 }
