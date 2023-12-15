@@ -121,14 +121,9 @@ extension CityCurrentWeatherView {
         let oldTemp = prev?.currentWeather.temperature.value ?? 0.0
         let newTemp = new?.currentWeather.temperature.value ?? 0.0
         
-        print("PREV: \(prev?.currentWeather.condition)")
-        print("NEW: \(new?.currentWeather.condition)")
-        
         let condA = abs(oldTemp.rounded(.up) - newTemp.rounded(.up)) >= 1
         let condB = prev?.currentWeather.condition != new?.currentWeather.condition
         let result = condA || condB
-        
-        print("PRE & NEW SAME? \(condA) , \(condB) -- \(result)")
         
         return result
     }
