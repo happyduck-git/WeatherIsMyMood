@@ -1,0 +1,9 @@
+/* 
+  InfoPlist.strings
+  WeatherIsMyMood
+
+  Created by HappyDuck on 12/16/23.
+  
+*/
+"NSLocationAlwaysUsageDescription" = "Weather Island would like to use your location information.\nIt is used to fetch accurate weather information for your current location.";
+"NSLocationWhenInUseUsageDescription" = "Weather Island would like to use your location information.\nIt is used to fetch accurate weather information for your current location.";
