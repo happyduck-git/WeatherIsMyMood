@@ -22,6 +22,7 @@
 		2458CD222B25D720008F4AFE /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2458CD212B25D720008F4AFE /* TitleView.swift */; };
 		2458CD242B25F5F3008F4AFE /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2458CD232B25F5F3008F4AFE /* MainView.swift */; };
 		2458CD282B25F8BF008F4AFE /* DecorationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2458CD272B25F8BF008F4AFE /* DecorationView.swift */; };
+		2467616B2B2D2D6D00C4CF4E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2467616D2B2D2D6D00C4CF4E /* InfoPlist.strings */; };
 		247212D72B2822E7009A6DE5 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247212D62B2822E7009A6DE5 /* LoadingView.swift */; };
 		247212DA2B282CBF009A6DE5 /* WeatherAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247212D92B282CBF009A6DE5 /* WeatherAttributes.swift */; };
 		247212E12B282F3F009A6DE5 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 247212E02B282F3E009A6DE5 /* WidgetKit.framework */; };
@@ -117,6 +118,8 @@
 		2458CD212B25D720008F4AFE /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
 		2458CD232B25F5F3008F4AFE /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		2458CD272B25F8BF008F4AFE /* DecorationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecorationView.swift; sourceTree = "<group>"; };
+		2467616C2B2D2D6D00C4CF4E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		2467616E2B2D2D7100C4CF4E /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		247212D62B2822E7009A6DE5 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		247212D92B282CBF009A6DE5 /* WeatherAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAttributes.swift; sourceTree = "<group>"; };
 		247212DF2B282F3E009A6DE5 /* WeatherWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WeatherWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -209,6 +212,7 @@
 		2430861C2B23FE86006C78E9 = {
 			isa = PBXGroup;
 			children = (
+				2467616D2B2D2D6D00C4CF4E /* InfoPlist.strings */,
 				243086272B23FE86006C78E9 /* WeatherIsMyMood */,
 				247212E42B282F3F009A6DE5 /* WeatherWidget */,
 				243086382B23FE8A006C78E9 /* WeatherIsMyMoodTests */,
@@ -518,6 +522,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				243086302B23FE89006C78E9 /* Preview Assets.xcassets in Resources */,
+				2467616B2B2D2D6D00C4CF4E /* InfoPlist.strings in Resources */,
 				24A66E092B275FB200B348CC /* GoogleService-Info.plist in Resources */,
 				241A803E2B29E04100706BB8 /* Localizable.xcstrings in Resources */,
 				241A80432B2A156500706BB8 /* Launch Screen.storyboard in Resources */,
@@ -637,6 +642,18 @@
 			targetProxy = 247212F02B282F41009A6DE5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		2467616D2B2D2D6D00C4CF4E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2467616C2B2D2D6D00C4CF4E /* en */,
+				2467616E2B2D2D7100C4CF4E /* ko */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		243086472B23FE8A006C78E9 /* Debug */ = {
@@ -772,8 +789,8 @@
 				DEVELOPMENT_TEAM = KZ7GPQGAGJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "WeatherIsMyMood에서 위치 정보를 사용하고자 합니다.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "WeatherIsMyMood에서 위치 정보를 사용하고자 합니다.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "웨더 아일랜드에서 위치 정보를 사용하고자 합니다.  현재 위치한 장소의 날씨 정보를 불러오기 위하여 사용됩니다.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "웨더 아일랜드에서 위치 정보를 사용하고자 합니다. 현재 위치한 장소의 날씨 정보를 불러오기 위하여 사용됩니다.";
 				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -811,8 +828,8 @@
 				DEVELOPMENT_TEAM = KZ7GPQGAGJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "WeatherIsMyMood에서 위치 정보를 사용하고자 합니다.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "WeatherIsMyMood에서 위치 정보를 사용하고자 합니다.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "웨더 아일랜드에서 위치 정보를 사용하고자 합니다.  현재 위치한 장소의 날씨 정보를 불러오기 위하여 사용됩니다.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "웨더 아일랜드에서 위치 정보를 사용하고자 합니다. 현재 위치한 장소의 날씨 정보를 불러오기 위하여 사용됩니다.";
 				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

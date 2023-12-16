@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  WeatherIsMyMood
+
+  Created by HappyDuck on 12/16/23.
+  
+*/
+
+"NSLocationAlwaysUsageDescription" = "웨더 아일랜드에서 위치 정보를 사용하고자 합니다.\n현재 위치한 장소의 정확한 날씨 정보를 불러오기 위하여 사용됩니다.";
+"NSLocationWhenInUseUsageDescription" = "웨더 아일랜드에서 위치 정보를 사용하고자 합니다.\n현재 위치한 장소의 정확한 날씨 정보를 불러오기 위하여 사용됩니다.";
