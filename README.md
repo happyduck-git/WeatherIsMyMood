@@ -38,25 +38,27 @@ AppStore: [WeatherIsland Link](https://apps.apple.com/us/app/weather-island/id64
 #### 앱 화면
 ----
 
-<div style="display: flex; justify-content: center; margin">
-  <div style="text-align: center; margin-right: 70px;"> <!-- Add some margin for spacing -->
-    <img src="https://github.com/happyduck-git/images/assets/82161055/b50c9db5-ccb1-4e92-889e-97c268e47b77" alt="Image 1" width="120">
-    <figcaption style="text-align: center;"> 날씨 정보 및 검색 화면 </figcaption>
-  </div>
-  <div style="text-align: center; margin-right: 70px;"> <!-- Add some margin for spacing -->
-    <img src="https://github.com/happyduck-git/images/assets/82161055/d24a57b8-a399-4ff5-baf6-de10a6574664" alt="Image 2" width="120">
-    <figcaption style="text-align: center;"> 위젯 설정화면 </figcaption>
-  </div>
-  <div style="text-align: center;"> <!-- Add some margin for spacing -->
-    <img src="https://github.com/happyduck-git/images/assets/82161055/ff0bad08-d1a1-4228-9072-79e99f5cba34" alt="Image 2" width="125">
-    <figcaption style="text-align: center;"> 잠금화면 위젯 예시 </figcaption>
-  </div>
-</div>
-<br>
-<br>
-<div style="display: flex; justify-content: left;">
-  <div style="text-align: center; margin-right: 70px;"> <!-- Add some margin for spacing -->
-    <img src="https://github.com/happyduck-git/images/assets/82161055/64aaaabb-5d87-45e2-9034-6bd09484cf5f" alt="Image 1" width="220">
-    <figcaption style="text-align: center;"> 다이나믹 아일랜드 예시 </figcaption>
-  </div>
-</div>
+<table style="width: 100%; text-align: center; border-collapse: collapse;">
+  <tr>
+    <td style="vertical-align: middle;">
+      <img src="https://github.com/happyduck-git/images/assets/82161055/b50c9db5-ccb1-4e92-889e-97c268e47b77" alt="Image 1" width="220">
+      <div align="center">날씨 정보 및 검색 화면</div>
+    </td>
+    <td style="vertical-align: middle;">
+      <img src="https://github.com/happyduck-git/images/assets/82161055/d24a57b8-a399-4ff5-baf6-de10a6574664" alt="Image 2" width="220">
+      <div align="center">위젯 설정화면</div>
+    </td>
+    <td style="vertical-align: middle;">
+      <img src="https://github.com/happyduck-git/images/assets/82161055/ff0bad08-d1a1-4228-9072-79e99f5cba34" alt="Image 3" width="225">
+      <div align="center">잠금화면 위젯 예시</div>
+    </td>
+  </tr>
+</table>
+<table>
+    <tr height="300">
+    <td>
+      <img src="https://github.com/happyduck-git/images/assets/82161055/64aaaabb-5d87-45e2-9034-6bd09484cf5f" alt="Image 1" width="220">
+      <div align="center">다이나믹 아일랜드 예시</div>
+    </td>
+  </tr>
+</table>
