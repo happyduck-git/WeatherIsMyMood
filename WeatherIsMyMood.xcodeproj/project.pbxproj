@@ -19,6 +19,8 @@
 		2430863A2B23FE8A006C78E9 /* WeatherIsMyMoodTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243086392B23FE8A006C78E9 /* WeatherIsMyMoodTests.swift */; };
 		243086442B23FE8A006C78E9 /* WeatherIsMyMoodUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243086432B23FE8A006C78E9 /* WeatherIsMyMoodUITests.swift */; };
 		243086462B23FE8A006C78E9 /* WeatherIsMyMoodUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243086452B23FE8A006C78E9 /* WeatherIsMyMoodUITestsLaunchTests.swift */; };
+		243465F32B5A69B600511D78 /* WeatherWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243465F22B5A69B600511D78 /* WeatherWidget.swift */; };
+		243465F52B5A69CD00511D78 /* WeatherAppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243465F42B5A69CD00511D78 /* WeatherAppIntent.swift */; };
 		2458CD222B25D720008F4AFE /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2458CD212B25D720008F4AFE /* TitleView.swift */; };
 		2458CD242B25F5F3008F4AFE /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2458CD232B25F5F3008F4AFE /* MainView.swift */; };
 		2458CD282B25F8BF008F4AFE /* DecorationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2458CD272B25F8BF008F4AFE /* DecorationView.swift */; };
@@ -28,7 +30,7 @@
 		247212E12B282F3F009A6DE5 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 247212E02B282F3E009A6DE5 /* WidgetKit.framework */; };
 		247212E32B282F3F009A6DE5 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 247212E22B282F3F009A6DE5 /* SwiftUI.framework */; };
 		247212E62B282F3F009A6DE5 /* WeatherWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247212E52B282F3F009A6DE5 /* WeatherWidgetBundle.swift */; };
-		247212EA2B282F3F009A6DE5 /* WeatherWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247212E92B282F3F009A6DE5 /* WeatherWidget.swift */; };
+		247212EA2B282F3F009A6DE5 /* WeatherLiveActivityWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247212E92B282F3F009A6DE5 /* WeatherLiveActivityWidget.swift */; };
 		247212EE2B282F41009A6DE5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 247212ED2B282F41009A6DE5 /* Assets.xcassets */; };
 		247212F22B282F41009A6DE5 /* WeatherWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 247212DF2B282F3E009A6DE5 /* WeatherWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		247212F72B282FD1009A6DE5 /* WeatherAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247212D92B282CBF009A6DE5 /* WeatherAttributes.swift */; };
@@ -115,6 +117,8 @@
 		2430863F2B23FE8A006C78E9 /* WeatherIsMyMoodUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeatherIsMyMoodUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		243086432B23FE8A006C78E9 /* WeatherIsMyMoodUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherIsMyMoodUITests.swift; sourceTree = "<group>"; };
 		243086452B23FE8A006C78E9 /* WeatherIsMyMoodUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherIsMyMoodUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		243465F22B5A69B600511D78 /* WeatherWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherWidget.swift; sourceTree = "<group>"; };
+		243465F42B5A69CD00511D78 /* WeatherAppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAppIntent.swift; sourceTree = "<group>"; };
 		2458CD212B25D720008F4AFE /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
 		2458CD232B25F5F3008F4AFE /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		2458CD272B25F8BF008F4AFE /* DecorationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecorationView.swift; sourceTree = "<group>"; };
@@ -126,7 +130,7 @@
 		247212E02B282F3E009A6DE5 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		247212E22B282F3F009A6DE5 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		247212E52B282F3F009A6DE5 /* WeatherWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherWidgetBundle.swift; sourceTree = "<group>"; };
-		247212E92B282F3F009A6DE5 /* WeatherWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherWidget.swift; sourceTree = "<group>"; };
+		247212E92B282F3F009A6DE5 /* WeatherLiveActivityWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherLiveActivityWidget.swift; sourceTree = "<group>"; };
 		247212ED2B282F41009A6DE5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		247212EF2B282F41009A6DE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		247212F82B2837F0009A6DE5 /* EnableToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnableToggleView.swift; sourceTree = "<group>"; };
@@ -327,9 +331,11 @@
 			isa = PBXGroup;
 			children = (
 				247212E52B282F3F009A6DE5 /* WeatherWidgetBundle.swift */,
-				247212E92B282F3F009A6DE5 /* WeatherWidget.swift */,
+				247212E92B282F3F009A6DE5 /* WeatherLiveActivityWidget.swift */,
 				247212ED2B282F41009A6DE5 /* Assets.xcassets */,
 				247212EF2B282F41009A6DE5 /* Info.plist */,
+				243465F22B5A69B600511D78 /* WeatherWidget.swift */,
+				243465F42B5A69CD00511D78 /* WeatherAppIntent.swift */,
 			);
 			path = WeatherWidget;
 			sourceTree = "<group>";
@@ -574,6 +580,7 @@
 				247212FE2B28B2FA009A6DE5 /* StorageCacheManager.swift in Sources */,
 				24A66DF12B26DDCB00B348CC /* WeatherCondition+Extensions.swift in Sources */,
 				24A66DF32B26EEBB00B348CC /* EmojiViewCell.swift in Sources */,
+				243465F32B5A69B600511D78 /* WeatherWidget.swift in Sources */,
 				2430862B2B23FE86006C78E9 /* WeatherView.swift in Sources */,
 				243086292B23FE86006C78E9 /* WeatherIsMyMoodApp.swift in Sources */,
 				248E3F492B258120001B10C3 /* TenDayForcastView.swift in Sources */,
@@ -582,6 +589,7 @@
 				2458CD282B25F8BF008F4AFE /* DecorationView.swift in Sources */,
 				24A66DED2B269F1400B348CC /* UIScreen+Extensions.swift in Sources */,
 				248E3F472B25769E001B10C3 /* HourlyForcastView.swift in Sources */,
+				243465F52B5A69CD00511D78 /* WeatherAppIntent.swift in Sources */,
 				247213002B28C4AD009A6DE5 /* View+Extensions.swift in Sources */,
 				248E3F452B249369001B10C3 /* LocationManager.swift in Sources */,
 				24A66DF52B2711A600B348CC /* DynamicIslandPreviewView.swift in Sources */,
@@ -619,7 +627,7 @@
 			files = (
 				247212E62B282F3F009A6DE5 /* WeatherWidgetBundle.swift in Sources */,
 				249871732B29995B00580566 /* AppColors.swift in Sources */,
-				247212EA2B282F3F009A6DE5 /* WeatherWidget.swift in Sources */,
+				247212EA2B282F3F009A6DE5 /* WeatherLiveActivityWidget.swift in Sources */,
 				247212F72B282FD1009A6DE5 /* WeatherAttributes.swift in Sources */,
 				241A803C2B29AD9800706BB8 /* WidgetConstants.swift in Sources */,
 			);
@@ -710,7 +718,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -767,7 +775,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;

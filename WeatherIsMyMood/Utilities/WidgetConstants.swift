@@ -32,4 +32,5 @@ enum DecoConstants {
 enum WidgetConstants {
     static let appName = String(localized: "Weather Island")
     static let currentTemp = String(localized: "Current Temp")
+    static let personalQuote = String(localized: "Personal Quote")
 }
