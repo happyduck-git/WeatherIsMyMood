@@ -9,7 +9,9 @@ import WidgetKit
 import AppIntents
 
 @available(iOS 16.0, *)
-struct WeatherAppIntent: WidgetConfigurationIntent {
+struct WeatherAppIntent: AppIntent, WidgetConfigurationIntent, CustomIntentMigratedAppIntent {
+    static var intentClassName: String = "WeatherAppIntent"
+    
     static var title: LocalizedStringResource = "Personal Quote"
    
     @Parameter(title: WeatherAppIntent.title)

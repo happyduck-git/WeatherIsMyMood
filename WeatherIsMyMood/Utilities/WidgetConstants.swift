@@ -30,7 +30,20 @@ enum DecoConstants {
 }
 
 enum WidgetConstants {
+    static let widgetKind = "WeatherWidget"
+    
     static let appName = String(localized: "Weather Island")
     static let currentTemp = String(localized: "Current Temp")
     static let personalQuote = String(localized: "Personal Quote")
+    
+    static let condition = String(localized: "Condition")
+    static let precipitation = String(localized: "Precip")
+    static let humidity = String(localized: "Humidity")
+    static let wind = String(localized: "Wind")
+    
+    static let precipitationUnit = String(localized: "%")
+    static let humidityUnit = String(localized: "%")
+    static let windUnit = String(localized: "m/s")
+    
+    static let demoQuote = String(localized: "Demo quote..")
 }

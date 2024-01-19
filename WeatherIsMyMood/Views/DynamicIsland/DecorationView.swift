@@ -16,7 +16,7 @@ struct DecorationView: View {
     
     @StateObject private var locationManager = LocationManager()
     private let weatherService = WeatherService.shared
-    private let storageManager = FirestoreManager.shared
+    private let storageManager = FirestoreManager()
     
     @State private var weather: Weather?
     @State private var previousWeather: Weather?

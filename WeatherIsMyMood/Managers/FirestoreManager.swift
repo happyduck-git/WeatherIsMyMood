@@ -9,10 +9,7 @@ import Foundation
 import UIKit.UIImage
 import FirebaseStorage
 
-actor FirestoreManager {
-    static let shared = FirestoreManager()
-    
-    private init() {}
+struct FirestoreManager {
     
     private let storageRef = Storage.storage().reference()
     private let cacheManager = StorageCacheManager.shared
@@ -68,9 +65,9 @@ extension FirestoreManager {
                 if let cachedData = self.cacheManager.cachedResponse(for: item.fullPath) {
                     tempDataDict[index] = cachedData
                 } else {
-                    group.addTask { [weak self] in
+                    group.addTask {
                         let data = try await item.data(maxSize: 1 * 1024 * 1024)
-                        self?.cacheManager.setCache(for: item.fullPath, data: data)
+                        self.cacheManager.setCache(for: item.fullPath, data: data)
                         return (index, data)
                     }
                 }
