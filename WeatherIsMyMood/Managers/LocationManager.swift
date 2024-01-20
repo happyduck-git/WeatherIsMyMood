@@ -14,26 +14,27 @@ final class LocationManager: NSObject, ObservableObject {
     @Published var previousLocation: CLLocation?
     
     @Published var cityName: String?
+    static let locationManager = CLLocationManager()
     
     override init() {
         super.init()
-        locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
-        locationManager.distanceFilter = 1_000
-        locationManager.pausesLocationUpdatesAutomatically = true
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
-        locationManager.delegate = self
+        LocationManager.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
+        LocationManager.locationManager.distanceFilter = 1_000
+        LocationManager.locationManager.pausesLocationUpdatesAutomatically = true
+        LocationManager.locationManager.requestWhenInUseAuthorization()
+        LocationManager.locationManager.startUpdatingLocation()
+        LocationManager.locationManager.delegate = self
     }
 }
 
 extension LocationManager: CLLocationManagerDelegate {
     
     func requestOnTimeLocation() {
-        currentLocation = locationManager.location
+        currentLocation = LocationManager.locationManager.location
     }
     
     func refreshLocation() {
-        locationManager.startUpdatingLocation()
+        LocationManager.locationManager.startUpdatingLocation()
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -44,7 +45,7 @@ extension LocationManager: CLLocationManagerDelegate {
         print(error)
     }
     
-    func cityName(at location: CLLocation) async -> String? {
+    static func cityName(at location: CLLocation) async -> String? {
         let geocoder = CLGeocoder()
 
         do {

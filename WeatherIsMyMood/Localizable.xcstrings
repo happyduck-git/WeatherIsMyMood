@@ -4,7 +4,13 @@
     "" : {
 
     },
+    "%" : {
+
+    },
     "%@" : {
+
+    },
+    "✨You are just enough." : {
 
     },
     "10-Day Forcast" : {
@@ -27,6 +33,9 @@
         }
       }
     },
+    "Condition" : {
+
+    },
     "Current Temp" : {
       "localizations" : {
         "ko" : {
@@ -47,6 +56,12 @@
         }
       }
     },
+    "Default" : {
+
+    },
+    "DemoAppIntentTitle" : {
+
+    },
     "Enable Dynamic Island" : {
       "localizations" : {
         "ko" : {
@@ -56,6 +71,9 @@
           }
         }
       }
+    },
+    "H: %@" : {
+
     },
     "Hour" : {
       "localizations" : {
@@ -77,6 +95,12 @@
         }
       }
     },
+    "Humidity" : {
+
+    },
+    "L: %@" : {
+
+    },
     "Location not found.\nPlease search other location!" : {
       "localizations" : {
         "ko" : {
@@ -86,6 +110,9 @@
           }
         }
       }
+    },
+    "m/s" : {
+
     },
     "No rain is expected for 7hrs!" : {
       "localizations" : {
@@ -107,6 +134,12 @@
         }
       }
     },
+    "Personal Quote" : {
+
+    },
+    "Precip" : {
+
+    },
     "Precipitation" : {
       "localizations" : {
         "ko" : {
@@ -126,6 +159,9 @@
           }
         }
       }
+    },
+    "Stay tuned!" : {
+
     },
     "Weather" : {
       "localizations" : {
@@ -149,6 +185,12 @@
           }
         }
       }
+    },
+    "WeatherAppIntentTitle" : {
+
+    },
+    "Wind" : {
+
     }
   },
   "version" : "1.0"

@@ -58,7 +58,7 @@ struct WeatherView: View {
                 do {
                     async let weather = weatherService.weather(for: location)
                     async let attribution = weatherService.attribution
-                    async let cityName = locationManager.cityName(at: location)
+                    async let cityName = LocationManager.cityName(at: location)
                     
                     self.weather = try await weather
                     self.attribution = try await attribution

@@ -9,12 +9,12 @@ import WidgetKit
 import AppIntents
 
 @available(iOS 16.0, *)
-struct WeatherAppIntent: AppIntent, WidgetConfigurationIntent, CustomIntentMigratedAppIntent {
-    static var intentClassName: String = "WeatherAppIntent"
+struct WeatherAppIntent: WidgetConfigurationIntent {
+    static var intentClassName: String = "WeatherAppIntentClass"
     
-    static var title: LocalizedStringResource = "Personal Quote"
+    static var title: LocalizedStringResource = "WeatherAppIntentTitle"
    
-    @Parameter(title: WeatherAppIntent.title)
+    @Parameter(title: "Personal Quote")
     var quote: String?
     
     func perform() async throws -> some IntentResult {

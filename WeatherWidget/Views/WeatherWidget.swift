@@ -8,29 +8,31 @@
 import SwiftUI
 import WeatherKit
 import WidgetKit
+import FirebaseCore
 
 struct WeatherWidget: Widget {
-    
+
     public var body: some WidgetConfiguration {
-    
         self.makeWidgetConfiguration()
     }
     
-   
     func makeWidgetConfiguration() -> some WidgetConfiguration {
 #if os(iOS)
         if #available(iOS 17.0, *) {
       
-            return AppIntentConfiguration(kind: WidgetConstants.widgetKind,
+            return AppIntentConfiguration(kind: "WeatherWidget",
                                           intent: WeatherAppIntent.self,
                                           provider: WeatherTimelineProvider()) { entry in
                 WeatherEntryView(entry: entry)
             }.supportedFamilies(supportedFamilies)
             
         } else {
-            
+            return IntentConfiguration(kind: "WeatherWidget",
+                                       intent: IntentIntent.self,
+                                       provider: SiriKitIntentProvider()) { entry in
+                WeatherEntryView(entry: entry)
+            }.supportedFamilies(supportedFamilies)
         }
-
 #endif
     }
     
@@ -52,33 +54,46 @@ struct WeatherEntryView: View {
             
         case .systemSmall:
             
-            VStack {
+            VStack(alignment: .leading) {
                 Text(entry.cityName)
-                HStack {
+                    .font(.system(size: 13))
+                HStack(alignment: .bottom) {
                     Text(entry.weather?.currentWeather.temperature.formatted() ?? "0.0")
-                    Text(entry.weather?.dailyForecast.forecast.first?.highTemperature.formatted() ?? "0.0")
-                    Text(entry.weather?.dailyForecast.forecast.first?.lowTemperature.formatted() ?? "0.0")
+                        .font(.system(size: 18))
+                    Text("H: \(entry.weather?.dailyForecast.forecast.first?.highTemperature.formatted() ?? "0.0")")
+                        .font(.system(size: 13))
+                    Text("L: \(entry.weather?.dailyForecast.forecast.first?.lowTemperature.formatted() ?? "0.0")")
+                        .font(.system(size: 13))
                 }
                 
-                List {
-                    ForEach(WeatherContent.allCases, id: \.self) { content in
+                VStack(alignment: .leading) {
+                    ForEach(WeatherContent.allCases, id: \.displayText) { content in
                         HStack {
                             Text(content.displayText)
+                                .fontWeight(.semibold)
+                                .font(.system(size: 12))
+                            Spacer()
                             Text(content.unit)
+                                .font(.system(size: 12))
                         }
-                        .padding(EdgeInsets(top: 5,
-                                            leading: 5,
-                                            bottom: 5,
-                                            trailing: 5))
-                        
+                        .frame(maxWidth: .infinity)
                     }
+                    
+                }
+                .background {
+                    Color.white.opacity(0.2)
+                        .clipShape(RoundedRectangle(cornerRadius: 5))
                 }
                 
+                Divider()
                 Text(entry.quote)
+                    .font(.system(size: 11))
             }
+            .widgetBackground(with: entry.image)
             
         default:
             Text("Stay tuned!")
+                .widgetBackground(with: entry.image)
         }
         
     }
@@ -118,4 +133,35 @@ struct WeatherEntryView: View {
     
 }
 
+extension View {
+    func widgetBackground(with imageData: Data?) -> some View {
+         if #available(iOS 17.0, *) {
+             guard let imageData,
+                   let image = UIImage(data: imageData) else {
+                 return background {
+                     Color.mint
+                 }
+             }
+             return containerBackground(for: .widget) {
+                 Image(uiImage: image).opacity(0.7)
+//                 Color.orange.opacity(0.6)
+             }
+         } else {
+             return background {
+                 Color.green
+             }
+         }
+    }
+}
+
+@available(iOS 17.0, *)
+#Preview(as: .systemSmall) {
+    WeatherWidget()
+} timeline: {
+    WeatherEntry(date: Date(),
+                 cityName: "Seoul",
+                 weather: nil,
+                 image: nil,
+                 quote: "Hello")
+}
 

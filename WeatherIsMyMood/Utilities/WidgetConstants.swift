@@ -45,5 +45,5 @@ enum WidgetConstants {
     static let humidityUnit = String(localized: "%")
     static let windUnit = String(localized: "m/s")
     
-    static let demoQuote = String(localized: "Demo quote..")
+    static let demoQuote = String(localized: "✨You are just enough.")
 }
