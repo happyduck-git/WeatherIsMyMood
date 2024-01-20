@@ -20,6 +20,9 @@
 		243086442B23FE8A006C78E9 /* WeatherIsMyMoodUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243086432B23FE8A006C78E9 /* WeatherIsMyMoodUITests.swift */; };
 		243086462B23FE8A006C78E9 /* WeatherIsMyMoodUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243086452B23FE8A006C78E9 /* WeatherIsMyMoodUITestsLaunchTests.swift */; };
 		243465F32B5A69B600511D78 /* WeatherWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243465F22B5A69B600511D78 /* WeatherWidget.swift */; };
+		245871482B5C180700FB9BA1 /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249871702B2967F000580566 /* Double+Extensions.swift */; };
+		2458714A2B5C1A6800FB9BA1 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245871492B5C1A6800FB9BA1 /* String+Extensions.swift */; };
+		2458714B2B5C1BE500FB9BA1 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245871492B5C1A6800FB9BA1 /* String+Extensions.swift */; };
 		2458CD222B25D720008F4AFE /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2458CD212B25D720008F4AFE /* TitleView.swift */; };
 		2458CD242B25F5F3008F4AFE /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2458CD232B25F5F3008F4AFE /* MainView.swift */; };
 		2458CD282B25F8BF008F4AFE /* DecorationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2458CD272B25F8BF008F4AFE /* DecorationView.swift */; };
@@ -75,6 +78,7 @@
 		24A66E052B274ACB00B348CC /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 24A66E042B274ACB00B348CC /* FirebaseStorage */; };
 		24A66E072B274ACB00B348CC /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 24A66E062B274ACB00B348CC /* FirebaseStorageCombine-Community */; };
 		24A66E092B275FB200B348CC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24A66E082B275FB200B348CC /* GoogleService-Info.plist */; };
+		24C561952B5C223A004BDEBB /* ExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C561942B5C223A004BDEBB /* ExtensionTests.swift */; };
 		24C7D98C2B26145000453434 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7D98B2B26145000453434 /* AppColors.swift */; };
 		24C7D98E2B26160E00453434 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7D98D2B26160E00453434 /* Color+Extension.swift */; };
 /* End PBXBuildFile section */
@@ -136,6 +140,7 @@
 		243465F42B5A69CD00511D78 /* WeatherAppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAppIntent.swift; sourceTree = "<group>"; };
 		243465F72B5A6EA300511D78 /* WeatherTimelineProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTimelineProvider.swift; sourceTree = "<group>"; };
 		245871472B5BE94C00FB9BA1 /* WeatherWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WeatherWidgetExtension.entitlements; sourceTree = "<group>"; };
+		245871492B5C1A6800FB9BA1 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		2458CD212B25D720008F4AFE /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
 		2458CD232B25F5F3008F4AFE /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		2458CD272B25F8BF008F4AFE /* DecorationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecorationView.swift; sourceTree = "<group>"; };
@@ -177,6 +182,7 @@
 		24A66DF42B2711A600B348CC /* DynamicIslandPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicIslandPreviewView.swift; sourceTree = "<group>"; };
 		24A66E022B2749E900B348CC /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
 		24A66E082B275FB200B348CC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		24C561942B5C223A004BDEBB /* ExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionTests.swift; sourceTree = "<group>"; };
 		24C7D98B2B26145000453434 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
 		24C7D98D2B26160E00453434 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -294,6 +300,7 @@
 			isa = PBXGroup;
 			children = (
 				243086392B23FE8A006C78E9 /* WeatherIsMyMoodTests.swift */,
+				24C561942B5C223A004BDEBB /* ExtensionTests.swift */,
 			);
 			path = WeatherIsMyMoodTests;
 			sourceTree = "<group>";
@@ -415,6 +422,7 @@
 				247212FA2B2841D5009A6DE5 /* UIImage+Extensions.swift */,
 				247212FF2B28C4AD009A6DE5 /* View+Extensions.swift */,
 				249871702B2967F000580566 /* Double+Extensions.swift */,
+				245871492B5C1A6800FB9BA1 /* String+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -628,6 +636,7 @@
 				247212F92B2837F0009A6DE5 /* EnableToggleView.swift in Sources */,
 				247212FE2B28B2FA009A6DE5 /* StorageCacheManager.swift in Sources */,
 				249970422B5B8E8900F995AD /* WeatherTimelineProvider.swift in Sources */,
+				2458714A2B5C1A6800FB9BA1 /* String+Extensions.swift in Sources */,
 				24A66DF12B26DDCB00B348CC /* WeatherCondition+Extensions.swift in Sources */,
 				24A66DF32B26EEBB00B348CC /* EmojiViewCell.swift in Sources */,
 				243465F32B5A69B600511D78 /* WeatherWidget.swift in Sources */,
@@ -661,6 +670,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2430863A2B23FE8A006C78E9 /* WeatherIsMyMoodTests.swift in Sources */,
+				24C561952B5C223A004BDEBB /* ExtensionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -681,11 +691,13 @@
 				245AEF2E2B5B8874003DD73B /* Intents.intentdefinition in Sources */,
 				249970442B5B921E00F995AD /* FirestoreManager.swift in Sources */,
 				249970482B5B945B00F995AD /* WeatherWidget.swift in Sources */,
+				2458714B2B5C1BE500FB9BA1 /* String+Extensions.swift in Sources */,
 				247212E62B282F3F009A6DE5 /* WeatherWidgetBundle.swift in Sources */,
 				2499704E2B5BA1A800F995AD /* DemoWidgetConfig.intentdefinition in Sources */,
 				249871732B29995B00580566 /* AppColors.swift in Sources */,
 				249970472B5B928B00F995AD /* StorageCacheManager.swift in Sources */,
 				247212EA2B282F3F009A6DE5 /* WeatherLiveActivityWidget.swift in Sources */,
+				245871482B5C180700FB9BA1 /* Double+Extensions.swift in Sources */,
 				2499703F2B5B8DD900F995AD /* WeatherAppIntent.swift in Sources */,
 				247212F72B282FD1009A6DE5 /* WeatherAttributes.swift in Sources */,
 				2499703C2B5B8DC200F995AD /* WeatherTimelineProvider.swift in Sources */,

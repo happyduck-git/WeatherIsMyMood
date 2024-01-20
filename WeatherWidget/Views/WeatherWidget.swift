@@ -38,7 +38,7 @@ struct WeatherWidget: Widget {
     
     private var supportedFamilies: [WidgetFamily] {
         #if os(iOS)
-        [.systemSmall]
+        [.systemSmall, .systemMedium]
         #endif
     }
 }
@@ -50,64 +50,101 @@ struct WeatherEntryView: View {
     
     var body: some View {
         
-        switch family {
+        if let weather = entry.weather {
             
-        case .systemSmall:
-            
-            VStack(alignment: .leading) {
-                Text(entry.cityName)
-                    .font(.system(size: 13))
-                HStack(alignment: .bottom) {
-                    Text(entry.weather?.currentWeather.temperature.formatted() ?? "0.0")
-                        .font(.system(size: 18))
-                    Text("H: \(entry.weather?.dailyForecast.forecast.first?.highTemperature.formatted() ?? "0.0")")
-                        .font(.system(size: 13))
-                    Text("L: \(entry.weather?.dailyForecast.forecast.first?.lowTemperature.formatted() ?? "0.0")")
-                        .font(.system(size: 13))
-                }
+            switch family {
+                
+            case .systemSmall, .systemMedium:
                 
                 VStack(alignment: .leading) {
-                    ForEach(WeatherContent.allCases, id: \.displayText) { content in
-                        HStack {
-                            Text(content.displayText)
-                                .fontWeight(.semibold)
-                                .font(.system(size: 12))
-                            Spacer()
-                            Text(content.unit)
-                                .font(.system(size: 12))
-                        }
-                        .frame(maxWidth: .infinity)
+                    HStack(alignment: .bottom) {
+                        Text(entry.cityName)
+                            .fontWeight(.semibold)
+                            .font(.system(size: 13))
+                        Spacer()
+                        Text(weather.currentWeather.condition.rawValue)
+                            .font(.system(size: 12))
                     }
                     
+                    HStack(alignment: .bottom) {
+                        Text("\(weather.currentWeather.temperature.value.showDecimalTo(number: 1))".addTemparatureUnit())
+                            .fontWeight(.bold)
+                            .font(.system(size: 17))
+                        
+                        Text("H: \(weather.dailyForecast.forecast.first?.highTemperature.value.showDecimalTo(number: 1) ?? "0.0")".addTemparatureUnit())
+                            .fontWeight(.medium)
+                            .font(.system(size: 10))
+                        Text("L: \(weather.dailyForecast.forecast.first?.lowTemperature.value.showDecimalTo(number: 1) ?? "0.0")".addTemparatureUnit())
+                            .fontWeight(.medium)
+                            .font(.system(size: 10))
+                    }
+                    .padding(.vertical, 1)
+                    .frame(maxWidth: .infinity)
+                    .background {
+                        Color.blue.opacity(0.1)
+                            .clipShape(RoundedRectangle(cornerRadius: 3))
+                    }
+                    
+                    VStack(alignment: .leading) {
+                        ForEach(WeatherContent.allCases, id: \.displayText) { content in
+                            HStack {
+                                Text(content.displayText)
+                                    .fontWeight(.semibold)
+                                    .font(.system(size: 12))
+                                Spacer()
+                                
+                                self.makeWeatherInfoView(of: content, weather: weather)
+                            }
+                            .frame(maxWidth: .infinity)
+                        }
+                        
+                    }
+                    .background {
+                        Color.white.opacity(0.2)
+                            .clipShape(RoundedRectangle(cornerRadius: 5))
+                    }
+                    
+                    Divider()
+                   
+                    Text(entry.quote)
+                        .frame(alignment: .center)
+                        .font(.system(size: 11))
                 }
-                .background {
-                    Color.white.opacity(0.2)
-                        .clipShape(RoundedRectangle(cornerRadius: 5))
-                }
+                .widgetBackground(with: entry.image)
                 
-                Divider()
-                Text(entry.quote)
-                    .font(.system(size: 11))
+            default:
+                Text("Stay tuned!")
+                    .widgetBackground(with: entry.image)
             }
-            .widgetBackground(with: entry.image)
-            
-        default:
-            Text("Stay tuned!")
+        } else {
+            Text(WidgetConstants.loadingError)
                 .widgetBackground(with: entry.image)
         }
+
         
     }
     
+    private func makeWeatherInfoView(of content: WeatherContent, weather: Weather) -> some View {
+        switch content {
+        case .precipitation:
+            Text("\(weather.currentWeather.precipitationIntensity.value.showTwoDecimalPlaces()) \(content.unit)")
+                .font(.system(size: 12))
+        case .humidity:
+            Text("\(weather.currentWeather.humidity.showTwoDecimalPlaces()) \(content.unit)")
+                .font(.system(size: 12))
+        case .wind:
+            Text("\(weather.currentWeather.wind.speed.value.showTwoDecimalPlaces()) \(content.unit)")
+                .font(.system(size: 12))
+        }
+    }
+    
     private enum WeatherContent: CaseIterable {
-        case condition
         case precipitation
         case humidity
         case wind
         
         var displayText: String {
             switch self {
-            case .condition:
-                WidgetConstants.condition
             case .precipitation:
                 WidgetConstants.precipitation
             case .humidity:
@@ -119,8 +156,6 @@ struct WeatherEntryView: View {
         
         var unit: String {
             switch self {
-            case .condition:
-                String()
             case .precipitation:
                 WidgetConstants.precipitationUnit
             case .humidity:
@@ -142,9 +177,12 @@ extension View {
                      Color.mint
                  }
              }
+             
              return containerBackground(for: .widget) {
-                 Image(uiImage: image).opacity(0.7)
-//                 Color.orange.opacity(0.6)
+                 Image(uiImage: image)
+                     .resizable(resizingMode: .stretch)
+                     .frame(width: 360, height: 360)
+                     .opacity(0.6)
              }
          } else {
              return background {

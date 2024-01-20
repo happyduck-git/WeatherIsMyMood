@@ -12,6 +12,10 @@ extension Double {
         return (self * 100).rounded() / 100
     }
     
+    func showDecimalTo(number: Int) -> String {
+        return String(format: "%.\(number)f", self)
+    }
+    
     func showTwoDecimalPlaces() -> String {
         return String(format: "%.2f", self)
     }

@@ -10,6 +10,16 @@
     "%@" : {
 
     },
+    "%@ %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ %2$@"
+          }
+        }
+      }
+    },
     "✨You are just enough." : {
 
     },
@@ -72,9 +82,6 @@
         }
       }
     },
-    "H: %@" : {
-
-    },
     "Hour" : {
       "localizations" : {
         "ko" : {
@@ -98,7 +105,7 @@
     "Humidity" : {
 
     },
-    "L: %@" : {
+    "Loading weather error..." : {
 
     },
     "Location not found.\nPlease search other location!" : {

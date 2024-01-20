@@ -46,4 +46,6 @@ enum WidgetConstants {
     static let windUnit = String(localized: "m/s")
     
     static let demoQuote = String(localized: "✨You are just enough.")
+    
+    static let loadingError = String(localized: "Loading weather error...")
 }

@@ -18,11 +18,7 @@ struct WeatherTimelineProvider: AppIntentTimelineProvider {
     private let weatherService: WeatherService = WeatherService.shared
     private let firestoreManager: FirestoreManager = FirestoreManager()
     
-    /* */
-    private let locationMG = LocationManager.locationManager
-    
-    /* */
-    private let defaultCityName: String = "GGWorld"
+    private let defaultCityName: String = WidgetConstants.appName
     
     func placeholder(in context: Context) -> WeatherEntry {
         return WeatherEntry(date: Date(),
@@ -35,7 +31,7 @@ struct WeatherTimelineProvider: AppIntentTimelineProvider {
     
     func snapshot(for configuration: WeatherAppIntent, in context: Context) async -> WeatherEntry {
         
-        guard let location = locationMG.location else {
+        guard let location = LocationManager.locationManager.location else {
             return WeatherEntry(date: Date(),
                                 cityName: self.defaultCityName,
                                 weather: nil,
@@ -68,12 +64,12 @@ struct WeatherTimelineProvider: AppIntentTimelineProvider {
     
     func timeline(for configuration: WeatherAppIntent, in context: Context) async -> Timeline<WeatherEntry> {
         
-        guard let location = locationMG.location else {
+        guard let location = LocationManager.locationManager.location else {
             let entry = WeatherEntry(date: Date(),
                                      cityName: self.defaultCityName,
                                      weather: nil,
                                      image: nil,
-                                     quote: "Timeline1")
+                                     quote: configuration.quote ?? WidgetConstants.demoQuote)
             return Timeline(entries: [entry],
                             policy: .atEnd)
         }
@@ -86,7 +82,7 @@ struct WeatherTimelineProvider: AppIntentTimelineProvider {
                                                cityName: cityName ?? self.defaultCityName,
                                                weather: weather,
                                                image: image,
-                                               quote: "\(weather.currentWeather.condition.rawValue)")
+                                               quote: configuration.quote ?? WidgetConstants.demoQuote)
             
             // TODO: Might need to change update policy.
             return Timeline(entries: [entry],
@@ -97,7 +93,7 @@ struct WeatherTimelineProvider: AppIntentTimelineProvider {
                                      cityName: self.defaultCityName,
                                      weather: nil,
                                      image: nil,
-                                     quote: "Timeline3")
+                                     quote: configuration.quote ?? WidgetConstants.demoQuote)
             return Timeline(entries: [entry],
                             policy: .atEnd)
         }
