@@ -20,9 +20,6 @@
         }
       }
     },
-    "✨You are just enough." : {
-
-    },
     "10-Day Forcast" : {
       "localizations" : {
         "ko" : {
@@ -197,6 +194,9 @@
 
     },
     "Wind" : {
+
+    },
+    "Your quote here 🙂" : {
 
     }
   },

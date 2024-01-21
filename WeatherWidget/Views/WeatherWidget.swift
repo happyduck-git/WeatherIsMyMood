@@ -54,61 +54,34 @@ struct WeatherEntryView: View {
             
             switch family {
                 
-            case .systemSmall, .systemMedium:
+            case .systemSmall:
                 
                 VStack(alignment: .leading) {
-                    HStack(alignment: .bottom) {
-                        Text(entry.cityName)
-                            .fontWeight(.semibold)
-                            .font(.system(size: 14))
-                        Spacer()
-                        Text(weather.currentWeather.condition.rawValue)
-                            .font(.system(size: 13))
-                    }
+                    self.makeTopView(weather: weather, fontSize: (14, 13))
+                    self.makeTemparatureView(weather: weather, fontSize: (19, 10))
+                    self.makeWeatherInfoListView(weather: weather, fontSize: 12)
                     
-                    HStack(alignment: .bottom) {
-                        Text("\(weather.currentWeather.temperature.value.showDecimalTo(number: 1))".addTemparatureUnit())
-                            .fontWeight(.bold)
-                            .font(.system(size: 19))
-                        
-                        Text("H: \(weather.dailyForecast.forecast.first?.highTemperature.value.showDecimalTo(number: 1) ?? "0.0")".addTemparatureUnit())
-                            .fontWeight(.medium)
-                            .font(.system(size: 10))
-                        Text("L: \(weather.dailyForecast.forecast.first?.lowTemperature.value.showDecimalTo(number: 1) ?? "0.0")".addTemparatureUnit())
-                            .fontWeight(.medium)
-                            .font(.system(size: 10))
-                    }
-                    .padding(.vertical, 1)
-                    .frame(maxWidth: .infinity)
-                    .background {
-                        Color.blue.opacity(0.1)
-                            .clipShape(RoundedRectangle(cornerRadius: 3))
-                    }
-                    
+                    Divider()
+                   
+                    Text(entry.quote)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .font(.system(size: 11))
+                }
+                .widgetBackground(with: entry.image)
+                
+            case .systemMedium:
+                HStack {
                     VStack(alignment: .leading) {
-                        ForEach(WeatherContent.allCases, id: \.displayText) { content in
-                            HStack {
-                                Text(content.displayText)
-                                    .fontWeight(.semibold)
-                                    .font(.system(size: 12))
-                                Spacer()
-                                
-                                self.makeWeatherInfoView(of: content, weather: weather)
-                            }
-                            .frame(maxWidth: .infinity)
-                        }
-                        
-                    }
-                    .background {
-                        Color.white.opacity(0.2)
-                            .clipShape(RoundedRectangle(cornerRadius: 5))
+                        self.makeTopView(weather: weather, fontSize: (16, 15))
+                        self.makeTemparatureView(weather: weather, fontSize: (23, 14))
+                        self.makeWeatherInfoListView(weather: weather, fontSize: 14)
                     }
                     
                     Divider()
                    
                     Text(entry.quote)
-                        .frame(alignment: .center)
-                        .font(.system(size: 12))
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .font(.system(size: 15))
                 }
                 .widgetBackground(with: entry.image)
                 
@@ -122,20 +95,6 @@ struct WeatherEntryView: View {
         }
 
         
-    }
-    
-    private func makeWeatherInfoView(of content: WeatherContent, weather: Weather) -> some View {
-        switch content {
-        case .precipitation:
-            Text("\(weather.currentWeather.precipitationIntensity.value.showTwoDecimalPlaces()) \(content.unit)")
-                .font(.system(size: 12))
-        case .humidity:
-            Text("\(weather.currentWeather.humidity.showTwoDecimalPlaces()) \(content.unit)")
-                .font(.system(size: 12))
-        case .wind:
-            Text("\(weather.currentWeather.wind.speed.value.showTwoDecimalPlaces()) \(content.unit)")
-                .font(.system(size: 12))
-        }
     }
     
     private enum WeatherContent: CaseIterable {
@@ -166,6 +125,93 @@ struct WeatherEntryView: View {
         }
     }
     
+}
+
+//MARK: - Private functions for making widget views.
+extension WeatherEntryView {
+    private func makeTopView(
+        weather: Weather,
+        fontSize: (cityName: CGFloat, condition: CGFloat)
+    ) -> some View {
+        
+        HStack(alignment: .bottom) {
+            Text(entry.cityName)
+                .fontWeight(.semibold)
+                .font(.system(size: fontSize.cityName))
+            Spacer()
+            Text(weather.currentWeather.condition.rawValue)
+                .font(.system(size: fontSize.condition))
+        }
+        
+    }
+    
+    private func makeTemparatureView(
+        weather: Weather,
+        fontSize: (title: CGFloat, subTitle: CGFloat)
+    ) -> some View {
+        return HStack(alignment: .bottom) {
+            Text("\(weather.currentWeather.temperature.value.showDecimalTo(number: 1))".addTemparatureUnit())
+                .fontWeight(.bold)
+                .font(.system(size: fontSize.title))
+            Spacer()
+            VStack(alignment: .trailing) {
+                Text("H: \(weather.dailyForecast.forecast.first?.highTemperature.value.showDecimalTo(number: 1) ?? "0.0")".addTemparatureUnit())
+                    .fontWeight(.medium)
+                    .font(.system(size: fontSize.subTitle))
+                Text("L: \(weather.dailyForecast.forecast.first?.lowTemperature.value.showDecimalTo(number: 1) ?? "0.0")".addTemparatureUnit())
+                    .fontWeight(.medium)
+                    .font(.system(size: fontSize.subTitle))
+            }
+            
+            
+        }
+        .padding(.vertical, 1)
+        .frame(maxWidth: .infinity)
+    }
+    
+    private func makeWeatherInfoListView(
+        weather: Weather,
+        fontSize: CGFloat
+    ) -> some View {
+        
+        return VStack(alignment: .leading) {
+            ForEach(WeatherContent.allCases, id: \.displayText) { content in
+                HStack {
+                    Text(content.displayText)
+                        .fontWeight(.semibold)
+                        .font(.system(size: fontSize))
+                    Spacer()
+                    
+                    self.makeWeatherInfoView(of: content, weather: weather, fontSize: fontSize)
+                }
+                .frame(maxWidth: .infinity)
+            }
+            
+        }
+        .background {
+            Color.white.opacity(0.2)
+                .clipShape(RoundedRectangle(cornerRadius: 5))
+        }
+    }
+    
+    private func makeWeatherInfoView(
+        of content: WeatherContent,
+        weather: Weather,
+        fontSize: CGFloat
+    ) -> some View {
+        
+        switch content {
+        case .precipitation:
+            return Text("\(weather.currentWeather.precipitationIntensity.value.showTwoDecimalPlaces()) \(content.unit)")
+                .font(.system(size: fontSize))
+        case .humidity:
+            return Text("\(weather.currentWeather.humidity.showTwoDecimalPlaces()) \(content.unit)")
+                .font(.system(size: fontSize))
+        case .wind:
+            return Text("\(weather.currentWeather.wind.speed.value.showTwoDecimalPlaces()) \(content.unit)")
+                .font(.system(size: fontSize))
+        }
+    }
 }
 
 extension View {
