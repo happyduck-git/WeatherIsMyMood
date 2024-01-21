@@ -26,5 +26,5 @@ struct TitleView: View {
 }
 
 #Preview {
-    WeatherView()
+    WeatherView(locationManager: LocationManager())
 }

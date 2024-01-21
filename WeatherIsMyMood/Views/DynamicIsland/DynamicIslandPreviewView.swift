@@ -64,5 +64,5 @@ struct DynamicIslandPreviewView: View {
 }
 
 #Preview {
-    DecorationView()
+    DecorationView(locationManager: LocationManager())
 }

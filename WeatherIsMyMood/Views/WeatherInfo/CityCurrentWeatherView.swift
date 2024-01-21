@@ -149,5 +149,5 @@ extension CityCurrentWeatherView {
 }
 
 #Preview {
-    WeatherView()
+    WeatherView(locationManager: LocationManager())
 }

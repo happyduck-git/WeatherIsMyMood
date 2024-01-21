@@ -43,5 +43,5 @@ struct SearchView: View {
 }
 
 #Preview {
-    WeatherView()
+    WeatherView(locationManager: LocationManager())
 }

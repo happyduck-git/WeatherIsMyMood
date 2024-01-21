@@ -57,5 +57,5 @@ extension HourlyPrecipitationChartView {
 }
 
 #Preview {
-    WeatherView()
+    WeatherView(locationManager: LocationManager())
 }

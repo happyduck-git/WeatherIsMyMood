@@ -60,16 +60,16 @@ struct WeatherEntryView: View {
                     HStack(alignment: .bottom) {
                         Text(entry.cityName)
                             .fontWeight(.semibold)
-                            .font(.system(size: 13))
+                            .font(.system(size: 14))
                         Spacer()
                         Text(weather.currentWeather.condition.rawValue)
-                            .font(.system(size: 12))
+                            .font(.system(size: 13))
                     }
                     
                     HStack(alignment: .bottom) {
                         Text("\(weather.currentWeather.temperature.value.showDecimalTo(number: 1))".addTemparatureUnit())
                             .fontWeight(.bold)
-                            .font(.system(size: 17))
+                            .font(.system(size: 19))
                         
                         Text("H: \(weather.dailyForecast.forecast.first?.highTemperature.value.showDecimalTo(number: 1) ?? "0.0")".addTemparatureUnit())
                             .fontWeight(.medium)
@@ -108,7 +108,7 @@ struct WeatherEntryView: View {
                    
                     Text(entry.quote)
                         .frame(alignment: .center)
-                        .font(.system(size: 11))
+                        .font(.system(size: 12))
                 }
                 .widgetBackground(with: entry.image)
                 

@@ -43,5 +43,5 @@ struct SunStatusTimeView: View {
 }
 
 #Preview {
-    WeatherView()
+    WeatherView(locationManager: LocationManager())
 }

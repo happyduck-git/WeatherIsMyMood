@@ -10,10 +10,10 @@ import WeatherKit
 
 struct WeatherView: View {
     
+    private var locationManager: LocationManager
+    
     @State private var isFirstLoading = true
     @State private var isLoading = false
-    
-    @StateObject private var locationManager = LocationManager()
     
     private let weatherService = WeatherService.shared
     @State private var weather: Weather?
@@ -23,6 +23,10 @@ struct WeatherView: View {
     @State private var cityName: String = ""
     @State private var searchedCityName: String = ""
     @State var locationFound: Bool = true
+    
+    init(locationManager: LocationManager) {
+        self.locationManager = locationManager
+    }
     
     var body: some View {
         NavigationView {
@@ -55,6 +59,9 @@ struct WeatherView: View {
         .task(id: locationManager.currentLocation) {
             
             if let location = locationManager.currentLocation {
+                #if DEBUG
+                print("Loc on weatherView: \(location)")
+                #endif
                 do {
                     async let weather = weatherService.weather(for: location)
                     async let attribution = weatherService.attribution
@@ -184,5 +191,5 @@ extension WeatherView {
 }
 
 #Preview {
-    WeatherView()
+    WeatherView(locationManager: LocationManager())
 }

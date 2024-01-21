@@ -10,11 +10,12 @@ import WeatherKit
 
 struct DecorationView: View {
     
+    private let locationManager: LocationManager
+    
     @State private var isFirstLoading = true
     @State private var isLoading = false
     @AppStorage("isDynamicIslandOn") private var isOn = false
     
-    @StateObject private var locationManager = LocationManager()
     private let weatherService = WeatherService.shared
     private let storageManager = FirestoreManager()
     
@@ -26,6 +27,10 @@ struct DecorationView: View {
     @State private var weatherIcons: [Data] = []
     @State private var otherIcons: [Data] = []
     @State private var selectedIcon: Data?
+    
+    init(locationManager: LocationManager) {
+        self.locationManager = locationManager
+    }
     
     var body: some View {
         ZStack {
@@ -85,8 +90,10 @@ struct DecorationView: View {
                     }
                 }
                 catch {
-                    print(error)
+                    print("Error fething weather from location -- \(error)")
                 }
+            } else {
+                print("Location found to be nil: \(locationManager.currentLocation)")
             }
         }
         .onChange(of: self.weather, perform: { newWeather in

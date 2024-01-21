@@ -8,13 +8,15 @@
 import SwiftUI
 
 struct MainView: View {
+    let locationManager: LocationManager = LocationManager()
+    
     var body: some View {
         TabView {
-            WeatherView()
+            WeatherView(locationManager: self.locationManager)
                 .tabItem {
                     Label("Weather", systemImage: "cloud.sun.fill")
                 }
-            DecorationView()
+            DecorationView(locationManager: self.locationManager)
                 .tabItem {
                     Label("Deco", systemImage: "sparkles")
                 }

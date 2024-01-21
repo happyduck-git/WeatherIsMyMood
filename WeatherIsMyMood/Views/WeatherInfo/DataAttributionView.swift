@@ -35,5 +35,5 @@ struct DataAttributionView: View {
 }
 
 #Preview {
-    WeatherView()
+    WeatherView(locationManager: LocationManager())
 }

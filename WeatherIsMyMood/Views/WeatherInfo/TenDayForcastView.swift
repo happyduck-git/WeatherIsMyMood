@@ -50,5 +50,5 @@ struct TenDayForcastView: View {
 }
 
 #Preview {
-    WeatherView()
+    WeatherView(locationManager: LocationManager())
 }

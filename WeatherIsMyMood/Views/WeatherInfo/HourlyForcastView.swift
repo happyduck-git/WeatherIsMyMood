@@ -47,5 +47,5 @@ struct HourlyForcastView: View {
 }
 
 #Preview {
-    WeatherView()
+    WeatherView(locationManager: LocationManager())
 }
