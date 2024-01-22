@@ -9,7 +9,7 @@ import Foundation
 import UIKit.UIImage
 import FirebaseStorage
 
-struct FirestoreManager {
+actor FirestoreManager {
     
     private let storageRef = Storage.storage().reference()
     private let cacheManager = StorageCacheManager.shared

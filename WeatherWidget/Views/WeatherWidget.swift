@@ -90,8 +90,16 @@ struct WeatherEntryView: View {
                     .widgetBackground(with: entry.image)
             }
         } else {
-            Text(WidgetConstants.loadingError)
-                .widgetBackground(with: entry.image)
+            VStack(alignment: .leading) {
+                Text(WidgetConstants.loadingError)
+                
+                Spacer()
+               
+                Text(entry.quote)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .font(.system(size: 11))
+            }
+            .widgetBackground(with: entry.image)
         }
 
         
@@ -216,25 +224,26 @@ extension WeatherEntryView {
 
 extension View {
     func widgetBackground(with imageData: Data?) -> some View {
-         if #available(iOS 17.0, *) {
-             guard let imageData,
-                   let image = UIImage(data: imageData) else {
-                 return background {
-                     Color.mint
-                 }
-             }
-             
-             return containerBackground(for: .widget) {
-                 Image(uiImage: image)
-                     .resizable(resizingMode: .stretch)
-                     .frame(width: 360, height: 360)
-                     .opacity(0.6)
-             }
-         } else {
-             return background {
-                 Color.green
-             }
-         }
+        let viewBuilder: () -> AnyView = {
+            if #available(iOS 17.0, *) {
+                if let imageData = imageData,
+                   let image = UIImage(data: imageData) {
+                    return AnyView(
+                        containerBackground(for: .widget) {
+                            Image(uiImage: image)
+                                .resizable(resizingMode: .stretch)
+                                .frame(width: 360, height: 360)
+                                .opacity(0.6)
+                        }
+                    )
+                } else {
+                    return AnyView(containerBackground(for: .widget) { Color.white })
+                }
+            } else {
+                return AnyView(background { Color.white })
+            }
+        }
+        return viewBuilder()
     }
 }
 

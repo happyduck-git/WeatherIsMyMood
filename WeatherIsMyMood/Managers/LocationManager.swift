@@ -8,13 +8,28 @@
 import Foundation
 import CoreLocation
 
+protocol LocationFetcher {
+    var locationFetcherDelegate: LocationFetcherDelegate? { get set }
+    var desiredAccuracy: CLLocationAccuracy { get set }
+    var distanceFilter: CLLocationDistance { get set }
+    var pausesLocationUpdatesAutomatically: Bool { get set }
+    var location: CLLocation? { get }
+    func requestLocation()
+    func startUpdatingLocation()
+    func requestWhenInUseAuthorization()
+}
+
+protocol LocationFetcherDelegate: AnyObject {
+    func locationFetcher(_ fetcher: LocationFetcher, didUpdateLocations locations: [CLLocation])
+}
+
 final class LocationManager: NSObject, ObservableObject {
-    
+
     @Published var currentLocation: CLLocation?
     @Published var previousLocation: CLLocation?
     
     @Published var cityName: String?
-    static let locationManager = CLLocationManager()
+    static var locationManager: LocationFetcher = CLLocationManager()
     
     override init() {
         super.init()
@@ -23,7 +38,7 @@ final class LocationManager: NSObject, ObservableObject {
         LocationManager.locationManager.pausesLocationUpdatesAutomatically = true
         LocationManager.locationManager.requestWhenInUseAuthorization()
         LocationManager.locationManager.startUpdatingLocation()
-        LocationManager.locationManager.delegate = self
+        LocationManager.locationManager.locationFetcherDelegate = self
     }
 }
 
@@ -38,11 +53,14 @@ extension LocationManager: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        self.locationFetcher(manager, didUpdateLocations: locations)
         currentLocation = locations.last
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error)
+        #if DEBUG
+        print("Location didFailWithError -- \(error)")
+        #endif
     }
     
     static func cityName(at location: CLLocation) async -> String? {
@@ -69,4 +87,18 @@ extension LocationManager: CLLocationManagerDelegate {
         }
     }
     
+}
+
+extension LocationManager: LocationFetcherDelegate {
+    func locationFetcher(_ fetcher: LocationFetcher, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.last else { return }
+        self.currentLocation = location
+    }
+}
+
+extension CLLocationManager: LocationFetcher {
+    var locationFetcherDelegate: LocationFetcherDelegate? {
+        get { return delegate as! LocationFetcherDelegate? }
+        set { delegate = newValue as! CLLocationManagerDelegate? }
+    }
 }

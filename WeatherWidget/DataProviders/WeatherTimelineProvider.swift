@@ -9,6 +9,7 @@ import WidgetKit
 import WeatherKit
 import Intents
 import Combine
+import FirebaseStorage
 
 @available(iOS 17.0, *)
 struct WeatherTimelineProvider: AppIntentTimelineProvider {
@@ -36,29 +37,36 @@ struct WeatherTimelineProvider: AppIntentTimelineProvider {
                                 cityName: self.defaultCityName,
                                 weather: nil,
                                 image: nil,
-                                quote: "Snapshot1")
+                                quote: WidgetConstants.demoQuote)
         }
         do {
             
             async let cityName = LocationManager.cityName(at: location)
             async let weather = weatherService.weather(for: location)
-            let image = try await firestoreManager.fetchBackground(weather.currentWeather.condition.rawValue)
+            let image = try await firestoreManager.fetchBackground(weather.currentWeather.condition.weatherIcon)
             
             let entry = try await WeatherEntry(date: Date(),
                                                cityName: cityName ?? self.defaultCityName,
                                                weather: weather,
                                                image: image,
-                                               quote: "Snapshot3")
+                                               quote:  WidgetConstants.demoQuote)
             return entry
+        }
+        catch WeatherError.unknown,
+              WeatherError.permissionDenied {
+            return WeatherEntry(date: Date(),
+                                cityName: self.defaultCityName,
+                                weather: nil,
+                                image: nil,
+                                quote: "Weather Error")
         }
         catch {
             return WeatherEntry(date: Date(),
                                 cityName: self.defaultCityName,
                                 weather: nil,
                                 image: nil,
-                                quote: "Snapshot2")
+                                quote: "Storage Error")
         }
-
        
     }
     
@@ -69,14 +77,14 @@ struct WeatherTimelineProvider: AppIntentTimelineProvider {
                                      cityName: self.defaultCityName,
                                      weather: nil,
                                      image: nil,
-                                     quote: configuration.quote ?? WidgetConstants.demoQuote)
+                                     quote: "No location found") //TODO: demo quote
             return Timeline(entries: [entry],
                             policy: .atEnd)
         }
         do {
             async let cityName = LocationManager.cityName(at: location)
             async let weather = weatherService.weather(for: location)
-            let image = try await firestoreManager.fetchBackground(weather.currentWeather.condition.rawValue)
+            let image = try await firestoreManager.fetchBackground(weather.currentWeather.condition.weatherIcon)
             
             let entry = try await WeatherEntry(date: Date(),
                                                cityName: cityName ?? self.defaultCityName,
@@ -84,7 +92,6 @@ struct WeatherTimelineProvider: AppIntentTimelineProvider {
                                                image: image,
                                                quote: configuration.quote ?? WidgetConstants.demoQuote)
             
-            // TODO: Might need to change update policy.
             return Timeline(entries: [entry],
                             policy: .atEnd)
         }
@@ -93,7 +100,8 @@ struct WeatherTimelineProvider: AppIntentTimelineProvider {
                                      cityName: self.defaultCityName,
                                      weather: nil,
                                      image: nil,
-                                     quote: configuration.quote ?? WidgetConstants.demoQuote)
+                                     quote: "\(error)")
+//            configuration.quote ?? WidgetConstants.demoQuote
             return Timeline(entries: [entry],
                             policy: .atEnd)
         }
