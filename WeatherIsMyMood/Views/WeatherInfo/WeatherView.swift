@@ -7,6 +7,7 @@
 
 import SwiftUI
 import WeatherKit
+import CoreLocation
 
 struct WeatherView: View {
     
@@ -191,5 +192,5 @@ extension WeatherView {
 }
 
 #Preview {
-    WeatherView(locationManager: LocationManager())
+    WeatherView(locationManager: LocationManager(locationFetcher: CLLocationManager()))
 }

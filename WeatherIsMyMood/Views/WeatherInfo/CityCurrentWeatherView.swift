@@ -147,7 +147,3 @@ extension CityCurrentWeatherView {
         }
     }
 }
-
-#Preview {
-    WeatherView(locationManager: LocationManager())
-}

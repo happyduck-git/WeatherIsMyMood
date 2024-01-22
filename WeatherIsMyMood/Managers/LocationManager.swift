@@ -27,29 +27,30 @@ final class LocationManager: NSObject, ObservableObject {
 
     @Published var currentLocation: CLLocation?
     @Published var previousLocation: CLLocation?
-    
     @Published var cityName: String?
-    static var locationManager: LocationFetcher = CLLocationManager()
     
-    override init() {
+    var locationFetcher: LocationFetcher
+    
+    init(locationFetcher: LocationFetcher) {
+        self.locationFetcher = locationFetcher
         super.init()
-        LocationManager.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
-        LocationManager.locationManager.distanceFilter = 1_000
-        LocationManager.locationManager.pausesLocationUpdatesAutomatically = true
-        LocationManager.locationManager.requestWhenInUseAuthorization()
-        LocationManager.locationManager.startUpdatingLocation()
-        LocationManager.locationManager.locationFetcherDelegate = self
+        self.locationFetcher.desiredAccuracy = kCLLocationAccuracyKilometer
+        self.locationFetcher.distanceFilter = 1_000
+        self.locationFetcher.pausesLocationUpdatesAutomatically = true
+        self.locationFetcher.requestWhenInUseAuthorization()
+        self.locationFetcher.startUpdatingLocation()
+        self.locationFetcher.locationFetcherDelegate = self
     }
 }
 
 extension LocationManager: CLLocationManagerDelegate {
     
     func requestOnTimeLocation() {
-        currentLocation = LocationManager.locationManager.location
+        currentLocation = self.locationFetcher.location
     }
     
     func refreshLocation() {
-        LocationManager.locationManager.startUpdatingLocation()
+        self.locationFetcher.startUpdatingLocation()
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

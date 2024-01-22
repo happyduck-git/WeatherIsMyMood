@@ -9,27 +9,31 @@ import SwiftUI
 import WeatherKit
 import WidgetKit
 import FirebaseCore
+import CoreLocation
 
 struct WeatherWidget: Widget {
+    
+    var locationManager: LocationManager = LocationManager(locationFetcher: CLLocationManager())
 
     public var body: some WidgetConfiguration {
         self.makeWidgetConfiguration()
     }
     
     func makeWidgetConfiguration() -> some WidgetConfiguration {
+        
 #if os(iOS)
         if #available(iOS 17.0, *) {
       
             return AppIntentConfiguration(kind: "WeatherWidget",
                                           intent: WeatherAppIntent.self,
-                                          provider: WeatherTimelineProvider()) { entry in
+                                          provider: WeatherTimelineProvider(locationManager: self.locationManager)) { entry in
                 WeatherEntryView(entry: entry)
             }.supportedFamilies(supportedFamilies)
             
         } else {
             return IntentConfiguration(kind: "WeatherWidget",
                                        intent: IntentIntent.self,
-                                       provider: SiriKitIntentProvider()) { entry in
+                                       provider: SiriKitIntentProvider(locationManager: self.locationManager)) { entry in
                 WeatherEntryView(entry: entry)
             }.supportedFamilies(supportedFamilies)
         }

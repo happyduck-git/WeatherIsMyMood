@@ -48,8 +48,13 @@ final class LocationManagerTest: XCTestCase {
     }
 
     func test_CheckCurrentLocation() {
-        locationFetcher.location = CLLocation(latitude: 37.4563, longitude: 126.7052)
-        let locationManager = LocationManager()
+        let locationManager = LocationManager(locationFetcher: self.locationFetcher)
+        let mockLoc = CLLocation(latitude: 37.4563, longitude: 126.7052)
+        locationManager.locationFetcher(self.locationFetcher, didUpdateLocations: [mockLoc])
+        
+        XCTAssertTrue(locationManager.currentLocation == mockLoc,
+                      "Current Location is different. Mock location is \(mockLoc), current location is \(locationManager.currentLocation)")
+        
     }
 
 }

@@ -49,6 +49,3 @@ struct TenDayForcastView: View {
     }
 }
 
-#Preview {
-    WeatherView(locationManager: LocationManager())
-}

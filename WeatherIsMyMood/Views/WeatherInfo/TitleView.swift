@@ -25,6 +25,3 @@ struct TitleView: View {
     }
 }
 
-#Preview {
-    WeatherView(locationManager: LocationManager())
-}
