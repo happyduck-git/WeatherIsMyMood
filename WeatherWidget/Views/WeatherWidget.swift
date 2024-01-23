@@ -71,6 +71,7 @@ struct WeatherEntryView: View {
                         .frame(maxWidth: .infinity, alignment: .center)
                         .font(.system(size: 11))
                 }
+                .widgetPadding()
                 .widgetBackground(with: entry.image)
                 
             case .systemMedium:
@@ -87,10 +88,12 @@ struct WeatherEntryView: View {
                         .frame(maxWidth: .infinity, alignment: .center)
                         .font(.system(size: 15))
                 }
+                .widgetPadding()
                 .widgetBackground(with: entry.image)
                 
             default:
                 Text("Stay tuned!")
+                    .widgetPadding()
                     .widgetBackground(with: entry.image)
             }
         } else {
@@ -103,6 +106,7 @@ struct WeatherEntryView: View {
                     .frame(maxWidth: .infinity, alignment: .center)
                     .font(.system(size: 11))
             }
+            .widgetPadding()
             .widgetBackground(with: entry.image)
         }
 
@@ -227,27 +231,45 @@ extension WeatherEntryView {
 }
 
 extension View {
+    @ViewBuilder
     func widgetBackground(with imageData: Data?) -> some View {
-        let viewBuilder: () -> AnyView = {
+        
+        if let imageData = imageData,
+           let image = UIImage(data: imageData) {
             if #available(iOS 17.0, *) {
-                if let imageData = imageData,
-                   let image = UIImage(data: imageData) {
-                    return AnyView(
-                        containerBackground(for: .widget) {
-                            Image(uiImage: image)
-                                .resizable(resizingMode: .stretch)
-                                .frame(width: 360, height: 360)
-                                .opacity(0.6)
-                        }
-                    )
-                } else {
-                    return AnyView(containerBackground(for: .widget) { Color.white })
+                containerBackground(for: .widget) {
+                    Image(uiImage: image)
+                        .resizable(resizingMode: .stretch)
+                        .frame(width: 360, height: 360)
+                        .opacity(0.6)
                 }
+                
             } else {
-                return AnyView(background { Color.white })
+                background {
+                    Image(uiImage: image)
+                        .resizable(resizingMode: .stretch)
+                        .frame(width: 360, height: 360)
+                        .opacity(0.6)
+                }
+            }
+            
+        } else {
+            if #available(iOS 17.0, *) {
+                containerBackground(for: .widget) { Color.white }
+            } else {
+                background { Color.white }
             }
         }
-        return viewBuilder()
+        
+    }
+        
+    func widgetPadding() -> some View {
+        if #available(iOS 17.0, *) {
+            return self.padding(.zero)
+        }
+        else {
+            return self.padding(.all)
+        }
     }
 }
 

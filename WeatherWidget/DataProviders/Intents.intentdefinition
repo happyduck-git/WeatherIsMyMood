@@ -45,7 +45,7 @@
 						<key>INIntentParameterMetadataCapitalization</key>
 						<string>Sentences</string>
 						<key>INIntentParameterMetadataDefaultValue</key>
-						<string>✨You are enough just as you are.</string>
+						<string>Your quote here 🙂</string>
 						<key>INIntentParameterMetadataDefaultValueID</key>
 						<string>5dwPvR</string>
 					</dict>

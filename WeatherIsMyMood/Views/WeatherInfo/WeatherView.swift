@@ -66,7 +66,7 @@ struct WeatherView: View {
                 do {
                     async let weather = weatherService.weather(for: location)
                     async let attribution = weatherService.attribution
-                    async let cityName = LocationManager.cityName(at: location)
+                    async let cityName = CLLocationManager.cityName(at: location)
                     
                     self.weather = try await weather
                     self.attribution = try await attribution
@@ -148,7 +148,7 @@ extension WeatherView {
     private func updateLocationStatus(to city: String) {
         if !city.isEmpty {
             Task {
-                let loc = await self.locationManager.location(forCity: city)
+                let loc = await self.locationManager.locationFetcher.location(forCity: city, geocoder: CLGeocoder())
                 guard let loc else {
                     self.locationFound = false
                     return
@@ -162,7 +162,7 @@ extension WeatherView {
     private func demoUpdateLocation(to city: String) {
     
             Task {
-                let loc = await self.locationManager.location(forCity: city)
+                let loc = await self.locationManager.locationFetcher.location(forCity: city, geocoder: CLGeocoder())
                 guard let loc else {
                    print("No location found \(city)")
                     return

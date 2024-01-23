@@ -45,7 +45,7 @@ struct WeatherTimelineProvider: AppIntentTimelineProvider {
         }
         do {
             
-            async let cityName = LocationManager.cityName(at: location)
+            async let cityName = CLLocationManager.cityName(at: location)
             async let weather = weatherService.weather(for: location)
             let image = try await firestoreManager.fetchBackground(weather.currentWeather.condition.weatherIcon)
             
@@ -86,7 +86,7 @@ struct WeatherTimelineProvider: AppIntentTimelineProvider {
                             policy: .atEnd)
         }
         do {
-            async let cityName = LocationManager.cityName(at: location)
+            async let cityName = CLLocationManager.cityName(at: location)
             async let weather = weatherService.weather(for: location)
             let image = try await firestoreManager.fetchBackground(weather.currentWeather.condition.weatherIcon)
             
@@ -150,7 +150,7 @@ struct SiriKitIntentProvider: IntentTimelineProvider {
         Task {
             do {
                 
-                async let cityName = LocationManager.cityName(at: location)
+                async let cityName = CLLocationManager.cityName(at: location)
                 async let weather = weatherService.weather(for: location)
                 let image = try await firestoreManager.fetchBackground(weather.currentWeather.condition.weatherIcon)
                 
@@ -197,7 +197,7 @@ struct SiriKitIntentProvider: IntentTimelineProvider {
         
         Task {
             do {
-                async let cityName = LocationManager.cityName(at: location)
+                async let cityName = CLLocationManager.cityName(at: location)
                 async let weather = weatherService.weather(for: location)
                 let image = try await firestoreManager.fetchBackground(weather.currentWeather.condition.weatherIcon)
                 
