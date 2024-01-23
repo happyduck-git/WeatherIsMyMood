@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreLocation
+import OSLog
 
 protocol LocationFetcher {
     var locationFetcherDelegate: LocationFetcherDelegate? { get set }
@@ -21,6 +22,7 @@ protocol LocationFetcher {
 
 protocol LocationFetcherDelegate: AnyObject {
     func locationFetcher(_ fetcher: LocationFetcher, didUpdateLocations locations: [CLLocation])
+    func locationFetcher(_ fetcher: LocationFetcher, didFailWithError error: Error)
 }
 
 final class LocationManager: NSObject, ObservableObject {
@@ -28,6 +30,7 @@ final class LocationManager: NSObject, ObservableObject {
     @Published var currentLocation: CLLocation?
     @Published var previousLocation: CLLocation?
     @Published var cityName: String?
+    @Published var error: Error?
     
     var locationFetcher: LocationFetcher
     
@@ -60,8 +63,9 @@ extension LocationManager: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         #if DEBUG
-        print("Location didFailWithError -- \(error)")
+        Logger().error("Location didFailWithError -- \(error)")
         #endif
+        self.locationFetcher(manager, didFailWithError: error)
     }
     
     static func cityName(at location: CLLocation) async -> String? {
@@ -95,6 +99,11 @@ extension LocationManager: LocationFetcherDelegate {
         guard let location = locations.last else { return }
         self.currentLocation = location
     }
+    
+    func locationFetcher(_ fetcher: LocationFetcher, didFailWithError error: Error) {
+        self.error = error
+    }
+    
 }
 
 extension CLLocationManager: LocationFetcher {
