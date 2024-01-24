@@ -243,7 +243,11 @@
         }
       }
     },
+    "Loading weather data..." : {
+
+    },
     "Loading weather error..." : {
+      "extractionState" : "stale",
       "localizations" : {
         "ko" : {
           "stringUnit" : {

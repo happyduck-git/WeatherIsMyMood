@@ -1039,6 +1039,7 @@
 				INFOPLIST_FILE = WeatherWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = WeatherWidget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSLocationUsageDescription = "웨더 아일랜드의 위젯에서 위치 정보를 사용하고자 합니다. 현재 위치한 장소의 날씨 정보를 불러오기 위하여 사용됩니다.";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1068,6 +1069,7 @@
 				INFOPLIST_FILE = WeatherWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = WeatherWidget;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSLocationUsageDescription = "웨더 아일랜드의 위젯에서 위치 정보를 사용하고자 합니다. 현재 위치한 장소의 날씨 정보를 불러오기 위하여 사용됩니다.";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

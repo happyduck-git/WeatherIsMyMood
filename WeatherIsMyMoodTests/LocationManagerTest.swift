@@ -14,7 +14,9 @@ import Contacts
 final class LocationManagerTest: XCTestCase {
     var locationFetcher: MockLocationFetcher!
     var locationManager: LocationManager!
-    let mockCoordinate = CLLocationCoordinate2D(latitude: 40.7128, longitude: -74.0060)
+    var mockGeocoder: GeoCoder!
+    let mockCity: String = "New York"
+    let mockCoordinate = CLLocation(latitude: 40.7128, longitude: -74.0060)
     
     struct MockLocationFetcher: LocationFetcher {
         
@@ -62,15 +64,27 @@ final class LocationManagerTest: XCTestCase {
     }
     
     struct MockGeoCoder: GeoCoder {
+        let mockCity: String = "New York"
+        let mockLoc = CLLocation(latitude: 40.7128, longitude: -74.0060)
+        
         func geocodeAddressString(_ addressString: String, in region: CLRegion?) async throws -> [CLPlacemark] {
-            return []
+            guard let loc = self.convertAddressToLocation(addressString) else {
+                return []
+            }
+            let mockAddressDictionary: [String: Any] = [
+                CNPostalAddressCityKey: mockCity
+            ]
+            
+            let placemark = MKPlacemark(coordinate: loc.coordinate,
+                                        addressDictionary: mockAddressDictionary)
+            return [placemark]
         }
         
         func reverseGeocodeLocation(_ location: CLLocation, preferredLocale locale: Locale?) async throws -> [CLPlacemark] {
             
             // Create a mock CLPlacemark
             let mockAddressDictionary: [String: Any] = [
-                CNPostalAddressCityKey: "New York"
+                CNPostalAddressCityKey: mockCity
             ]
             
             let placemark = MKPlacemark(coordinate: location.coordinate,
@@ -78,13 +92,19 @@ final class LocationManagerTest: XCTestCase {
             return [placemark]
             
         }
+        
+        private func convertAddressToLocation(_ addressString: String) -> CLLocation? {
+            if addressString == mockCity {
+                return mockLoc
+            }
+            return nil
+        }
     }
 
-    
-    
     override func setUpWithError() throws {
         locationFetcher = MockLocationFetcher()
         locationManager = LocationManager(locationFetcher: locationFetcher)
+        mockGeocoder = MockGeoCoder()
     }
 
     override func tearDownWithError() throws {
@@ -96,7 +116,7 @@ final class LocationManagerTest: XCTestCase {
         self.locationManager.locationFetcher(self.locationFetcher, didUpdateLocations: [mockLoc])
         
         XCTAssertTrue(locationManager.currentLocation == mockLoc,
-                      "Current Location is different. Mock location is \(mockLoc), current location is \(locationManager.currentLocation)")
+                      "Current Location is different. Mock location is \(mockLoc), current location is \(String(describing: locationManager.currentLocation))")
         
     }
     
@@ -108,11 +128,12 @@ final class LocationManagerTest: XCTestCase {
     }
 
     func test_cityName() async {
-        let mockGeocoder = MockGeoCoder()
-        let mockLoc = CLLocation(latitude: mockCoordinate.latitude,
-                                 longitude: mockCoordinate.longitude)
-        
-        let result = await CLLocationManager.cityName(at: mockLoc, geocoder: mockGeocoder)
-        XCTAssertEqual(result!, "New York", "Location differenct: \(result)")
+        let result = await CLLocationManager.cityName(at: self.mockCoordinate, geocoder: mockGeocoder)
+        XCTAssertEqual(result!, "New York", "Location differenct: \(String(describing: result))")
+    }
+    
+    func test_location() async {
+        let result = await self.locationManager.locationFetcher.location(forCity: self.mockCity, geocoder: mockGeocoder)
+        XCTAssertEqual(result!.altitude, self.mockCoordinate.altitude)
     }
 }

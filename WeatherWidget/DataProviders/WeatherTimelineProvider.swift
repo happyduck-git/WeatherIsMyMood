@@ -117,7 +117,7 @@ struct WeatherTimelineProvider: AppIntentTimelineProvider {
 struct SiriKitIntentProvider: IntentTimelineProvider {
 
     typealias Entry = WeatherEntry
-    typealias Intent = IntentIntent
+    typealias Intent = WeatherSiriIntent
     
     private let weatherService: WeatherService = WeatherService.shared
     private let locationManager: LocationManager
@@ -137,7 +137,7 @@ struct SiriKitIntentProvider: IntentTimelineProvider {
                             quote: WidgetConstants.demoQuote)
     }
     
-    func getSnapshot(for configuration: IntentIntent, in context: Context, completion: @escaping (WeatherEntry) -> Void) {
+    func getSnapshot(for configuration: WeatherSiriIntent, in context: Context, completion: @escaping (WeatherEntry) -> Void) {
         guard let location = self.locationManager.locationFetcher.location else {
             let entry = WeatherEntry(date: Date(),
                                      cityName: self.defaultCityName,
@@ -181,7 +181,7 @@ struct SiriKitIntentProvider: IntentTimelineProvider {
         }
 }
     
-    func getTimeline(for configuration: IntentIntent, in context: Context, completion: @escaping (Timeline<WeatherEntry>) -> Void) {
+    func getTimeline(for configuration: WeatherSiriIntent, in context: Context, completion: @escaping (Timeline<WeatherEntry>) -> Void) {
 
         guard let location = self.locationManager.locationFetcher.location else {
             let entry = WeatherEntry(date: Date(),

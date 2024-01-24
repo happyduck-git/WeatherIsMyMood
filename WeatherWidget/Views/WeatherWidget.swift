@@ -32,7 +32,7 @@ struct WeatherWidget: Widget {
             
         } else {
             return IntentConfiguration(kind: "WeatherWidget",
-                                       intent: IntentIntent.self,
+                                       intent: WeatherSiriIntent.self,
                                        provider: SiriKitIntentProvider(locationManager: self.locationManager)) { entry in
                 WeatherEntryView(entry: entry)
             }.supportedFamilies(supportedFamilies)

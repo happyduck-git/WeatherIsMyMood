@@ -47,5 +47,5 @@ enum WidgetConstants {
     
     static let demoQuote = String(localized: "Your quote here 🙂")
     
-    static let loadingError = String(localized: "Loading weather error...")
+    static let loadingError = String(localized: "Loading weather data...")
 }

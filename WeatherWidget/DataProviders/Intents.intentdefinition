@@ -28,14 +28,14 @@
 			<key>INIntentLastParameterTag</key>
 			<integer>1</integer>
 			<key>INIntentName</key>
-			<string>Intent</string>
+			<string>WeatherSiri</string>
 			<key>INIntentParameters</key>
 			<array>
 				<dict>
 					<key>INIntentParameterConfigurable</key>
 					<true/>
 					<key>INIntentParameterDisplayName</key>
-					<string>Quote</string>
+					<string>Personal Quote</string>
 					<key>INIntentParameterDisplayNameID</key>
 					<string>C66TbR</string>
 					<key>INIntentParameterDisplayPriority</key>
@@ -89,7 +89,7 @@
 				</array>
 			</dict>
 			<key>INIntentTitle</key>
-			<string>Intent</string>
+			<string>Weather Siri</string>
 			<key>INIntentTitleID</key>
 			<string>ofcIHN</string>
 			<key>INIntentType</key>
