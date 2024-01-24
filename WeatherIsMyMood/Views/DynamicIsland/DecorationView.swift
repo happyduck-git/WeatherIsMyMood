@@ -10,7 +10,7 @@ import WeatherKit
 
 struct DecorationView: View {
     
-    private let locationManager: LocationManager
+    @ObservedObject private var locationManager: LocationManager
     
     @State private var isFirstLoading = true
     @State private var isLoading = false
@@ -30,7 +30,6 @@ struct DecorationView: View {
     
     init(locationManager: LocationManager) {
         self.locationManager = locationManager
-        print("Deco view Init")
     }
     
     var body: some View {
@@ -87,7 +86,7 @@ struct DecorationView: View {
             print("DecorationView disappeared")
         })
         .task(id: locationManager.currentLocation) {
-            print("DecoView Location from LocMan: \(locationManager.currentLocation?.coordinate.latitude)")
+       
             if let location = locationManager.currentLocation {
                 do {
                     self.weather = try await weatherService.weather(for: location)
@@ -154,7 +153,6 @@ extension DecorationView {
                             EmojiViewCell(emojiData: icons[index])
                                 .onTapGesture {
                                     self.selectedIcon = icons[index]
-                                    print("Tapped Row: \(row), Col: \(col)")
                                 }
                         }
                     }

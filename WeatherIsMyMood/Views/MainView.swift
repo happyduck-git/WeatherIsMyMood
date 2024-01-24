@@ -10,11 +10,7 @@ import CoreLocation
 
 struct MainView: View {
     @StateObject private var locationManager: LocationManager = LocationManager(locationFetcher: CLLocationManager())
-    
-    init() {
-        print("MainViewInit")
-    }
-    
+
     var body: some View {
         TabView {
             WeatherView(locationManager: self.locationManager)
