@@ -30,7 +30,7 @@ struct WeatherTimelineProvider: AppIntentTimelineProvider {
                             cityName: self.defaultCityName,
                             weather: nil,
                             image: nil,
-                            quote: "PlaceHolder")
+                            quote: WidgetConstants.demoQuote)
         
     }
     
@@ -134,7 +134,8 @@ struct SiriKitIntentProvider: IntentTimelineProvider {
                             cityName: self.defaultCityName,
                             weather: nil,
                             image: nil,
-                            quote: WidgetConstants.demoQuote)
+                            quote: "PHWeahterNil")
+        //WidgetConstants.demoQuote
     }
     
     func getSnapshot(for configuration: WeatherSiriIntent, in context: Context, completion: @escaping (WeatherEntry) -> Void) {
@@ -143,7 +144,8 @@ struct SiriKitIntentProvider: IntentTimelineProvider {
                                      cityName: self.defaultCityName,
                                      weather: nil,
                                      image: nil,
-                                     quote: WidgetConstants.demoQuote)
+                                     quote: "SSWeatherNill")
+            //WidgetConstants.demoQuote
             completion(entry)
             return
         }

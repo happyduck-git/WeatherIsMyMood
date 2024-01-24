@@ -27,8 +27,9 @@ struct WeatherView: View {
     
     init(locationManager: LocationManager) {
         self.locationManager = locationManager
+        print("WeatherViewInit")
     }
-    
+
     var body: some View {
         NavigationView {
             ZStack {
@@ -56,12 +57,47 @@ struct WeatherView: View {
                 self.isFirstLoading.toggle()
                 self.isLoading = true
             }
+            print("WeatherView appeared")
         }
-        .task(id: locationManager.currentLocation) {
+        
+        .onReceive(locationManager.$currentLocation, perform: { _ in
+//            print("Received val: \($0?.coordinate.latitude)")
+//            Task {
+//                if let location = loc {
+//                    #if DEBUG
+//                    print("Loc on weatherView: \(location.coordinate.latitude)")
+//                    #endif
+//                    do {
+//                        async let weather = weatherService.weather(for: location)
+//                        async let attribution = weatherService.attribution
+//                        async let cityName = CLLocationManager.cityName(at: location)
+//                        
+//                        self.weather = try await weather
+//                        self.attribution = try await attribution
+//                        if let unwrappedCityName = await cityName {
+//                            self.cityName = unwrappedCityName
+//                        } else {
+//                            self.locationFound = false
+//                        }
+//                        
+//                        self.hourlyWeatherData = self.filterHours(of: self.weather?.hourlyForecast, count: 24)
+//                        
+//                        self.isLoading = false
+//                    }
+//                    catch {
+//                        print(error)
+//                    }
+//                } else {
+//                    print("Current location found to be nil!")
+//                }
+//            }
             
+        })
+        .task(id: locationManager.currentLocation) {
+            print("Weather view task running \(locationManager.currentLocation?.coordinate.latitude)")
             if let location = locationManager.currentLocation {
                 #if DEBUG
-                print("Loc on weatherView: \(location)")
+                print("Loc on weatherView: \(location.coordinate.latitude)")
                 #endif
                 do {
                     async let weather = weatherService.weather(for: location)
@@ -83,6 +119,8 @@ struct WeatherView: View {
                 catch {
                     print(error)
                 }
+            } else {
+                print("Current location found to be nil!")
             }
         }
         .onTapGesture {

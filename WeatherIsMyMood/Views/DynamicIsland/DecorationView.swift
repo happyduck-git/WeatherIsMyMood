@@ -30,6 +30,7 @@ struct DecorationView: View {
     
     init(locationManager: LocationManager) {
         self.locationManager = locationManager
+        print("Deco view Init")
     }
     
     var body: some View {
@@ -79,7 +80,14 @@ struct DecorationView: View {
                 LoadingView()
             }
         }
+        .onAppear(perform: {
+            print("DecorationView appeared")
+        })
+        .onDisappear(perform: {
+            print("DecorationView disappeared")
+        })
         .task(id: locationManager.currentLocation) {
+            print("DecoView Location from LocMan: \(locationManager.currentLocation?.coordinate.latitude)")
             if let location = locationManager.currentLocation {
                 do {
                     self.weather = try await weatherService.weather(for: location)
@@ -93,7 +101,7 @@ struct DecorationView: View {
                     print("Error fething weather from location -- \(error)")
                 }
             } else {
-                print("Location found to be nil: \(locationManager.currentLocation)")
+                print("Location found to be nil -- DecorationView")
             }
         }
         .onChange(of: self.weather, perform: { newWeather in

@@ -54,8 +54,7 @@ final class LocationManager: NSObject, ObservableObject {
     
 }
 
-extension LocationManager: CLLocationManagerDelegate {
-    
+extension LocationManager {
     func requestOnTimeLocation() {
         currentLocation = self.locationFetcher.location
     }
@@ -63,10 +62,13 @@ extension LocationManager: CLLocationManagerDelegate {
     func refreshLocation() {
         self.locationFetcher.startUpdatingLocation()
     }
+}
+
+extension LocationManager: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("Location updated: \(locations.map({ $0.coordinate.latitude }))")
         self.locationFetcher(manager, didUpdateLocations: locations)
-        currentLocation = locations.last
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -80,8 +82,8 @@ extension LocationManager: CLLocationManagerDelegate {
 
 extension LocationManager: LocationFetcherDelegate {
     func locationFetcher(_ fetcher: LocationFetcher, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else { return }
-        self.currentLocation = location
+        self.currentLocation = locations.last
+//        print("Current Loction value: \(self.currentLocation?.coordinate.latitude)")
     }
     
     func locationFetcher(_ fetcher: LocationFetcher, didFailWithError error: Error) {

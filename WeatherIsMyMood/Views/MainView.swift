@@ -9,7 +9,11 @@ import SwiftUI
 import CoreLocation
 
 struct MainView: View {
-    let locationManager: LocationManager = LocationManager(locationFetcher: CLLocationManager())
+    @StateObject private var locationManager: LocationManager = LocationManager(locationFetcher: CLLocationManager())
+    
+    init() {
+        print("MainViewInit")
+    }
     
     var body: some View {
         TabView {
