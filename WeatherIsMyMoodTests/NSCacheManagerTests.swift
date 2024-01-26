@@ -9,30 +9,6 @@ import XCTest
 @testable import WeatherIsMyMood
 
 final class NSCacheManagerTests: XCTestCase {
-
-    class MockCache: NSCache<NSString, NSObject> {
-        var cache: [NSString: NSObject] = [:]
-        
-        override func setObject(_ obj: NSObject, forKey key: NSString) {
-            cache[key] = obj
-        }
-        override func object(forKey key: NSString) -> NSObject? {
-            return cache[key]
-        }
-    }
-    
-    struct MockCacheManager: Cachable {
-        var cache: NSCache<NSString, NSObject> = MockCache()
-        
-        func setCache(_ object: NSObject, for key: String) {
-            cache.setObject(object, forKey: key as NSString)
-        }
-        
-        func getCache(for key: String) -> NSObject? {
-            cache.object(forKey: key as NSString)
-        }
-    }
-    
     class MockClass: NSObject {
         let name: String
         
@@ -41,10 +17,10 @@ final class NSCacheManagerTests: XCTestCase {
         }
     }
     
-    var cacheManager: MockCacheManager!
+    var cacheManager: NSCacheManager!
     
     override func setUpWithError() throws {
-        cacheManager = MockCacheManager()
+        cacheManager = NSCacheManager()
     }
 
     override func tearDownWithError() throws {
@@ -58,7 +34,7 @@ final class NSCacheManagerTests: XCTestCase {
         
         cacheManager.setCache(object, for: key)
         
-        let savedCache = cacheManager.cache.object(forKey: key as NSString) as? MockClass
+        let savedCache = cacheManager.getCache(for: key) as? MockClass
         XCTAssertNotNil(savedCache)
         XCTAssertEqual(savedCache!.name, name)
     }
