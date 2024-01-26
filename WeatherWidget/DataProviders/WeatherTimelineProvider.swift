@@ -8,21 +8,82 @@
 import WidgetKit
 import WeatherKit
 import Intents
+import AppIntents
 import Combine
 import FirebaseStorage
+import UIKit
+
+protocol TimelineProviderTask {
+    var defaultCityName: String { get }
+    var locationManager: LocationManager { get }
+    var cacheManager: NSCacheManager { get }
+    var weatherService: WeatherService { get }
+    var firestoreManager: FirestoreManager { get }
+    func makeWeatherEntryWhenLocationNotFound() -> WeatherEntry
+    func makeWeatherEntryWhenLocationFound(location: CLLocation, config: CommonIntent) async -> WeatherEntry
+}
+
+extension TimelineProviderTask {
+    
+    var defaultCityName: String { WidgetConstants.appName }
+    var weatherService: WeatherService { WeatherService.shared }
+    
+    func makeWeatherEntryWhenLocationNotFound() -> WeatherEntry {
+        /// Check if there is cached data.
+        if let cachedData = self.cacheManager.getCache(for: WidgetConstants.entryCache) as? StructWrapper<WeatherEntry> {
+            return cachedData.value
+        } else {
+            return WeatherEntry(date: Date(),
+                                cityName: self.defaultCityName,
+                                weather: nil,
+                                image: UIImage(resource: .clearCloudy).pngData(),
+                                quote: "No location found")
+        }
+    }
+    
+    func makeWeatherEntryWhenLocationFound(location: CLLocation, config: CommonIntent) async -> WeatherEntry {
+        do {
+            async let cityName = CLLocationManager.cityName(at: location)
+            async let weather = weatherService.weather(for: location)
+            let image = try await firestoreManager.fetchBackground(weather.currentWeather.condition.weatherIcon)
+            
+            let entry = try await WeatherEntry(date: Date(),
+                                               cityName: cityName ?? self.defaultCityName,
+                                               weather: weather,
+                                               image: image,
+                                               quote: config.quote ?? WidgetConstants.demoQuote)
+            
+            let wrappedEntry: StructWrapper<WeatherEntry> = StructWrapper(entry)
+            self.cacheManager.setCache(wrappedEntry, for: WidgetConstants.entryCache)
+            
+            return entry
+        }
+        catch {
+            return WeatherEntry(date: Date(),
+                                cityName: self.defaultCityName,
+                                weather: nil,
+                                image: UIImage(resource: .clearCloudy).pngData(),
+                                quote: "\(error)")
+        }
+    }
+}
 
 @available(iOS 17.0, *)
-struct WeatherTimelineProvider: AppIntentTimelineProvider {
+struct WeatherTimelineProvider: AppIntentTimelineProvider, TimelineProviderTask {
     typealias Entry = WeatherEntry
     typealias Intent = WeatherAppIntent
     
-    private let weatherService: WeatherService = WeatherService.shared
-    private let firestoreManager: FirestoreManager = FirestoreManager()
-    private let locationManager: LocationManager
-    private let defaultCityName: String = WidgetConstants.appName
+    var locationManager: LocationManager
+    var cacheManager: NSCacheManager
+    var firestoreManager: FirestoreManager
     
-    init(locationManager: LocationManager) {
+    init(locationManager: LocationManager,
+         cacheManager: NSCacheManager,
+         firestoreManager: FirestoreManager) {
+        
         self.locationManager = locationManager
+        self.cacheManager = cacheManager
+        self.firestoreManager = firestoreManager
     }
     
     func placeholder(in context: Context) -> WeatherEntry {
@@ -37,96 +98,45 @@ struct WeatherTimelineProvider: AppIntentTimelineProvider {
     func snapshot(for configuration: WeatherAppIntent, in context: Context) async -> WeatherEntry {
         
         guard let location = self.locationManager.locationFetcher.location else {
-            return WeatherEntry(date: Date(),
-                                cityName: self.defaultCityName,
-                                weather: nil,
-                                image: nil,
-                                quote: WidgetConstants.demoQuote)
+            return self.makeWeatherEntryWhenLocationNotFound()
         }
-        do {
-            
-            async let cityName = CLLocationManager.cityName(at: location)
-            async let weather = weatherService.weather(for: location)
-            let image = try await firestoreManager.fetchBackground(weather.currentWeather.condition.weatherIcon)
-            
-            let entry = try await WeatherEntry(date: Date(),
-                                               cityName: cityName ?? self.defaultCityName,
-                                               weather: weather,
-                                               image: image,
-                                               quote:  WidgetConstants.demoQuote)
-            return entry
-        }
-        catch WeatherError.unknown,
-              WeatherError.permissionDenied {
-            return WeatherEntry(date: Date(),
-                                cityName: self.defaultCityName,
-                                weather: nil,
-                                image: nil,
-                                quote: "Weather Error")
-        }
-        catch {
-            return WeatherEntry(date: Date(),
-                                cityName: self.defaultCityName,
-                                weather: nil,
-                                image: nil,
-                                quote: "\(error)")
-        }
-       
+        
+        return await self.makeWeatherEntryWhenLocationFound(location: location, config: configuration)
     }
     
     func timeline(for configuration: WeatherAppIntent, in context: Context) async -> Timeline<WeatherEntry> {
         
         guard let location = self.locationManager.locationFetcher.location else {
-            let entry = WeatherEntry(date: Date(),
-                                     cityName: self.defaultCityName,
-                                     weather: nil,
-                                     image: nil,
-                                     quote: "No location found")
-            return Timeline(entries: [entry],
-                            policy: .atEnd)
-        }
-        do {
-            async let cityName = CLLocationManager.cityName(at: location)
-            async let weather = weatherService.weather(for: location)
-            let image = try await firestoreManager.fetchBackground(weather.currentWeather.condition.weatherIcon)
             
-            let entry = try await WeatherEntry(date: Date(),
-                                               cityName: cityName ?? self.defaultCityName,
-                                               weather: weather,
-                                               image: image,
-                                               quote: configuration.quote ?? WidgetConstants.demoQuote)
-            
-            return Timeline(entries: [entry],
-                            policy: .atEnd)
-        }
-        catch {
-            let entry = WeatherEntry(date: Date(),
-                                     cityName: self.defaultCityName,
-                                     weather: nil,
-                                     image: nil,
-                                     quote: "\(error)")
+            let entry = self.makeWeatherEntryWhenLocationNotFound()
             return Timeline(entries: [entry],
                             policy: .atEnd)
         }
         
+        let entry = await makeWeatherEntryWhenLocationFound(location: location, config: configuration)
+        return Timeline(entries: [entry],
+                        policy: .atEnd)
     }
-
+    
 }
 
 
-struct SiriKitIntentProvider: IntentTimelineProvider {
-
+struct SiriKitIntentProvider: IntentTimelineProvider, TimelineProviderTask {
+    
     typealias Entry = WeatherEntry
     typealias Intent = WeatherSiriIntent
     
-    private let weatherService: WeatherService = WeatherService.shared
-    private let locationManager: LocationManager
-    private let firestoreManager: FirestoreManager = FirestoreManager()
-   
-    private let defaultCityName: String = WidgetConstants.appName
+    var locationManager: LocationManager
+    var cacheManager: NSCacheManager
+    var firestoreManager: FirestoreManager
     
-    init(locationManager: LocationManager) {
+    init(locationManager: LocationManager,
+         cacheManager: NSCacheManager,
+         firestoreManager: FirestoreManager) {
+        
         self.locationManager = locationManager
+        self.cacheManager = cacheManager
+        self.firestoreManager = firestoreManager
     }
     
     func placeholder(in context: Context) -> WeatherEntry {
@@ -135,97 +145,39 @@ struct SiriKitIntentProvider: IntentTimelineProvider {
                             weather: nil,
                             image: nil,
                             quote: "PHWeahterNil")
-        //WidgetConstants.demoQuote
     }
     
     func getSnapshot(for configuration: WeatherSiriIntent, in context: Context, completion: @escaping (WeatherEntry) -> Void) {
         guard let location = self.locationManager.locationFetcher.location else {
-            let entry = WeatherEntry(date: Date(),
-                                     cityName: self.defaultCityName,
-                                     weather: nil,
-                                     image: nil,
-                                     quote: "SSWeatherNill")
-            //WidgetConstants.demoQuote
+            let entry = self.makeWeatherEntryWhenLocationNotFound()
             completion(entry)
             return
         }
         Task {
-            do {
-                
-                async let cityName = CLLocationManager.cityName(at: location)
-                async let weather = weatherService.weather(for: location)
-                let image = try await firestoreManager.fetchBackground(weather.currentWeather.condition.weatherIcon)
-                
-                let entry = try await WeatherEntry(date: Date(),
-                                                   cityName: cityName ?? self.defaultCityName,
-                                                   weather: weather,
-                                                   image: image,
-                                                   quote:  WidgetConstants.demoQuote)
-                completion(entry)
-            }
-            catch WeatherError.unknown,
-                  WeatherError.permissionDenied {
-                let entry = WeatherEntry(date: Date(),
-                                         cityName: self.defaultCityName,
-                                         weather: nil,
-                                         image: nil,
-                                         quote: "Weather Error")
-                completion(entry)
-            }
-            catch {
-                let entry = WeatherEntry(date: Date(),
-                                         cityName: self.defaultCityName,
-                                         weather: nil,
-                                         image: nil,
-                                         quote: "Storage Error -- \(error)")
-                completion(entry)
-            }
+            let entry = await makeWeatherEntryWhenLocationFound(location: location, config: configuration)
+            completion(entry)
         }
-}
+    }
     
     func getTimeline(for configuration: WeatherSiriIntent, in context: Context, completion: @escaping (Timeline<WeatherEntry>) -> Void) {
-
+        
+        /// When location is not found or granted.
         guard let location = self.locationManager.locationFetcher.location else {
-            let entry = WeatherEntry(date: Date(),
-                                     cityName: self.defaultCityName,
-                                     weather: nil,
-                                     image: nil,
-                                     quote: "No location found")
+            let entry = self.makeWeatherEntryWhenLocationNotFound()
             let timeline = Timeline(entries: [entry],
-                            policy: .atEnd)
+                                    policy: .atEnd)
             completion(timeline)
             return
         }
         
         Task {
-            do {
-                async let cityName = CLLocationManager.cityName(at: location)
-                async let weather = weatherService.weather(for: location)
-                let image = try await firestoreManager.fetchBackground(weather.currentWeather.condition.weatherIcon)
-                
-                let entry = try await WeatherEntry(date: Date(),
-                                                   cityName: cityName ?? self.defaultCityName,
-                                                   weather: weather,
-                                                   image: image,
-                                                   quote: configuration.quote ?? WidgetConstants.demoQuote)
-                
-                let timeline = Timeline(entries: [entry],
-                                policy: .atEnd)
-                completion(timeline)
-            }
-            catch {
-                let entry = WeatherEntry(date: Date(),
-                                         cityName: self.defaultCityName,
-                                         weather: nil,
-                                         image: nil,
-                                         quote: "\(error)")
-                let timeline = Timeline(entries: [entry],
-                                policy: .atEnd)
-                completion(timeline)
-            }
+            let entry = await makeWeatherEntryWhenLocationFound(location: location, config: configuration)
+            let timeline = Timeline(entries: [entry],
+                                    policy: .atEnd)
+            completion(timeline)
         }
     }
-   
+ 
 }
 
 struct WeatherEntry: TimelineEntry {
@@ -235,3 +187,10 @@ struct WeatherEntry: TimelineEntry {
     let image: Data?
     var quote: String
 }
+
+protocol CommonIntent {
+    var quote: String? { get set }
+}
+
+extension WeatherSiriIntent: CommonIntent {}
+extension WeatherAppIntent: CommonIntent {}

@@ -13,8 +13,10 @@ import CoreLocation
 
 struct WeatherWidget: Widget {
     
-    var locationManager: LocationManager = LocationManager(locationFetcher: CLLocationManager())
-
+    private let locationManager: LocationManager = LocationManager(locationFetcher: CLLocationManager())
+    private let cacheManager: NSCacheManager = NSCacheManager()
+    private let firestoreManager: FirestoreManager = FirestoreManager()
+    
     public var body: some WidgetConfiguration {
         self.makeWidgetConfiguration()
     }
@@ -26,14 +28,18 @@ struct WeatherWidget: Widget {
       
             return AppIntentConfiguration(kind: "WeatherWidget",
                                           intent: WeatherAppIntent.self,
-                                          provider: WeatherTimelineProvider(locationManager: self.locationManager)) { entry in
+                                          provider: WeatherTimelineProvider(locationManager: self.locationManager,
+                                                                            cacheManager: self.cacheManager,
+                                                                            firestoreManager: self.firestoreManager)) { entry in
                 WeatherEntryView(entry: entry)
             }.supportedFamilies(supportedFamilies)
             
         } else {
             return IntentConfiguration(kind: "WeatherWidget",
                                        intent: WeatherSiriIntent.self,
-                                       provider: SiriKitIntentProvider(locationManager: self.locationManager)) { entry in
+                                       provider: SiriKitIntentProvider(locationManager: self.locationManager,
+                                                                       cacheManager: self.cacheManager,
+                                                                       firestoreManager: self.firestoreManager)) { entry in
                 WeatherEntryView(entry: entry)
             }.supportedFamilies(supportedFamilies)
         }
