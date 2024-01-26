@@ -62,6 +62,16 @@ extension FirestoreManager {
         return try await withThrowingTaskGroup(of: (Int, Data).self, returning: [Data].self) { group in
             var tempDataDict = [Int: Data]()
             for (index, item) in result.items.enumerated() {
+                if let cachedData = self.cacheManager.getCache(for: item.fullPath) as? Data {
+                    tempDataDict[index] = cachedData
+                } else {
+                    group.addTask {
+                        let data = try await item.data(maxSize: 1 * 1024 * 1024)
+                        self.cacheManager.setCache(data as NSData, for: item.fullPath)
+                        return (index, data)
+                    }
+                }
+                /*
                 if let cachedData = self.cacheManager.cachedResponse(for: item.fullPath) {
                     tempDataDict[index] = cachedData
                 } else {
@@ -71,6 +81,7 @@ extension FirestoreManager {
                         return (index, data)
                     }
                 }
+                 */
             }
 
             for try await (index, data) in group {

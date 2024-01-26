@@ -7,9 +7,17 @@
 
 import Foundation
 
-final class NSCacheManager {
+protocol Cachable {
+    associatedtype Key: NSObject
+    associatedtype Value: NSObject
+    var cache: NSCache<Key, Value> { get set }
+    func setCache(_ object: Value, for key: String)
+    func getCache(for key: String) -> Value?
+}
+
+final class NSCacheManager: Cachable {
     
-    private var cache = NSCache<NSString, NSObject>()
+    var cache = NSCache<NSString, NSObject>()
 
 }
 
