@@ -166,15 +166,15 @@ extension WeatherEntryView {
         fontSize: (title: CGFloat, subTitle: CGFloat)
     ) -> some View {
         return HStack(alignment: .bottom) {
-            Text("\(weather.currentWeather.temperature.value.showDecimalTo(number: 1))".addTemparatureUnit())
+            Text("\(weather.currentWeather.temperature.value.convertToTempFormat(decimal: 1))".addTemparatureUnit())
                 .fontWeight(.bold)
                 .font(.system(size: fontSize.title))
             Spacer()
             VStack(alignment: .trailing) {
-                Text("H: \(weather.dailyForecast.forecast.first?.highTemperature.value.showDecimalTo(number: 1) ?? "0.0")".addTemparatureUnit())
+                Text("H: \(weather.dailyForecast.forecast.first?.highTemperature.value.convertToTempFormat(decimal: 1) ?? "0.0")".addTemparatureUnit())
                     .fontWeight(.medium)
                     .font(.system(size: fontSize.subTitle))
-                Text("L: \(weather.dailyForecast.forecast.first?.lowTemperature.value.showDecimalTo(number: 1) ?? "0.0")".addTemparatureUnit())
+                Text("L: \(weather.dailyForecast.forecast.first?.lowTemperature.value.convertToTempFormat(decimal: 1) ?? "0.0")".addTemparatureUnit())
                     .fontWeight(.medium)
                     .font(.system(size: fontSize.subTitle))
             }
@@ -218,13 +218,13 @@ extension WeatherEntryView {
         
         switch content {
         case .precipitation:
-            return Text("\(weather.currentWeather.precipitationIntensity.value.showTwoDecimalPlaces()) \(content.unit)")
+            return Text("\(weather.currentWeather.precipitationIntensity.value.convertToTempFormat(decimal: 2)) \(content.unit)")
                 .font(.system(size: fontSize))
         case .humidity:
-            return Text("\(weather.currentWeather.humidity.showTwoDecimalPlaces()) \(content.unit)")
+            return Text("\(weather.currentWeather.humidity.convertToTempFormat(decimal: 2)) \(content.unit)")
                 .font(.system(size: fontSize))
         case .wind:
-            return Text("\(weather.currentWeather.wind.speed.value.showTwoDecimalPlaces()) \(content.unit)")
+            return Text("\(weather.currentWeather.wind.speed.value.convertToTempFormat(decimal: 2)) \(content.unit)")
                 .font(.system(size: fontSize))
         }
     }
