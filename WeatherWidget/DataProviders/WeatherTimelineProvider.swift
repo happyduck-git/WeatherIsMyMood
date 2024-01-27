@@ -36,7 +36,7 @@ extension TimelineProviderTask {
             return WeatherEntry(date: Date(),
                                 cityName: self.defaultCityName,
                                 weather: nil,
-                                image: UIImage(resource: .clearCloudy).pngData(),
+                                image: UIImage(resource: .weatherMorningBright).pngData(),
                                 quote: "No location found")
         }
     }
