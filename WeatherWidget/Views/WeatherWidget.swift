@@ -67,7 +67,7 @@ struct WeatherEntryView: View {
             case .systemSmall:
                 
                 VStack(alignment: .leading) {
-                    self.makeTopView(weather: weather, fontSize: (14, 13))
+                    self.makeTopSmallView(weather: weather, fontSize: (14, 13))
                     self.makeTemparatureView(weather: weather, fontSize: (19, 10))
                     self.makeWeatherInfoListView(weather: weather, fontSize: 12)
                     
@@ -151,6 +151,23 @@ struct WeatherEntryView: View {
 
 //MARK: - Private functions for making widget views.
 extension WeatherEntryView {
+    private func makeTopSmallView(
+        weather: Weather,
+        fontSize: (cityName: CGFloat, condition: CGFloat)
+    ) -> some View {
+        
+        HStack(alignment: .center) {
+            Text(entry.cityName)
+                .fontWeight(.semibold)
+                .font(.system(size: fontSize.cityName))
+            Spacer()
+            Image(systemName: weather.currentWeather.symbolName)
+                .resizable()
+                .scaledToFit()
+        }
+        
+    }
+    
     private func makeTopView(
         weather: Weather,
         fontSize: (cityName: CGFloat, condition: CGFloat)

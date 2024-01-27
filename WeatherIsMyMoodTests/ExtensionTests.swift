@@ -17,7 +17,7 @@ final class ExtensionTests: XCTestCase {
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-
+    
     func test_roundDecimalPlace_ShouldReturnTrue() {
         let decimalString: String = "0.9871728"
         let convertedStr = decimalString.roundDecimalPlace(to: 3)
@@ -34,5 +34,31 @@ final class ExtensionTests: XCTestCase {
         let convertedStr2 = tempDouble2.convertToTempFormat(decimal: 1)
         XCTAssertEqual(convertedStr2, "-0.1")
         XCTAssertNotEqual(convertedStr2, "0.1")
+    }
+}
+
+/// String Extensions
+extension ExtensionTests {
+    func test_camelCaseToSnakeCase() {
+        let str = "partlyCloudy"
+        let converted = str.camelCaseToSnakeCase()
+        XCTAssertEqual(converted, "partly cloudy", "Converted string is not equal to expected string.")
+        
+        let str2 = "cloudy"
+        let converted2 = str2.camelCaseToSnakeCase()
+        XCTAssertEqual(converted2, "cloudy", "Converted string is not equal to expected string.")
+    }
+    
+    func test_roundDecimalPlace() {
+        let doubleStr = "0.92839491"
+        XCTAssertEqual(doubleStr.roundDecimalPlace(to: 2), "0.93", "Converted string is not equal to expected string.")
+        
+        let wrongDouble = "not_double"
+        XCTAssertEqual(wrongDouble.roundDecimalPlace(to: 1), wrongDouble, "Converted string is not equal to expected string.")
+    }
+    
+    func test_addTemparatureUnit() {
+        let str = "15"
+        XCTAssertEqual(str.addTemparatureUnit(), "15˚", "Converted string is not equal to expected string.")
     }
 }

@@ -22,3 +22,13 @@ extension String {
         return "\(self)\("˚")"
     }
 }
+
+extension String {
+    func camelCaseToSnakeCase() -> String {
+        let pattern = "([a-z0-9])([A-Z])"
+        let regex = try! NSRegularExpression(pattern: pattern, options: [])
+        let range = NSRange(location: 0, length: self.utf16.count)
+        let result = regex.stringByReplacingMatches(in: self, options: [], range: range, withTemplate: "$1 $2")
+        return result.lowercased()
+    }
+}

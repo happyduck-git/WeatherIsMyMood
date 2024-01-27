@@ -71,17 +71,6 @@ extension FirestoreManager {
                         return (index, data)
                     }
                 }
-                /*
-                if let cachedData = self.cacheManager.cachedResponse(for: item.fullPath) {
-                    tempDataDict[index] = cachedData
-                } else {
-                    group.addTask {
-                        let data = try await item.data(maxSize: 1 * 1024 * 1024)
-                        self.cacheManager.setCache(for: item.fullPath, data: data)
-                        return (index, data)
-                    }
-                }
-                 */
             }
 
             for try await (index, data) in group {
