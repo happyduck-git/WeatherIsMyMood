@@ -124,7 +124,7 @@ struct WeatherTimelineProvider: AppIntentTimelineProvider, TimelineProviderTask 
 struct SiriKitIntentProvider: IntentTimelineProvider, TimelineProviderTask {
     
     typealias Entry = WeatherEntry
-    typealias Intent = WeatherSiriIntent
+    typealias Intent = WeatherSelectionIntent
     
     var locationManager: LocationManager
     var cacheManager: NSCacheManager
@@ -147,7 +147,7 @@ struct SiriKitIntentProvider: IntentTimelineProvider, TimelineProviderTask {
                             quote: "PHWeahterNil")
     }
     
-    func getSnapshot(for configuration: WeatherSiriIntent, in context: Context, completion: @escaping (WeatherEntry) -> Void) {
+    func getSnapshot(for configuration: WeatherSelectionIntent, in context: Context, completion: @escaping (WeatherEntry) -> Void) {
         guard let location = self.locationManager.locationFetcher.location else {
             let entry = self.makeWeatherEntryWhenLocationNotFound()
             completion(entry)
@@ -159,7 +159,7 @@ struct SiriKitIntentProvider: IntentTimelineProvider, TimelineProviderTask {
         }
     }
     
-    func getTimeline(for configuration: WeatherSiriIntent, in context: Context, completion: @escaping (Timeline<WeatherEntry>) -> Void) {
+    func getTimeline(for configuration: WeatherSelectionIntent, in context: Context, completion: @escaping (Timeline<WeatherEntry>) -> Void) {
         
         /// When location is not found or granted.
         guard let location = self.locationManager.locationFetcher.location else {
@@ -192,5 +192,5 @@ protocol CommonIntent {
     var quote: String? { get set }
 }
 
-extension WeatherSiriIntent: CommonIntent {}
+extension WeatherSelectionIntent: CommonIntent {}
 extension WeatherAppIntent: CommonIntent {}

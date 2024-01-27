@@ -36,7 +36,7 @@ struct WeatherWidget: Widget {
             
         } else {
             return IntentConfiguration(kind: "WeatherWidget",
-                                       intent: WeatherSiriIntent.self,
+                                       intent: WeatherSelectionIntent.self,
                                        provider: SiriKitIntentProvider(locationManager: self.locationManager,
                                                                        cacheManager: self.cacheManager,
                                                                        firestoreManager: self.firestoreManager)) { entry in

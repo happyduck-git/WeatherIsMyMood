@@ -5,7 +5,7 @@
 	<key>NSUserActivityTypes</key>
 	<array>
 		<string>DemoWidgetConfigIntent</string>
-		<string>WeatherSiriIntent</string>
+		<string>WeatherSelectionIntent</string>
 	</array>
 </dict>
 </plist>

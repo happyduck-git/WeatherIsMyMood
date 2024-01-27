@@ -28,7 +28,7 @@
 			<key>INIntentLastParameterTag</key>
 			<integer>1</integer>
 			<key>INIntentName</key>
-			<string>WeatherSiri</string>
+			<string>WeatherSelection</string>
 			<key>INIntentParameters</key>
 			<array>
 				<dict>
@@ -89,7 +89,7 @@
 				</array>
 			</dict>
 			<key>INIntentTitle</key>
-			<string>Weather Siri</string>
+			<string>Weather Selection</string>
 			<key>INIntentTitleID</key>
 			<string>ofcIHN</string>
 			<key>INIntentType</key>
