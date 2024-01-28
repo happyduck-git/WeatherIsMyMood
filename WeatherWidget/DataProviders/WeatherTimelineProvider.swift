@@ -51,7 +51,7 @@ extension TimelineProviderTask {
                                                cityName: cityName ?? self.defaultCityName,
                                                weather: weather,
                                                image: image,
-                                               quote: config.quote ?? WidgetConstants.demoQuote)
+                                               quote: makeQuote(quote: config.quote))
             
             let wrappedEntry: StructWrapper<WeatherEntry> = StructWrapper(entry)
             self.cacheManager.setCache(wrappedEntry, for: WidgetConstants.entryCache)
@@ -66,6 +66,14 @@ extension TimelineProviderTask {
                                 quote: "\(error)")
         }
     }
+    
+    private func makeQuote(quote: String?) -> String {
+        guard let quote else {
+            return WidgetConstants.demoQuote
+        }
+        return quote.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? WidgetConstants.demoQuote : quote
+    }
+    
 }
 
 @available(iOS 17.0, *)

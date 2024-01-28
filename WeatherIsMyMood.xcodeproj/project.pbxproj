@@ -19,6 +19,9 @@
 		243021522B640C6600580960 /* StructWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243021512B640C6600580960 /* StructWrapper.swift */; };
 		243021532B640C6600580960 /* StructWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243021512B640C6600580960 /* StructWrapper.swift */; };
 		243021552B640F4200580960 /* NSCacheManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243021542B640F4200580960 /* NSCacheManagerTests.swift */; };
+		243021952B6651E400580960 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 241A803D2B29E04000706BB8 /* Localizable.xcstrings */; };
+		243021A22B665E2600580960 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 243021A52B665E2600580960 /* Intents.intentdefinition */; };
+		243021A32B665E2600580960 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 243021A52B665E2600580960 /* Intents.intentdefinition */; };
 		243086292B23FE86006C78E9 /* WeatherIsMyMoodApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243086282B23FE86006C78E9 /* WeatherIsMyMoodApp.swift */; };
 		2430862B2B23FE86006C78E9 /* WeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2430862A2B23FE86006C78E9 /* WeatherView.swift */; };
 		2430862D2B23FE89006C78E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2430862C2B23FE89006C78E9 /* Assets.xcassets */; };
@@ -33,8 +36,6 @@
 		2458CD222B25D720008F4AFE /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2458CD212B25D720008F4AFE /* TitleView.swift */; };
 		2458CD242B25F5F3008F4AFE /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2458CD232B25F5F3008F4AFE /* MainView.swift */; };
 		2458CD282B25F8BF008F4AFE /* DecorationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2458CD272B25F8BF008F4AFE /* DecorationView.swift */; };
-		245AEF2D2B5B8874003DD73B /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 245AEF2C2B5AD02C003DD73B /* Intents.intentdefinition */; };
-		245AEF2E2B5B8874003DD73B /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 245AEF2C2B5AD02C003DD73B /* Intents.intentdefinition */; };
 		2467616B2B2D2D6D00C4CF4E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2467616D2B2D2D6D00C4CF4E /* InfoPlist.strings */; };
 		247212D72B2822E7009A6DE5 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247212D62B2822E7009A6DE5 /* LoadingView.swift */; };
 		247212DA2B282CBF009A6DE5 /* WeatherAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247212D92B282CBF009A6DE5 /* WeatherAttributes.swift */; };
@@ -139,6 +140,8 @@
 		2430214D2B63EC3400580960 /* NSCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSCacheManager.swift; sourceTree = "<group>"; };
 		243021512B640C6600580960 /* StructWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructWrapper.swift; sourceTree = "<group>"; };
 		243021542B640F4200580960 /* NSCacheManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSCacheManagerTests.swift; sourceTree = "<group>"; };
+		243021A42B665E2600580960 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = en; path = en.lproj/Intents.intentdefinition; sourceTree = "<group>"; };
+		243021A62B665E7700580960 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Intents.strings; sourceTree = "<group>"; };
 		243086252B23FE86006C78E9 /* WeatherIsMyMood.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherIsMyMood.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		243086282B23FE86006C78E9 /* WeatherIsMyMoodApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherIsMyMoodApp.swift; sourceTree = "<group>"; };
 		2430862A2B23FE86006C78E9 /* WeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
@@ -157,7 +160,6 @@
 		2458CD212B25D720008F4AFE /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
 		2458CD232B25F5F3008F4AFE /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		2458CD272B25F8BF008F4AFE /* DecorationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecorationView.swift; sourceTree = "<group>"; };
-		245AEF2C2B5AD02C003DD73B /* Intents.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = Intents.intentdefinition; sourceTree = "<group>"; };
 		245AEF2F2B5B88FD003DD73B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2467616C2B2D2D6D00C4CF4E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2467616E2B2D2D7100C4CF4E /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -370,7 +372,7 @@
 			children = (
 				243465F42B5A69CD00511D78 /* WeatherAppIntent.swift */,
 				243465F72B5A6EA300511D78 /* WeatherTimelineProvider.swift */,
-				245AEF2C2B5AD02C003DD73B /* Intents.intentdefinition */,
+				243021A52B665E2600580960 /* Intents.intentdefinition */,
 				2499704C2B5BA1A800F995AD /* DemoWidgetConfig.intentdefinition */,
 			);
 			path = DataProviders;
@@ -641,6 +643,7 @@
 			files = (
 				249871722B29928E00580566 /* Assets.xcassets in Resources */,
 				247212EE2B282F41009A6DE5 /* Assets.xcassets in Resources */,
+				243021952B6651E400580960 /* Localizable.xcstrings in Resources */,
 				2499704F2B5BC04700F995AD /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -655,7 +658,7 @@
 				243021522B640C6600580960 /* StructWrapper.swift in Sources */,
 				248E3F542B25B1DE001B10C3 /* SearchView.swift in Sources */,
 				2458CD242B25F5F3008F4AFE /* MainView.swift in Sources */,
-				245AEF2D2B5B8874003DD73B /* Intents.intentdefinition in Sources */,
+				243021A22B665E2600580960 /* Intents.intentdefinition in Sources */,
 				248E3F502B2598C3001B10C3 /* HourlyPrecipitationChartView.swift in Sources */,
 				247212DA2B282CBF009A6DE5 /* WeatherAttributes.swift in Sources */,
 				24C7D98C2B26145000453434 /* AppColors.swift in Sources */,
@@ -719,7 +722,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2499704B2B5B982F00F995AD /* DemoWidget.swift in Sources */,
-				245AEF2E2B5B8874003DD73B /* Intents.intentdefinition in Sources */,
+				243021A32B665E2600580960 /* Intents.intentdefinition in Sources */,
 				249970442B5B921E00F995AD /* FirestoreManager.swift in Sources */,
 				249970482B5B945B00F995AD /* WeatherWidget.swift in Sources */,
 				2458714B2B5C1BE500FB9BA1 /* String+Extensions.swift in Sources */,
@@ -761,6 +764,15 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		243021A52B665E2600580960 /* Intents.intentdefinition */ = {
+			isa = PBXVariantGroup;
+			children = (
+				243021A42B665E2600580960 /* en */,
+				243021A62B665E7700580960 /* ko */,
+			);
+			name = Intents.intentdefinition;
+			sourceTree = "<group>";
+		};
 		2467616D2B2D2D6D00C4CF4E /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (

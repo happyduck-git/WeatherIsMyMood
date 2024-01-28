@@ -163,6 +163,7 @@ extension WeatherEntryView {
             Spacer()
             Image(systemName: weather.currentWeather.symbolName)
                 .resizable()
+                .frame(width: 15, height: 15)
                 .scaledToFit()
         }
         
@@ -178,8 +179,10 @@ extension WeatherEntryView {
                 .fontWeight(.semibold)
                 .font(.system(size: fontSize.cityName))
             Spacer()
-            Text(weather.currentWeather.condition.rawValue)
-                .font(.system(size: fontSize.condition))
+            Image(systemName: weather.currentWeather.symbolName)
+                .resizable()
+                .frame(width: 15, height: 15)
+                .scaledToFit()
         }
         
     }
@@ -194,10 +197,12 @@ extension WeatherEntryView {
                 .font(.system(size: fontSize.title))
             Spacer()
             VStack(alignment: .trailing) {
-                Text("H: \(weather.dailyForecast.forecast.first?.highTemperature.value.convertToTempFormat(decimal: 1) ?? "0.0")".addTemparatureUnit())
+                Text(
+                    "\(WidgetConstants.highest): \(weather.dailyForecast.forecast.first?.highTemperature.value.convertToTempFormat(decimal: 1) ?? "0.0")".addTemparatureUnit()
+                )
                     .fontWeight(.medium)
                     .font(.system(size: fontSize.subTitle))
-                Text("L: \(weather.dailyForecast.forecast.first?.lowTemperature.value.convertToTempFormat(decimal: 1) ?? "0.0")".addTemparatureUnit())
+                Text("\(WidgetConstants.lowest): \(weather.dailyForecast.forecast.first?.lowTemperature.value.convertToTempFormat(decimal: 1) ?? "0.0")".addTemparatureUnit())
                     .fontWeight(.medium)
                     .font(.system(size: fontSize.subTitle))
             }
@@ -263,7 +268,7 @@ extension View {
                 containerBackground(for: .widget) {
                     Image(uiImage: image)
                         .resizable(resizingMode: .stretch)
-                        .frame(width: 360, height: 360)
+                        .frame(width: 500, height: 500)
                         .opacity(0.6)
                 }
                 

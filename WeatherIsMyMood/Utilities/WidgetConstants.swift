@@ -40,6 +40,8 @@ enum WidgetConstants {
     static let precipitation = String(localized: "Precip")
     static let humidity = String(localized: "Humidity")
     static let wind = String(localized: "Wind")
+    static let highest = String(localized: "H")
+    static let lowest = String(localized: "L")
     
     static let precipitationUnit = String(localized: "%")
     static let humidityUnit = String(localized: "%")

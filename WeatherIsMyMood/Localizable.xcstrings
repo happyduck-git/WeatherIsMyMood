@@ -177,6 +177,22 @@
         }
       }
     },
+    "H" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "최고"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "最高"
+          }
+        }
+      }
+    },
     "Hour" : {
       "localizations" : {
         "ko" : {
@@ -239,6 +255,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "湿度"
+          }
+        }
+      }
+    },
+    "L" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "최저"
           }
         }
       }
@@ -523,6 +549,12 @@
     },
     "Your quote here 🙂" : {
       "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "나만의 문장을 써보세요🙂"
+          }
+        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",

@@ -26,7 +26,7 @@
 			<key>INIntentIneligibleForSuggestions</key>
 			<true/>
 			<key>INIntentLastParameterTag</key>
-			<integer>1</integer>
+			<integer>2</integer>
 			<key>INIntentName</key>
 			<string>WeatherSelection</string>
 			<key>INIntentParameters</key>
@@ -47,7 +47,7 @@
 						<key>INIntentParameterMetadataDefaultValue</key>
 						<string>Your quote here 🙂</string>
 						<key>INIntentParameterMetadataDefaultValueID</key>
-						<string>5dwPvR</string>
+						<string>qdAx2N</string>
 					</dict>
 					<key>INIntentParameterName</key>
 					<string>quote</string>
@@ -67,7 +67,7 @@
 						</dict>
 					</array>
 					<key>INIntentParameterTag</key>
-					<integer>1</integer>
+					<integer>2</integer>
 					<key>INIntentParameterType</key>
 					<string>String</string>
 				</dict>
