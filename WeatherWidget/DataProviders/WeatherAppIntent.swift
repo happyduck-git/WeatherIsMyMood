@@ -8,7 +8,7 @@
 import WidgetKit
 import AppIntents
 
-@available(iOS 16.0, *)
+@available(iOS 17.0, *)
 struct WeatherAppIntent: WidgetConfigurationIntent {
     static var intentClassName: String = "WeatherAppIntentClass"
     
