@@ -201,4 +201,5 @@ protocol CommonIntent {
 }
 
 extension WeatherSelectionIntent: CommonIntent {}
+@available(iOS 17.0, *)
 extension WeatherAppIntent: CommonIntent {}
