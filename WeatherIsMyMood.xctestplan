@@ -1,0 +1,35 @@
+{
+  "configurations" : [
+    {
+      "id" : "EF0F6A91-E7DE-4D69-9A92-5FBA6D6BB147",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "environmentVariableEntries" : [
+      {
+        "key" : "OS_ACTIVITY_MODE",
+        "value" : "disable"
+      }
+    ],
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:WeatherIsMyMood.xcodeproj",
+      "identifier" : "243086242B23FE86006C78E9",
+      "name" : "WeatherIsMyMood"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:WeatherIsMyMood.xcodeproj",
+        "identifier" : "243086342B23FE89006C78E9",
+        "name" : "WeatherIsMyMoodTests"
+      }
+    }
+  ],
+  "version" : 1
+}

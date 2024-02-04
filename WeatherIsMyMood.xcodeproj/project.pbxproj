@@ -184,6 +184,7 @@
 		248E3F512B259C04001B10C3 /* DataAttributionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAttributionView.swift; sourceTree = "<group>"; };
 		248E3F532B25B1DE001B10C3 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		248E3F552B25B3CC001B10C3 /* SunTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunTimeView.swift; sourceTree = "<group>"; };
+		249138322B6FCA1800D2E744 /* WeatherIsMyMood.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = WeatherIsMyMood.xctestplan; sourceTree = "<group>"; };
 		249871702B2967F000580566 /* Double+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
 		24A0CA702B4F916B00635FB8 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		24A66DEC2B269F1400B348CC /* UIScreen+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Extensions.swift"; sourceTree = "<group>"; };
@@ -264,6 +265,7 @@
 		2430861C2B23FE86006C78E9 = {
 			isa = PBXGroup;
 			children = (
+				249138322B6FCA1800D2E744 /* WeatherIsMyMood.xctestplan */,
 				245871472B5BE94C00FB9BA1 /* WeatherWidgetExtension.entitlements */,
 				24A0CA702B4F916B00635FB8 /* README.md */,
 				2467616D2B2D2D6D00C4CF4E /* InfoPlist.strings */,
