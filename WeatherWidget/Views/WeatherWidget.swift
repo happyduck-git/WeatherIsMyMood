@@ -163,7 +163,7 @@ extension WeatherEntryView {
             Spacer()
             Image(systemName: weather.currentWeather.symbolName)
                 .resizable()
-                .frame(width: 15, height: 15)
+                .frame(width: 13, height: 13)
                 .scaledToFit()
         }
         

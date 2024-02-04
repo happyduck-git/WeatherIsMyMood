@@ -131,6 +131,7 @@
       }
     },
     "Default" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ko" : {
           "stringUnit" : {
@@ -151,9 +152,6 @@
           }
         }
       }
-    },
-    "DemoAppIntentTitle" : {
-
     },
     "Enable Dynamic Island" : {
       "localizations" : {
