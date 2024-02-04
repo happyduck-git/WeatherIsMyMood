@@ -268,7 +268,14 @@
       }
     },
     "Loading weather data..." : {
-
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "날씨 정보를 불러오는 중입니다."
+          }
+        }
+      }
     },
     "Loading weather error..." : {
       "extractionState" : "stale",
@@ -458,7 +465,26 @@
       }
     },
     "Quote 📝" : {
-
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "나만의 글귀 📝"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "цитата 📝"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "我的句子 📝"
+          }
+        }
+      }
     },
     "Stay tuned!" : {
       "localizations" : {
