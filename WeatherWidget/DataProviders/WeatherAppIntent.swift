@@ -14,7 +14,7 @@ struct WeatherAppIntent: WidgetConfigurationIntent {
     
     static var title: LocalizedStringResource = "WeatherAppIntentTitle"
    
-    @Parameter(title: "Personal Quote")
+    @Parameter(title: "Quote 📝", inputOptions: String.IntentInputOptions(keyboardType: .default, autocorrect: false))
     var quote: String?
     
     func perform() async throws -> some IntentResult {
