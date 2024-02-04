@@ -1,5 +1,5 @@
 //
-//  WeatherWidget.swift
+//  WeatherLiveActivityWidget.swift
 //  WeatherWidget
 //
 //  Created by HappyDuck on 12/12/23.
@@ -9,7 +9,7 @@ import WidgetKit
 import SwiftUI
 import UIKit.UIImage
 
-struct WeatherWidget: Widget {
+struct WeatherLiveActivityWidget: Widget {
     
     @State var topInset: CGFloat = 20
     @State var sideInset: CGFloat = 20

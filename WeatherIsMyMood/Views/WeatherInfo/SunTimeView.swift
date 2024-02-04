@@ -42,6 +42,3 @@ struct SunStatusTimeView: View {
         }
 }
 
-#Preview {
-    WeatherView()
-}

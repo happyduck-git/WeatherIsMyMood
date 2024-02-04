@@ -10,13 +10,14 @@ import WeatherKit
 
 struct DecorationView: View {
     
+    @ObservedObject private var locationManager: LocationManager
+    
     @State private var isFirstLoading = true
     @State private var isLoading = false
     @AppStorage("isDynamicIslandOn") private var isOn = false
     
-    @StateObject private var locationManager = LocationManager()
     private let weatherService = WeatherService.shared
-    private let storageManager = FirestoreManager.shared
+    private let storageManager = FirestoreManager()
     
     @State private var weather: Weather?
     @State private var previousWeather: Weather?
@@ -26,6 +27,10 @@ struct DecorationView: View {
     @State private var weatherIcons: [Data] = []
     @State private var otherIcons: [Data] = []
     @State private var selectedIcon: Data?
+    
+    init(locationManager: LocationManager) {
+        self.locationManager = locationManager
+    }
     
     var body: some View {
         ZStack {
@@ -74,7 +79,14 @@ struct DecorationView: View {
                 LoadingView()
             }
         }
+        .onAppear(perform: {
+            print("DecorationView appeared")
+        })
+        .onDisappear(perform: {
+            print("DecorationView disappeared")
+        })
         .task(id: locationManager.currentLocation) {
+       
             if let location = locationManager.currentLocation {
                 do {
                     self.weather = try await weatherService.weather(for: location)
@@ -85,8 +97,10 @@ struct DecorationView: View {
                     }
                 }
                 catch {
-                    print(error)
+                    print("Error fething weather from location -- \(error)")
                 }
+            } else {
+                print("Location found to be nil -- DecorationView")
             }
         }
         .onChange(of: self.weather, perform: { newWeather in
@@ -139,7 +153,6 @@ extension DecorationView {
                             EmojiViewCell(emojiData: icons[index])
                                 .onTapGesture {
                                     self.selectedIcon = icons[index]
-                                    print("Tapped Row: \(row), Col: \(col)")
                                 }
                         }
                     }
@@ -155,8 +168,5 @@ extension DecorationView {
     }
 }
 
-//#Preview {
-//    DecorationView()
-//}
 
 

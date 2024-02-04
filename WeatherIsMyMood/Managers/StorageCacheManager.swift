@@ -7,8 +7,9 @@
 
 import Foundation
 
-final class StorageCacheManager {
-    private var cacheDictionary = NSCache<NSString, NSData>()
+final class StorageCacheManager: Cachable {
+
+    var cache: NSCache<NSString, NSData> = NSCache<NSString, NSData>()
     
     static let shared = StorageCacheManager()
     private init() {}
@@ -17,13 +18,30 @@ final class StorageCacheManager {
 extension StorageCacheManager {
     //MARK: - Public
     
+    /// Set Cache
+    /// - Parameters:
+    ///   - data: Data to save in NSCache
+    ///   - key: Firebase Storage path
+    func setCache(_ object: NSData, for key: String) {
+        cache.setObject(object, forKey: key as NSString)
+    }
+    
+    /// Get Cache
+    /// Check if there is something available in the cache dictionary
+    /// - Parameters:
+    ///   - key: Firebase Storage path
+    func getCache(for key: String) -> NSData? {
+        return cache.object(forKey: key as NSString)
+    }
+    
+    /* Delete Below Two Functions After Testing Above Functions */
     /// Get Cache
     /// Check if there is something available in the cache dictionary
     /// - Parameters:
     ///   - path: Firebase Storage path
     public func cachedResponse(for path: String) -> Data? {
         let key = path as NSString
-        return cacheDictionary.object(forKey: key) as? Data
+        return cache.object(forKey: key) as? Data
     }
     
     /// Set Cache
@@ -34,6 +52,6 @@ extension StorageCacheManager {
         guard let data = data else { return }
         let key = path as NSString
         let nsdata = data as NSData
-        cacheDictionary.setObject(nsdata, forKey: key)
+        cache.setObject(nsdata, forKey: key)
     }
 }

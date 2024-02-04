@@ -12,7 +12,17 @@ extension Double {
         return (self * 100).rounded() / 100
     }
     
-    func showTwoDecimalPlaces() -> String {
-        return String(format: "%.2f", self)
+    func showDecimalTo(number: Int) -> String {
+        return String(format: "%.\(number)f", self)
     }
+    
+    func convertToTempFormat(decimal: Int) -> String {
+        let numStr = showDecimalTo(number: decimal)
+        if !numStr.contains(/[1-9]/) && numStr.hasPrefix("-") {
+            return String(numStr.trimmingPrefix("-"))
+        } else {
+            return numStr
+        }
+    }
+
 }

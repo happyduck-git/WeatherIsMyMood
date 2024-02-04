@@ -7,47 +7,93 @@
 
 import Foundation
 import CoreLocation
+import OSLog
+
+protocol LocationFetcher {
+    var locationFetcherDelegate: LocationFetcherDelegate? { get set }
+    var desiredAccuracy: CLLocationAccuracy { get set }
+    var distanceFilter: CLLocationDistance { get set }
+    var pausesLocationUpdatesAutomatically: Bool { get set }
+    var location: CLLocation? { get }
+    func requestLocation()
+    func startUpdatingLocation()
+    func requestWhenInUseAuthorization()
+    static func cityName(at location: CLLocation, geocoder: GeoCoder) async -> String?
+    func location(forCity cityName: String, geocoder: GeoCoder) async -> CLLocation?
+}
+
+protocol LocationFetcherDelegate: AnyObject {
+    func locationFetcher(_ fetcher: LocationFetcher, didUpdateLocations locations: [CLLocation])
+    func locationFetcher(_ fetcher: LocationFetcher, didFailWithError error: Error)
+}
+
+protocol GeoCoder {
+    func reverseGeocodeLocation(_ location: CLLocation, preferredLocale locale: Locale?) async throws -> [CLPlacemark]
+    func geocodeAddressString(_ addressString: String, in region: CLRegion?) async throws -> [CLPlacemark]
+}
 
 final class LocationManager: NSObject, ObservableObject {
-    
+
     @Published var currentLocation: CLLocation?
     @Published var previousLocation: CLLocation?
-    
     @Published var cityName: String?
-    private let locationManager = CLLocationManager()
+    @Published var error: Error?
     
-    override init() {
+    var locationFetcher: LocationFetcher
+    
+    init(locationFetcher: LocationFetcher) {
+        self.locationFetcher = locationFetcher
         super.init()
-        locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
-        locationManager.distanceFilter = 1_000
-        locationManager.pausesLocationUpdatesAutomatically = true
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
-        locationManager.delegate = self
+        self.locationFetcher.desiredAccuracy = kCLLocationAccuracyKilometer
+        self.locationFetcher.distanceFilter = 1_000
+        self.locationFetcher.pausesLocationUpdatesAutomatically = true
+        self.locationFetcher.requestWhenInUseAuthorization()
+        self.locationFetcher.startUpdatingLocation()
+        self.locationFetcher.locationFetcherDelegate = self
+    }
+    
+}
+
+extension LocationManager {
+    func requestOnTimeLocation() {
+        currentLocation = self.locationFetcher.location
+    }
+    
+    func refreshLocation() {
+        self.locationFetcher.startUpdatingLocation()
     }
 }
 
 extension LocationManager: CLLocationManagerDelegate {
     
-    func requestOnTimeLocation() {
-        currentLocation = locationManager.location
-    }
-    
-    func refreshLocation() {
-        locationManager.startUpdatingLocation()
-    }
-    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        currentLocation = locations.last
+        print("Location updated: \(locations.map({ $0.coordinate.latitude }))")
+        self.locationFetcher(manager, didUpdateLocations: locations)
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error)
+        #if DEBUG
+        Logger().error("Location didFailWithError -- \(error)")
+        #endif
+        self.locationFetcher(manager, didFailWithError: error)
+    }
+
+}
+
+extension LocationManager: LocationFetcherDelegate {
+    func locationFetcher(_ fetcher: LocationFetcher, didUpdateLocations locations: [CLLocation]) {
+        self.currentLocation = locations.last
+//        print("Current Loction value: \(self.currentLocation?.coordinate.latitude)")
     }
     
-    func cityName(at location: CLLocation) async -> String? {
-        let geocoder = CLGeocoder()
+    func locationFetcher(_ fetcher: LocationFetcher, didFailWithError error: Error) {
+        self.error = error
+    }
+    
+}
 
+extension CLLocationManager: LocationFetcher {
+    static func cityName(at location: CLLocation, geocoder: GeoCoder = CLGeocoder()) async -> String? {
         do {
             let placemarks = try await geocoder.reverseGeocodeLocation(location, preferredLocale: .current)
             return placemarks.first?.locality
@@ -56,12 +102,10 @@ extension LocationManager: CLLocationManagerDelegate {
             return nil
         }
     }
-
-    func location(forCity cityName: String) async -> CLLocation? {
-        let geocoder = CLGeocoder()
-
+    
+    func location(forCity cityName: String, geocoder: GeoCoder = CLGeocoder()) async -> CLLocation? {
         do {
-            let placemarks = try await geocoder.geocodeAddressString(cityName)
+            let placemarks = try await geocoder.geocodeAddressString(cityName, in: nil)
             return placemarks.first?.location
         } catch {
             print("Geocoding error: \(error)")
@@ -69,4 +113,11 @@ extension LocationManager: CLLocationManagerDelegate {
         }
     }
     
+    
+    var locationFetcherDelegate: LocationFetcherDelegate? {
+        get { return delegate as! LocationFetcherDelegate? }
+        set { delegate = newValue as! CLLocationManagerDelegate? }
+    }
 }
+
+extension CLGeocoder: GeoCoder {}

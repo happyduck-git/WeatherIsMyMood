@@ -42,6 +42,3 @@ struct SearchView: View {
     }
 }
 
-#Preview {
-    WeatherView()
-}

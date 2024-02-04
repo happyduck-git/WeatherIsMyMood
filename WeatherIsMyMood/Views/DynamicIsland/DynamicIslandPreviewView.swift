@@ -63,6 +63,3 @@ struct DynamicIslandPreviewView: View {
     }
 }
 
-#Preview {
-    DecorationView()
-}

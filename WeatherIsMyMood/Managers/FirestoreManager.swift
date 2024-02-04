@@ -10,9 +10,6 @@ import UIKit.UIImage
 import FirebaseStorage
 
 actor FirestoreManager {
-    static let shared = FirestoreManager()
-    
-    private init() {}
     
     private let storageRef = Storage.storage().reference()
     private let cacheManager = StorageCacheManager.shared
@@ -65,12 +62,12 @@ extension FirestoreManager {
         return try await withThrowingTaskGroup(of: (Int, Data).self, returning: [Data].self) { group in
             var tempDataDict = [Int: Data]()
             for (index, item) in result.items.enumerated() {
-                if let cachedData = self.cacheManager.cachedResponse(for: item.fullPath) {
+                if let cachedData = self.cacheManager.getCache(for: item.fullPath) as? Data {
                     tempDataDict[index] = cachedData
                 } else {
-                    group.addTask { [weak self] in
+                    group.addTask {
                         let data = try await item.data(maxSize: 1 * 1024 * 1024)
-                        self?.cacheManager.setCache(for: item.fullPath, data: data)
+                        self.cacheManager.setCache(data as NSData, for: item.fullPath)
                         return (index, data)
                     }
                 }

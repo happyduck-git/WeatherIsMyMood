@@ -53,8 +53,16 @@ extension WeatherCondition {
         }
     }
     
+    static func getWeatherNameInSnakeCase(of condition: Self) -> String {
+        return condition.rawValue.camelCaseToSnakeCase()
+    }
+    
+    
+    
     static func getWeatherIconName(of condition: String) -> String {
-        print("Condiotion: \(condition)")
+        #if DEBUG
+        print("Condition: \(condition)")
+        #endif
         guard let condition = WeatherCondition(rawValue: condition) else {
             return "sunny"
         }

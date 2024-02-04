@@ -12,7 +12,7 @@ import PDFKit
 
 struct CityCurrentWeatherView: View {
     
-    private let fireStoreManager = FirestoreManager.shared
+    private let fireStoreManager = FirestoreManager()
     
     //MARK: - Properties
     @Binding var weather: Weather?
@@ -146,8 +146,4 @@ extension CityCurrentWeatherView {
             //TODO: `newWeather found to be nil` handling.
         }
     }
-}
-
-#Preview {
-    WeatherView()
 }

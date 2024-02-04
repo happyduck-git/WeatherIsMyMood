@@ -33,7 +33,3 @@ struct DataAttributionView: View {
         }
     }
 }
-
-#Preview {
-    WeatherView()
-}

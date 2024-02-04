@@ -55,7 +55,3 @@ extension HourlyPrecipitationChartView {
         noPrecipitation.insert(hourWeatherList.prefix(7).contains { $0.precipitationAmount.value.rounded().isZero })
     }
 }
-
-#Preview {
-    WeatherView()
-}

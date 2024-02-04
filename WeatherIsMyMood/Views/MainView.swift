@@ -6,15 +6,18 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 struct MainView: View {
+    @StateObject private var locationManager: LocationManager = LocationManager(locationFetcher: CLLocationManager())
+
     var body: some View {
         TabView {
-            WeatherView()
+            WeatherView(locationManager: self.locationManager)
                 .tabItem {
                     Label("Weather", systemImage: "cloud.sun.fill")
                 }
-            DecorationView()
+            DecorationView(locationManager: self.locationManager)
                 .tabItem {
                     Label("Deco", systemImage: "sparkles")
                 }

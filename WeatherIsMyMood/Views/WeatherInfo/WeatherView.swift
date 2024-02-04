@@ -7,13 +7,14 @@
 
 import SwiftUI
 import WeatherKit
+import CoreLocation
 
 struct WeatherView: View {
     
+    @ObservedObject private var locationManager: LocationManager
+    
     @State private var isFirstLoading = true
     @State private var isLoading = false
-    
-    @StateObject private var locationManager = LocationManager()
     
     private let weatherService = WeatherService.shared
     @State private var weather: Weather?
@@ -24,6 +25,13 @@ struct WeatherView: View {
     @State private var searchedCityName: String = ""
     @State var locationFound: Bool = true
     
+    init(locationManager: LocationManager) {
+        self.locationManager = locationManager
+        #if DEBUG
+        print("WeatherViewInit")
+        #endif
+    }
+
     var body: some View {
         NavigationView {
             ZStack {
@@ -51,14 +59,18 @@ struct WeatherView: View {
                 self.isFirstLoading.toggle()
                 self.isLoading = true
             }
+            print("WeatherView appeared")
         }
         .task(id: locationManager.currentLocation) {
-            
+
             if let location = locationManager.currentLocation {
+                #if DEBUG
+                print("Loc on weatherView: \(location.coordinate.latitude)")
+                #endif
                 do {
                     async let weather = weatherService.weather(for: location)
                     async let attribution = weatherService.attribution
-                    async let cityName = locationManager.cityName(at: location)
+                    async let cityName = CLLocationManager.cityName(at: location)
                     
                     self.weather = try await weather
                     self.attribution = try await attribution
@@ -75,6 +87,8 @@ struct WeatherView: View {
                 catch {
                     print(error)
                 }
+            } else {
+                print("Current location found to be nil!")
             }
         }
         .onTapGesture {
@@ -140,7 +154,7 @@ extension WeatherView {
     private func updateLocationStatus(to city: String) {
         if !city.isEmpty {
             Task {
-                let loc = await self.locationManager.location(forCity: city)
+                let loc = await self.locationManager.locationFetcher.location(forCity: city, geocoder: CLGeocoder())
                 guard let loc else {
                     self.locationFound = false
                     return
@@ -154,7 +168,7 @@ extension WeatherView {
     private func demoUpdateLocation(to city: String) {
     
             Task {
-                let loc = await self.locationManager.location(forCity: city)
+                let loc = await self.locationManager.locationFetcher.location(forCity: city, geocoder: CLGeocoder())
                 guard let loc else {
                    print("No location found \(city)")
                     return
@@ -184,5 +198,5 @@ extension WeatherView {
 }
 
 #Preview {
-    WeatherView()
+    WeatherView(locationManager: LocationManager(locationFetcher: CLLocationManager()))
 }

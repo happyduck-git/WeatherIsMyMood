@@ -45,7 +45,3 @@ struct HourlyForcastView: View {
         }
     }
 }
-
-#Preview {
-    WeatherView()
-}
