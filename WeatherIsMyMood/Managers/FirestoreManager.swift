@@ -52,9 +52,15 @@ extension FirestoreManager {
     }
     
     func fetchBackground(_ condition: String) async throws -> Data {
+        #if DEBUG
+        return try await self.storageRef
+            .child("dev_background/\(condition).\(fileFormat)")
+            .data(maxSize: 1 * 1024 * 1024)
+        #else
         return try await self.storageRef
             .child("background/\(condition).\(fileFormat)")
             .data(maxSize: 1 * 1024 * 1024)
+        #endif
     }
     
     /// Ordered result (test).
