@@ -21,14 +21,14 @@ struct SearchView: View {
                 Button("", systemImage: "location") {
                     backToCurrentLocation()
                 }
-                .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
+                .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 0))
                 
                 ZStack(alignment: .trailing) {
                     TextField(WeatherConstants.city, text: $searchCity)
                         .padding()
                         .background(.background)
                         .cornerRadius(10)
-                        .padding(.horizontal, 10)
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 15))
                         .shadow(radius: 1)
                     Button("",
                            systemImage: "magnifyingglass.circle.fill")
