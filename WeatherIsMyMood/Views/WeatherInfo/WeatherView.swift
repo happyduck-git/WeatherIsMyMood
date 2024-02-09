@@ -146,6 +146,7 @@ extension WeatherView {
             }
             .padding()
         }
+        .scrollIndicators(.never)
         .background {
             Color(ColorConstants.main)
                 .ignoresSafeArea()
