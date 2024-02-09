@@ -43,7 +43,7 @@ extension TimelineProviderTask {
     
     func makeWeatherEntryWhenLocationFound(location: CLLocation, config: CommonIntent) async -> WeatherEntry {
         do {
-            async let cityName = CLLocationManager.cityName(at: location)
+            async let cityName = locationManager.cityName(at: location)
             async let weather = weatherService.weather(for: location)
             let image = try await firestoreManager.fetchBackground(weather.currentWeather.condition.weatherIcon)
             

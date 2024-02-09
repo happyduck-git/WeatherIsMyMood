@@ -70,7 +70,7 @@ struct WeatherView: View {
                 do {
                     async let weather = weatherService.weather(for: location)
                     async let attribution = weatherService.attribution
-                    async let cityName = CLLocationManager.cityName(at: location)
+                    async let cityName = locationManager.cityName(at: location)
                     
                     self.weather = try await weather
                     self.attribution = try await attribution
@@ -133,10 +133,13 @@ extension WeatherView {
                     
                     SearchView(searchCity: $searchedCityName) {
                         self.updateLocationStatus(to: searchedCityName)
-                        self.demoUpdateLocation(to: searchedCityName)
+                        
                     } backToCurrentLocation: {
-                        self.locationManager.requestOnTimeLocation()
-                        self.updateLocationStatus(to: self.locationManager.cityName ?? "Seoul")
+                        searchedCityName = ""
+                        Task {
+                            await self.locationManager.requestOnTimeLocation()
+                            self.updateLocationStatus(to: self.locationManager.cityName ?? "Seoul")
+                        }
                     }
                     .frame(width: UIScreen.screenWidth)
                 }
@@ -154,7 +157,7 @@ extension WeatherView {
     private func updateLocationStatus(to city: String) {
         if !city.isEmpty {
             Task {
-                let loc = await self.locationManager.locationFetcher.location(forCity: city, geocoder: CLGeocoder())
+                let loc = await self.locationManager.location(forCity: city, geocoder: CLGeocoder())
                 guard let loc else {
                     self.locationFound = false
                     return
@@ -163,19 +166,6 @@ extension WeatherView {
                 self.locationManager.currentLocation = loc
             }
         }
-    }
-    
-    private func demoUpdateLocation(to city: String) {
-    
-            Task {
-                let loc = await self.locationManager.locationFetcher.location(forCity: city, geocoder: CLGeocoder())
-                guard let loc else {
-                   print("No location found \(city)")
-                    return
-                }
-                print("DEMO City \(city): \(loc.coordinate)")
-            }
-        
     }
 
     private func filterHours(of hourlyWeathers: Forecast<HourWeather>?, count: Int) -> [HourWeather] {
