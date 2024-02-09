@@ -116,7 +116,7 @@ extension WeatherView {
                     if let weather {
                         CityCurrentWeatherView(weather: $weather,
                                                cityName: $cityName)
-                        
+                        .padding(.vertical, 10)
                         HourlyForcastView(hourWeatherList: self.hourlyWeatherData)
                         
                         TenDayForcastView(dayWeatherList: weather.dailyForecast.forecast)

@@ -21,7 +21,7 @@ struct HourlyForcastView: View {
                 ScrollView(.horizontal) {
                     HStack {
                         ForEach(hourWeatherList, id: \.date) { item in
-                            VStack(spacing: 20) {
+                            VStack(spacing: 10) {
                                 Text(item.date.formatAsAbbreviatedTime())
                                 Image(systemName: "\(item.symbolName)")
                                     .foregroundStyle(.secondary)
