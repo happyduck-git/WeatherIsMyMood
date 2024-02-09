@@ -1,6 +1,10 @@
 # Created by https://www.toptal.com/developers/gitignore/api/xcode
 # Edit at https://www.toptal.com/developers/gitignore?templates=xcode
 
+### Firebase ###
+GoogleService-Info.plist
+
+
 ### Xcode ###
 ## User settings
 xcuserdata/
