@@ -33,52 +33,65 @@ struct DecorationView: View {
     }
     
     var body: some View {
-        ZStack {
-            VStack {
-                
-                EnableToggleView(isOn: $isOn,
-                                 weather: $weather,
-                                 selectedIcon: $selectedIcon)
-                
-                Text(DecoConstants.preview)
-                    .fontWeight(.bold)
-                    .frame(alignment: .leading)
-                    .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
-                
-                DynamicIslandPreviewView(weather: $weather,
-                                         selectedIcon: $selectedIcon)
-                
-                
-                HStack {
-                    Text(DecoConstants.weather)
+        NavigationView {
+            ZStack {
+                ScrollView {
+                    EnableToggleView(isOn: $isOn,
+                                     weather: $weather,
+                                     selectedIcon: $selectedIcon)
+                    
+                    Text(DecoConstants.preview)
                         .fontWeight(.bold)
                         .frame(alignment: .leading)
-                        .padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 0))
-                    Spacer()
+                        .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
+                    
+                    DynamicIslandPreviewView(weather: $weather,
+                                             selectedIcon: $selectedIcon)
+                    
+                    
+                    HStack {
+                        Text(DecoConstants.weather)
+                            .fontWeight(.bold)
+                            .frame(alignment: .leading)
+                            .padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 0))
+                        Spacer()
+                    }
+                    
+                    self.emojiCollectionView(self.weatherIcons)
+                    
+                    HStack {
+                        Text(DecoConstants.others)
+                            .fontWeight(.bold)
+                            .frame(alignment: .leading)
+                            .padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 0))
+                        Spacer()
+                    }
+                    
+                    self.emojiCollectionView(self.otherIcons)
+                    
+                }
+                .scrollIndicators(.never)
+                .background {
+                    Color(ColorConstants.main)
+                        .ignoresSafeArea()
                 }
                 
-                self.emojiCollectionView(self.weatherIcons)
-                
-                HStack {
-                    Text(DecoConstants.others)
-                        .fontWeight(.bold)
-                        .frame(alignment: .leading)
-                        .padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 0))
-                    Spacer()
+                if isLoading {
+                    LoadingView()
                 }
-                
-                self.emojiCollectionView(self.otherIcons)
-                
             }
-            .background {
-                Color(ColorConstants.main)
-                    .ignoresSafeArea()
-            }
-            
-            if isLoading {
-                LoadingView()
-            }
+            .toolbarBackground(Color(ColorConstants.main), for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
+            .toolbar(content: {
+                ToolbarItem(placement: .principal) {
+                    Image(.logo)
+                        .resizable()
+                        .frame(width: 40, height: 50, alignment: .bottom)
+                        .aspectRatio(contentMode: .fit)
+                }
+            })
         }
+        
         .onAppear(perform: {
             print("DecorationView appeared")
         })
