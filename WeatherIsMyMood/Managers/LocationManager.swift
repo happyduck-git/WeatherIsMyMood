@@ -18,8 +18,6 @@ protocol LocationFetcher {
     func requestLocation()
     func startUpdatingLocation()
     func requestWhenInUseAuthorization()
-    static func cityName(at location: CLLocation, geocoder: GeoCoder) async -> String?
-    func location(forCity cityName: String, geocoder: GeoCoder) async -> CLLocation?
 }
 
 protocol LocationFetcherDelegate: AnyObject {
@@ -35,7 +33,6 @@ protocol GeoCoder {
 final class LocationManager: NSObject, ObservableObject {
 
     @Published var currentLocation: CLLocation?
-    @Published var previousLocation: CLLocation?
     @Published var cityName: String?
     @Published var error: Error?
     
@@ -55,13 +52,38 @@ final class LocationManager: NSObject, ObservableObject {
 }
 
 extension LocationManager {
-    func requestOnTimeLocation() {
+    func requestOnTimeLocation() async {
         currentLocation = self.locationFetcher.location
+        guard let currentLocation else {
+            return
+        }
+        self.cityName = await self.cityName(at: currentLocation)
     }
     
     func refreshLocation() {
         self.locationFetcher.startUpdatingLocation()
     }
+    
+    func cityName(at location: CLLocation, geocoder: GeoCoder = CLGeocoder()) async -> String? {
+        do {
+            let placemarks = try await geocoder.reverseGeocodeLocation(location, preferredLocale: .current)
+            return placemarks.first?.locality
+        } catch {
+            print("Reverse geocoding error: \(error)")
+            return nil
+        }
+    }
+    
+    func location(forCity cityName: String, geocoder: GeoCoder = CLGeocoder()) async -> CLLocation? {
+        do {
+            let placemarks = try await geocoder.geocodeAddressString(cityName, in: nil)
+            return placemarks.first?.location
+        } catch {
+            print("Geocoding error: \(error)")
+            return nil
+        }
+    }
+    
 }
 
 extension LocationManager: CLLocationManagerDelegate {
@@ -93,27 +115,7 @@ extension LocationManager: LocationFetcherDelegate {
 }
 
 extension CLLocationManager: LocationFetcher {
-    static func cityName(at location: CLLocation, geocoder: GeoCoder = CLGeocoder()) async -> String? {
-        do {
-            let placemarks = try await geocoder.reverseGeocodeLocation(location, preferredLocale: .current)
-            return placemarks.first?.locality
-        } catch {
-            print("Reverse geocoding error: \(error)")
-            return nil
-        }
-    }
-    
-    func location(forCity cityName: String, geocoder: GeoCoder = CLGeocoder()) async -> CLLocation? {
-        do {
-            let placemarks = try await geocoder.geocodeAddressString(cityName, in: nil)
-            return placemarks.first?.location
-        } catch {
-            print("Geocoding error: \(error)")
-            return nil
-        }
-    }
-    
-    
+
     var locationFetcherDelegate: LocationFetcherDelegate? {
         get { return delegate as! LocationFetcherDelegate? }
         set { delegate = newValue as! CLLocationManagerDelegate? }

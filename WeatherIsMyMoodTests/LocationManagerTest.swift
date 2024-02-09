@@ -128,12 +128,12 @@ final class LocationManagerTest: XCTestCase {
     }
 
     func test_cityName() async {
-        let result = await CLLocationManager.cityName(at: self.mockCoordinate, geocoder: mockGeocoder)
+        let result = await self.locationManager.cityName(at: self.mockCoordinate, geocoder: mockGeocoder)
         XCTAssertEqual(result!, "New York", "Location differenct: \(String(describing: result))")
     }
     
     func test_location() async {
-        let result = await self.locationManager.locationFetcher.location(forCity: self.mockCity, geocoder: mockGeocoder)
+        let result = await self.locationManager.location(forCity: self.mockCity, geocoder: mockGeocoder)
         XCTAssertEqual(result!.altitude, self.mockCoordinate.altitude)
     }
 }
