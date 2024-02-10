@@ -23,7 +23,6 @@ struct DecorationView: View {
     @State private var previousWeather: Weather?
     @State private var condition: WeatherCondition = .clear
     
-    private let numberOfColumns = 4
     @State private var weatherIcons: [Data] = []
     @State private var otherIcons: [Data] = []
     @State private var selectedIcon: Data?
@@ -35,46 +34,7 @@ struct DecorationView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                ScrollView {
-                    EnableToggleView(isOn: $isOn,
-                                     weather: $weather,
-                                     selectedIcon: $selectedIcon)
-                    
-                    Text(DecoConstants.preview)
-                        .fontWeight(.bold)
-                        .frame(alignment: .leading)
-                        .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
-                    
-                    DynamicIslandPreviewView(weather: $weather,
-                                             selectedIcon: $selectedIcon)
-                    
-                    
-                    HStack {
-                        Text(DecoConstants.weather)
-                            .fontWeight(.bold)
-                            .frame(alignment: .leading)
-                            .padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 0))
-                        Spacer()
-                    }
-                    
-                    self.emojiCollectionView(self.weatherIcons)
-                    
-                    HStack {
-                        Text(DecoConstants.others)
-                            .fontWeight(.bold)
-                            .frame(alignment: .leading)
-                            .padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 0))
-                        Spacer()
-                    }
-                    
-                    self.emojiCollectionView(self.otherIcons)
-                    
-                }
-                .scrollIndicators(.never)
-                .background {
-                    Color(ColorConstants.main)
-                        .ignoresSafeArea()
-                }
+                self.makeScrollView()
                 
                 if isLoading {
                     LoadingView()
@@ -152,20 +112,84 @@ extension DecorationView {
 
 extension DecorationView {
     
-    private func emojiCollectionView(_ icons: [Data]) -> some View {
-        return  ScrollView(.vertical, showsIndicators: false) {
-            let numberOfRows = (icons.count + 2) / numberOfColumns
+    private func makeScrollView() -> some View {
+        return ScrollView {
             
-            ForEach(0..<numberOfRows, id: \.self) { row in
+            EnableToggleView(isOn: $isOn,
+                             weather: $weather,
+                             selectedIcon: $selectedIcon)
+            
+            Text(DecoConstants.preview)
+                .fontWeight(.bold)
+                .frame(alignment: .leading)
+                .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
+            
+            DynamicIslandPreviewView(weather: $weather,
+                                     selectedIcon: $selectedIcon)
+            
+            
+            HStack {
+                Text(DecoConstants.weather)
+                    .fontWeight(.bold)
+                    .frame(alignment: .leading)
+                    .padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 0))
+                Spacer()
+            }
+            
+            self.emojiCollectionView(self.weatherIcons)
+            
+            HStack {
+                Text(DecoConstants.others)
+                    .fontWeight(.bold)
+                    .frame(alignment: .leading)
+                    .padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 0))
+                Spacer()
+            }
+            
+            self.emojiCollectionView(self.otherIcons)
+            
+        }
+        .scrollIndicators(.never)
+        .background {
+            Color(ColorConstants.main)
+                .ignoresSafeArea()
+        }
+    }
+    
+    private func emojiCollectionView(_ icons: [Data]) -> some View {
+
+        let rows = 2
+        let columns = (icons.count + 2) / rows
+        return makeCollectionView(direction: .horizontal,
+                                  row: 2,
+                                  column: columns,
+                                  data: icons)
+   
+        /* Horizontal */
+        /*
+        let columns = 4
+        let rows = (icons.count + 2) / columns
+        return makeCollectionView(direction: .vertical,
+                                  row: rows,
+                                  column: columns,
+                                  data: icons)
+        */
+
+    }
+    
+    private func makeCollectionView(direction: Axis.Set, row: Int, column: Int, data: [Data]) -> some View {
+
+        return ScrollView(direction) {
+            ForEach(0..<row, id: \.self) { row in
                 HStack {
-                    ForEach(0..<numberOfColumns, id: \.self) { col in
-                        let index = row * numberOfColumns + col
-                        
-                        if index < icons.count {
+                    ForEach(0..<column, id: \.self) { col in
+                        let index = row * column + col
+
+                        if index < data.count {
                             
-                            EmojiViewCell(emojiData: icons[index])
+                            EmojiViewCell(emojiData: data[index])
                                 .onTapGesture {
-                                    self.selectedIcon = icons[index]
+                                    self.selectedIcon = data[index]
                                 }
                         }
                     }
@@ -173,11 +197,7 @@ extension DecorationView {
             }
         }
         .padding()
-        .background {
-            RoundedRectangle(cornerRadius: 15)
-                .fill(Color.gray.opacity(0.1))
-                .frame(minWidth: UIScreen.screenWidth - 60)
-        }
+        
     }
 }
 
