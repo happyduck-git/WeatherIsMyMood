@@ -10,7 +10,7 @@ import ActivityKit
 import UIKit.UIImage
 
 struct WeatherAttributes: ActivityAttributes {
-    typealias WeatherAttributes = ContentState
+//    typealias WeatherAttributes = ContentState
     
     struct ContentState: Codable & Hashable {
         // Live Activities Will be Updated Its View When Content State is Updated.

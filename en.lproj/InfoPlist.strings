@@ -7,3 +7,4 @@
 */
 "NSLocationAlwaysUsageDescription" = "Weather Island would like to use your location information.\nIt is used to fetch accurate weather information for your current location.";
 "NSLocationWhenInUseUsageDescription" = "Weather Island would like to use your location information.\nIt is used to fetch accurate weather information for your current location.";
+"NSUserTrackingUsageDescription" = "Weather Island would like to collect app usage information. \nPersonal information of users is not collected.";
