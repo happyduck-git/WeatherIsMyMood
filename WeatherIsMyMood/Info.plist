@@ -2,10 +2,20 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
+		<string>com.gghoneycomb.WeatherIsMyMood.bg_weather_update</string>
+	</array>
 	<key>NSUserActivityTypes</key>
 	<array>
 		<string>DemoWidgetConfigIntent</string>
 		<string>WeatherSelectionIntent</string>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>location</string>
+		<string>processing</string>
 	</array>
 </dict>
 </plist>
