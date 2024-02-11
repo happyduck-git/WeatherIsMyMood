@@ -9,7 +9,7 @@ import Foundation
 
 enum ColorConstants {
     static let main = "Main"
-    static let widgetMain = "Beige"
+    static let widgetMain = "WidgetBG"
 }
 
 enum WeatherConstants {
