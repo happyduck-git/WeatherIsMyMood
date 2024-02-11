@@ -180,17 +180,19 @@ extension DecorationView {
     private func makeCollectionView(direction: Axis.Set, row: Int, column: Int, data: [Data]) -> some View {
 
         return ScrollView(direction) {
-            ForEach(0..<row, id: \.self) { row in
-                HStack {
-                    ForEach(0..<column, id: \.self) { col in
-                        let index = row * column + col
-
-                        if index < data.count {
+            VStack(alignment: .leading) {
+                ForEach(0..<row, id: \.self) { row in
+                    HStack {
+                        ForEach(0..<column, id: \.self) { col in
+                            let index = row * column + col
                             
-                            EmojiViewCell(emojiData: data[index])
-                                .onTapGesture {
-                                    self.selectedIcon = data[index]
-                                }
+                            if index < data.count {
+                                
+                                EmojiViewCell(emojiData: data[index])
+                                    .onTapGesture {
+                                        self.selectedIcon = data[index]
+                                    }
+                            }
                         }
                     }
                 }
