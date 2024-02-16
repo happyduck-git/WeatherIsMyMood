@@ -14,29 +14,36 @@ struct HourlyPrecipitationChartView: View {
     @State var noPrecipitation = Set<Bool>()
     
     var body: some View {
-        ZStack {
-            VStack(alignment: .leading) {
-                WeatherTitleView(title: WeatherConstants.precipitation)
-                    .shadow(radius: 10)
-                if noPrecipitation.contains(true) && noPrecipitation.count == 1 {
-                    Text("No rain is expected for 7hrs!")
-                        .padding()
-                }
-                
-                Chart {
-                    ForEach(hourWeatherList.prefix(7), id: \.date) { weather in
-                        BarMark(
-                            x: .value("Hour", weather .date.formatAsAbbreviatedTime()),
-                            y: .value("Precipitation", weather.precipitationChance.rounded())
-                        )
-                        .opacity(0.9)
-                        .foregroundStyle(.indigo)
-                        
-                    }
-                }
-                .padding()
-                
+        
+        HStack {
+            WeatherTitleView(section: .precipitation)
+                .shadow(radius: 10)
+                .frame(width: 200)
+                .padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
+            Spacer()
+        }
+        
+        
+        VStack(alignment: .leading) {
+            
+            if noPrecipitation.contains(true) && noPrecipitation.count == 1 {
+                Text("No rain is expected for 7hrs!")
+                    .padding()
             }
+            
+            Chart {
+                ForEach(hourWeatherList.prefix(7), id: \.date) { weather in
+                    BarMark(
+                        x: .value("Hour", weather .date.formatAsAbbreviatedTime()),
+                        y: .value("Precipitation", weather.precipitationChance.rounded())
+                    )
+                    .opacity(0.9)
+                    .foregroundStyle(.indigo)
+                    
+                }
+            }
+            .padding()
+            
         }
         .background {
             LinearGradient(colors: [.blue, .green], startPoint: .topLeading, endPoint: .bottom)

@@ -8,25 +8,32 @@
 import SwiftUI
 
 struct WeatherTitleView: View {
-    let title: String
+    
+    let section: WeatherViewSection
     
     var body: some View {
         ZStack(alignment: .center) {
             Capsule(style: .continuous)
-                .padding(EdgeInsets(top: 10, leading: 10, bottom: 0, trailing: 190))
-                .foregroundStyle(.white)
-                .opacity(0.3)
+                .foregroundStyle(.background)
+                .opacity(0.2)
                 .frame(height: 50)
+
+            HStack {
+                Image(systemName: self.section.icon)
+                    .foregroundStyle(self.section.color)
+                    .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 0))
                 
-            Text(self.title)
-                .font(.title3)
-                .foregroundStyle(.black)
-                .opacity(0.7)
-                .padding(EdgeInsets(top: 10, leading: 20, bottom: 0, trailing: 200))
+                Text(self.section.title)
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+                    .padding(EdgeInsets(top: 10, leading: 5, bottom: 10, trailing: 5))
+                
+                Spacer()
+            }
         }
     }
 }
 
 #Preview {
-    WeatherTitleView(title: "Hourly Weather")
+    WeatherTitleView(section: .precipitation)
 }

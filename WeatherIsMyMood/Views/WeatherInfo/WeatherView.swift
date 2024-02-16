@@ -121,9 +121,11 @@ extension WeatherView {
                                                weather: $weather,
                                                cityName: $cityName)
                         .padding(.vertical, 10)
+                        
                         HourlyForcastView(hourWeatherList: self.hourlyWeatherData)
                         
                         TenDayForcastView(dayWeatherList: weather.dailyForecast.forecast)
+                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
                         
                         HourlyPrecipitationChartView(hourWeatherList: self.$hourlyWeatherData)
                         
