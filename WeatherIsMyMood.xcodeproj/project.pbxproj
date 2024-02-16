@@ -30,6 +30,10 @@
 		243086442B23FE8A006C78E9 /* WeatherIsMyMoodUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243086432B23FE8A006C78E9 /* WeatherIsMyMoodUITests.swift */; };
 		243086462B23FE8A006C78E9 /* WeatherIsMyMoodUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243086452B23FE8A006C78E9 /* WeatherIsMyMoodUITestsLaunchTests.swift */; };
 		243465F32B5A69B600511D78 /* WeatherWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243465F22B5A69B600511D78 /* WeatherWidget.swift */; };
+		2457E9682B7EF8950093BB2C /* sun_color.json in Resources */ = {isa = PBXBuildFile; fileRef = 2457E9662B7EF8940093BB2C /* sun_color.json */; };
+		2457E9692B7EF8950093BB2C /* sun.json in Resources */ = {isa = PBXBuildFile; fileRef = 2457E9672B7EF8940093BB2C /* sun.json */; };
+		2457E96B2B7EF8CB0093BB2C /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2457E96A2B7EF8CB0093BB2C /* LottieView.swift */; };
+		2457E96D2B7EF9E10093BB2C /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 2457E96C2B7EF9E10093BB2C /* Lottie */; };
 		245871482B5C180700FB9BA1 /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249871702B2967F000580566 /* Double+Extensions.swift */; };
 		2458714A2B5C1A6800FB9BA1 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245871492B5C1A6800FB9BA1 /* String+Extensions.swift */; };
 		2458714B2B5C1BE500FB9BA1 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245871492B5C1A6800FB9BA1 /* String+Extensions.swift */; };
@@ -153,6 +157,9 @@
 		243465F22B5A69B600511D78 /* WeatherWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherWidget.swift; sourceTree = "<group>"; };
 		243465F42B5A69CD00511D78 /* WeatherAppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAppIntent.swift; sourceTree = "<group>"; };
 		243465F72B5A6EA300511D78 /* WeatherTimelineProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTimelineProvider.swift; sourceTree = "<group>"; };
+		2457E9662B7EF8940093BB2C /* sun_color.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sun_color.json; sourceTree = "<group>"; };
+		2457E9672B7EF8940093BB2C /* sun.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sun.json; sourceTree = "<group>"; };
+		2457E96A2B7EF8CB0093BB2C /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		245871472B5BE94C00FB9BA1 /* WeatherWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WeatherWidgetExtension.entitlements; sourceTree = "<group>"; };
 		245871492B5C1A6800FB9BA1 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		2458CD212B25D720008F4AFE /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
@@ -207,6 +214,7 @@
 				24A66DF92B2715B600B348CC /* FirebaseAnalytics in Frameworks */,
 				24A66E072B274ACB00B348CC /* FirebaseStorageCombine-Community in Frameworks */,
 				24A66E052B274ACB00B348CC /* FirebaseStorage in Frameworks */,
+				2457E96D2B7EF9E10093BB2C /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,6 +248,7 @@
 		241A80442B2A176200706BB8 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				2457E9652B7EF8610093BB2C /* Lottie */,
 				241A80452B2A176D00706BB8 /* Fonts */,
 				2430862C2B23FE89006C78E9 /* Assets.xcassets */,
 			);
@@ -337,6 +346,15 @@
 			path = WeatherIsMyMoodUITests;
 			sourceTree = "<group>";
 		};
+		2457E9652B7EF8610093BB2C /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				2457E9662B7EF8940093BB2C /* sun_color.json */,
+				2457E9672B7EF8940093BB2C /* sun.json */,
+			);
+			path = Lottie;
+			sourceTree = "<group>";
+		};
 		2458CD252B25F88A008F4AFE /* WeatherInfo */ = {
 			isa = PBXGroup;
 			children = (
@@ -388,6 +406,7 @@
 			isa = PBXGroup;
 			children = (
 				247212D62B2822E7009A6DE5 /* LoadingView.swift */,
+				2457E96A2B7EF8CB0093BB2C /* LottieView.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -490,6 +509,7 @@
 				24A66DF82B2715B600B348CC /* FirebaseAnalytics */,
 				24A66E042B274ACB00B348CC /* FirebaseStorage */,
 				24A66E062B274ACB00B348CC /* FirebaseStorageCombine-Community */,
+				2457E96C2B7EF9E10093BB2C /* Lottie */,
 			);
 			productName = WeatherIsMyMood;
 			productReference = 243086252B23FE86006C78E9 /* WeatherIsMyMood.app */;
@@ -591,6 +611,7 @@
 			mainGroup = 2430861C2B23FE86006C78E9;
 			packageReferences = (
 				24A66DF62B27159C00B348CC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				2457E9642B7EF7110093BB2C /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = 243086262B23FE86006C78E9 /* Products */;
 			projectDirPath = "";
@@ -611,6 +632,8 @@
 			files = (
 				243086302B23FE89006C78E9 /* Preview Assets.xcassets in Resources */,
 				2467616B2B2D2D6D00C4CF4E /* InfoPlist.strings in Resources */,
+				2457E9692B7EF8950093BB2C /* sun.json in Resources */,
+				2457E9682B7EF8950093BB2C /* sun_color.json in Resources */,
 				24A66E092B275FB200B348CC /* GoogleService-Info.plist in Resources */,
 				241A803E2B29E04100706BB8 /* Localizable.xcstrings in Resources */,
 				241A80432B2A156500706BB8 /* Launch Screen.storyboard in Resources */,
@@ -652,6 +675,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				243021522B640C6600580960 /* StructWrapper.swift in Sources */,
+				2457E96B2B7EF8CB0093BB2C /* LottieView.swift in Sources */,
 				248E3F542B25B1DE001B10C3 /* SearchView.swift in Sources */,
 				2458CD242B25F5F3008F4AFE /* MainView.swift in Sources */,
 				243021A22B665E2600580960 /* Intents.intentdefinition in Sources */,
@@ -1171,6 +1195,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2457E9642B7EF7110093BB2C /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.4.0;
+			};
+		};
 		24A66DF62B27159C00B348CC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -1182,6 +1214,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2457E96C2B7EF9E10093BB2C /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2457E9642B7EF7110093BB2C /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
 		249970452B5B926E00F995AD /* FirebaseStorage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 24A66DF62B27159C00B348CC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
