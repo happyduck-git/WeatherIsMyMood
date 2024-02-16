@@ -34,6 +34,7 @@
 		2457E9692B7EF8950093BB2C /* sun.json in Resources */ = {isa = PBXBuildFile; fileRef = 2457E9672B7EF8940093BB2C /* sun.json */; };
 		2457E96B2B7EF8CB0093BB2C /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2457E96A2B7EF8CB0093BB2C /* LottieView.swift */; };
 		2457E96D2B7EF9E10093BB2C /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 2457E96C2B7EF9E10093BB2C /* Lottie */; };
+		2457E9632B7C9FF60093BB2C /* BackgroundTimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2457E9622B7C9FF60093BB2C /* BackgroundTimeManager.swift */; };
 		245871482B5C180700FB9BA1 /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249871702B2967F000580566 /* Double+Extensions.swift */; };
 		2458714A2B5C1A6800FB9BA1 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245871492B5C1A6800FB9BA1 /* String+Extensions.swift */; };
 		2458714B2B5C1BE500FB9BA1 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245871492B5C1A6800FB9BA1 /* String+Extensions.swift */; };
@@ -160,6 +161,7 @@
 		2457E9662B7EF8940093BB2C /* sun_color.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sun_color.json; sourceTree = "<group>"; };
 		2457E9672B7EF8940093BB2C /* sun.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sun.json; sourceTree = "<group>"; };
 		2457E96A2B7EF8CB0093BB2C /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
+		2457E9622B7C9FF60093BB2C /* BackgroundTimeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundTimeManager.swift; sourceTree = "<group>"; };
 		245871472B5BE94C00FB9BA1 /* WeatherWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WeatherWidgetExtension.entitlements; sourceTree = "<group>"; };
 		245871492B5C1A6800FB9BA1 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		2458CD212B25D720008F4AFE /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
@@ -449,6 +451,7 @@
 				248E3F442B249369001B10C3 /* LocationManager.swift */,
 				24A66E022B2749E900B348CC /* FirestoreManager.swift */,
 				247212FD2B28B2FA009A6DE5 /* StorageCacheManager.swift */,
+				2457E9622B7C9FF60093BB2C /* BackgroundTimeManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -689,6 +692,7 @@
 				249970422B5B8E8900F995AD /* WeatherTimelineProvider.swift in Sources */,
 				2458714A2B5C1A6800FB9BA1 /* String+Extensions.swift in Sources */,
 				24A66DF12B26DDCB00B348CC /* WeatherCondition+Extensions.swift in Sources */,
+				2457E9632B7C9FF60093BB2C /* BackgroundTimeManager.swift in Sources */,
 				24A66DF32B26EEBB00B348CC /* EmojiViewCell.swift in Sources */,
 				243465F32B5A69B600511D78 /* WeatherWidget.swift in Sources */,
 				2430862B2B23FE86006C78E9 /* WeatherView.swift in Sources */,

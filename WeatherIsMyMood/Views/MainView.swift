@@ -9,8 +9,15 @@ import SwiftUI
 import CoreLocation
 
 struct MainView: View {
-    @StateObject private var locationManager: LocationManager = LocationManager(locationFetcher: CLLocationManager())
-
+    
+    @ObservedObject private var locationManager: LocationManager
+    
+    //MARK: - Init
+    init(locationManager: LocationManager) {
+        self.locationManager = locationManager
+    }
+    
+    //MARK: - Body
     var body: some View {
         TabView {
             WeatherView(locationManager: self.locationManager)
@@ -26,5 +33,5 @@ struct MainView: View {
 }
 
 #Preview {
-    MainView()
+    MainView(locationManager: LocationManager(locationFetcher: CLLocationManager()))
 }

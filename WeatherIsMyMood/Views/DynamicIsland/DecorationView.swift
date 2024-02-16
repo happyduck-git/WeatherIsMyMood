@@ -106,7 +106,6 @@ extension DecorationView {
         
         self.otherIcons = try await others
         self.weatherIcons = try await weathers
-        self.isLoading = false
     }
 }
 

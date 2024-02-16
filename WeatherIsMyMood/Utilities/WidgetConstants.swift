@@ -7,6 +7,18 @@
 
 import Foundation
 
+enum BGTaskConstants {
+    static let testId = "com.gghoneycomb.WeatherIsMyMood.bg_test"
+    static let weatherUpdateId = "com.gghoneycomb.WeatherIsMyMood.bg_weather_update"
+}
+
+enum NotificationKeys {
+    static let widgetUpdate = "widget_update"
+    static let systemWidgetUpdate = "sys_widget_update"
+    static let backgroundUpdate = "bg_weather_update"
+    static let demoNoti = "demo_noti"
+}
+
 enum ColorConstants {
     static let main = "Main"
     static let widgetMain = "WidgetBG"

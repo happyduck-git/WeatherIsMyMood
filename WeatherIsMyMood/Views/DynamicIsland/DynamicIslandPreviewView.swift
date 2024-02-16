@@ -60,6 +60,9 @@ struct DynamicIslandPreviewView: View {
             }
         }
         .frame(height: 100)
+        .onChange(of: self.weather, perform: { _ in
+            print("Weather on DPV has changed -- \(String(describing: self.selectedIcon))")
+        })
     }
 }
 
