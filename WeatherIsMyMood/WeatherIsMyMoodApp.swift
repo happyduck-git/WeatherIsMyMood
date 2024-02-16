@@ -32,7 +32,8 @@ struct WeatherIsMyMoodApp: App {
     
     @Environment(\.scenePhase) private var phase
     @StateObject private var locationManager: LocationManager = LocationManager(locationFetcher: CLLocationManager())
-    
+    private let storageManager: FirestoreManager = FirestoreManager()
+    @StateObject private var coreStack = CoreDataStack()
     @ObservedObject private var bgTimeManger = BackgroundTimer()
     @State private var tasks: [UIBackgroundTaskIdentifier] = []
     
@@ -40,7 +41,8 @@ struct WeatherIsMyMoodApp: App {
 
         if #available(iOS 17.0, *) {
             return WindowGroup {
-                self.makeMainView(with: self.locationManager)
+                self.makeMainView(locationManager: self.locationManager,
+                                  storageManager: self.storageManager)
                     .onAppear {
                         bgTimeManger.delegate = self
                     }
@@ -69,7 +71,8 @@ struct WeatherIsMyMoodApp: App {
           
         } else {
             return WindowGroup {
-                self.makeMainView(with: self.locationManager)
+                self.makeMainView(locationManager: self.locationManager,
+                                  storageManager: self.storageManager)
             }
             .onChange(of: phase) { newPhase in
                 switch newPhase {
@@ -92,8 +95,9 @@ struct WeatherIsMyMoodApp: App {
         }
     }
     
-    private func makeMainView(with locationManager: LocationManager) -> some View {
-        return MainView(locationManager: locationManager)
+    private func makeMainView(locationManager: LocationManager,
+                              storageManager: FirestoreManager) -> some View {
+        return MainView(locationManager: locationManager, storageManager: storageManager)
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
                 Task {
                     await ATTrackingManager.requestTrackingAuthorization()

@@ -17,7 +17,7 @@ struct DecorationView: View {
     @AppStorage("isDynamicIslandOn") private var isOn = false
     
     private let weatherService = WeatherService.shared
-    private let storageManager = FirestoreManager()
+    private let storageManager: FirestoreManager
     
     @State private var weather: Weather?
     @State private var previousWeather: Weather?
@@ -27,8 +27,10 @@ struct DecorationView: View {
     @State private var otherIcons: [Data] = []
     @State private var selectedIcon: Data?
     
-    init(locationManager: LocationManager) {
+    init(locationManager: LocationManager,
+         storageManager: FirestoreManager) {
         self.locationManager = locationManager
+        self.storageManager = storageManager
     }
     
     var body: some View {

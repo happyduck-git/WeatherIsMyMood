@@ -52,6 +52,6 @@ struct HourlyPrecipitationChartView: View {
 
 extension HourlyPrecipitationChartView {
     private func checkForPrecipitation() {
-        noPrecipitation.insert(hourWeatherList.prefix(7).contains { $0.precipitationAmount.value.rounded().isZero })
+        noPrecipitation.insert(hourWeatherList.prefix(7).contains { $0.precipitationAmount.value.isZero })
     }
 }

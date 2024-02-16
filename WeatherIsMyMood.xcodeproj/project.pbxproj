@@ -30,11 +30,17 @@
 		243086442B23FE8A006C78E9 /* WeatherIsMyMoodUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243086432B23FE8A006C78E9 /* WeatherIsMyMoodUITests.swift */; };
 		243086462B23FE8A006C78E9 /* WeatherIsMyMoodUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243086452B23FE8A006C78E9 /* WeatherIsMyMoodUITestsLaunchTests.swift */; };
 		243465F32B5A69B600511D78 /* WeatherWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243465F22B5A69B600511D78 /* WeatherWidget.swift */; };
+		2457E9632B7C9FF60093BB2C /* BackgroundTimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2457E9622B7C9FF60093BB2C /* BackgroundTimeManager.swift */; };
 		2457E9682B7EF8950093BB2C /* sun_color.json in Resources */ = {isa = PBXBuildFile; fileRef = 2457E9662B7EF8940093BB2C /* sun_color.json */; };
 		2457E9692B7EF8950093BB2C /* sun.json in Resources */ = {isa = PBXBuildFile; fileRef = 2457E9672B7EF8940093BB2C /* sun.json */; };
 		2457E96B2B7EF8CB0093BB2C /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2457E96A2B7EF8CB0093BB2C /* LottieView.swift */; };
 		2457E96D2B7EF9E10093BB2C /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 2457E96C2B7EF9E10093BB2C /* Lottie */; };
-		2457E9632B7C9FF60093BB2C /* BackgroundTimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2457E9622B7C9FF60093BB2C /* BackgroundTimeManager.swift */; };
+		2457E9732B7F4E020093BB2C /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2457E9712B7F4E020093BB2C /* Model.xcdatamodeld */; };
+		2457E9762B7F54980093BB2C /* WeatherConditionInfo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2457E9742B7F54980093BB2C /* WeatherConditionInfo+CoreDataClass.swift */; };
+		2457E9792B7F562E0093BB2C /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2457E9782B7F562E0093BB2C /* CoreDataStack.swift */; };
+		2457E97A2B7FA39E0093BB2C /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2457E9782B7F562E0093BB2C /* CoreDataStack.swift */; };
+		2457E97B2B7FA3CB0093BB2C /* WeatherConditionInfo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2457E9742B7F54980093BB2C /* WeatherConditionInfo+CoreDataClass.swift */; };
+		2457E97C2B7FA3F90093BB2C /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2457E9712B7F4E020093BB2C /* Model.xcdatamodeld */; };
 		245871482B5C180700FB9BA1 /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249871702B2967F000580566 /* Double+Extensions.swift */; };
 		2458714A2B5C1A6800FB9BA1 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245871492B5C1A6800FB9BA1 /* String+Extensions.swift */; };
 		2458714B2B5C1BE500FB9BA1 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245871492B5C1A6800FB9BA1 /* String+Extensions.swift */; };
@@ -158,10 +164,13 @@
 		243465F22B5A69B600511D78 /* WeatherWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherWidget.swift; sourceTree = "<group>"; };
 		243465F42B5A69CD00511D78 /* WeatherAppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAppIntent.swift; sourceTree = "<group>"; };
 		243465F72B5A6EA300511D78 /* WeatherTimelineProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTimelineProvider.swift; sourceTree = "<group>"; };
+		2457E9622B7C9FF60093BB2C /* BackgroundTimeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundTimeManager.swift; sourceTree = "<group>"; };
 		2457E9662B7EF8940093BB2C /* sun_color.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sun_color.json; sourceTree = "<group>"; };
 		2457E9672B7EF8940093BB2C /* sun.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sun.json; sourceTree = "<group>"; };
 		2457E96A2B7EF8CB0093BB2C /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
-		2457E9622B7C9FF60093BB2C /* BackgroundTimeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundTimeManager.swift; sourceTree = "<group>"; };
+		2457E9722B7F4E020093BB2C /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		2457E9742B7F54980093BB2C /* WeatherConditionInfo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WeatherConditionInfo+CoreDataClass.swift"; sourceTree = "<group>"; };
+		2457E9782B7F562E0093BB2C /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		245871472B5BE94C00FB9BA1 /* WeatherWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WeatherWidgetExtension.entitlements; sourceTree = "<group>"; };
 		245871492B5C1A6800FB9BA1 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		2458CD212B25D720008F4AFE /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
@@ -304,18 +313,20 @@
 			isa = PBXGroup;
 			children = (
 				245AEF2F2B5B88FD003DD73B /* Info.plist */,
+				24A66E082B275FB200B348CC /* GoogleService-Info.plist */,
+				248E3F422B24887C001B10C3 /* WeatherIsMyMood.entitlements */,
 				241A80442B2A176200706BB8 /* Assets */,
+				248E3F4A2B2583D3001B10C3 /* Extensions */,
 				247212D82B282CB0009A6DE5 /* WidgetAttributes */,
 				24C7D98A2B26144300453434 /* Utilities */,
-				248E3F4A2B2583D3001B10C3 /* Extensions */,
 				248E3F432B2492E4001B10C3 /* Managers */,
-				248E3F422B24887C001B10C3 /* WeatherIsMyMood.entitlements */,
+				2457E96E2B7F4CB30093BB2C /* Models */,
 				248E3F402B23FECA001B10C3 /* Views */,
 				243086282B23FE86006C78E9 /* WeatherIsMyMoodApp.swift */,
-				24A66E082B275FB200B348CC /* GoogleService-Info.plist */,
 				2430862E2B23FE89006C78E9 /* Preview Content */,
 				241A803D2B29E04000706BB8 /* Localizable.xcstrings */,
 				241A80422B2A156500706BB8 /* Launch Screen.storyboard */,
+				2457E9712B7F4E020093BB2C /* Model.xcdatamodeld */,
 			);
 			path = WeatherIsMyMood;
 			sourceTree = "<group>";
@@ -355,6 +366,14 @@
 				2457E9672B7EF8940093BB2C /* sun.json */,
 			);
 			path = Lottie;
+			sourceTree = "<group>";
+		};
+		2457E96E2B7F4CB30093BB2C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2457E9742B7F54980093BB2C /* WeatherConditionInfo+CoreDataClass.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		2458CD252B25F88A008F4AFE /* WeatherInfo */ = {
@@ -452,6 +471,7 @@
 				24A66E022B2749E900B348CC /* FirestoreManager.swift */,
 				247212FD2B28B2FA009A6DE5 /* StorageCacheManager.swift */,
 				2457E9622B7C9FF60093BB2C /* BackgroundTimeManager.swift */,
+				2457E9782B7F562E0093BB2C /* CoreDataStack.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -684,6 +704,7 @@
 				243021A22B665E2600580960 /* Intents.intentdefinition in Sources */,
 				248E3F502B2598C3001B10C3 /* HourlyPrecipitationChartView.swift in Sources */,
 				247212DA2B282CBF009A6DE5 /* WeatherAttributes.swift in Sources */,
+				2457E9762B7F54980093BB2C /* WeatherConditionInfo+CoreDataClass.swift in Sources */,
 				24C7D98C2B26145000453434 /* AppColors.swift in Sources */,
 				247212D72B2822E7009A6DE5 /* LoadingView.swift in Sources */,
 				249871712B2967F000580566 /* Double+Extensions.swift in Sources */,
@@ -697,6 +718,7 @@
 				243465F32B5A69B600511D78 /* WeatherWidget.swift in Sources */,
 				2430862B2B23FE86006C78E9 /* WeatherView.swift in Sources */,
 				243086292B23FE86006C78E9 /* WeatherIsMyMoodApp.swift in Sources */,
+				2457E9792B7F562E0093BB2C /* CoreDataStack.swift in Sources */,
 				248E3F492B258120001B10C3 /* TenDayForcastView.swift in Sources */,
 				24C7D98E2B26160E00453434 /* Color+Extension.swift in Sources */,
 				248E3F562B25B3CC001B10C3 /* SunTimeView.swift in Sources */,
@@ -710,6 +732,7 @@
 				24A66DF52B2711A600B348CC /* DynamicIslandPreviewView.swift in Sources */,
 				241A803B2B29AD7800706BB8 /* WidgetConstants.swift in Sources */,
 				248E3F4C2B2583E1001B10C3 /* Date+Extensions.swift in Sources */,
+				2457E9732B7F4E020093BB2C /* Model.xcdatamodeld in Sources */,
 				248E3F4E2B25959A001B10C3 /* WeatherTitleView.swift in Sources */,
 				248E3F522B259C04001B10C3 /* DataAttributionView.swift in Sources */,
 				24A66DEF2B26B18800B348CC /* CityCurrentWeatherView.swift in Sources */,
@@ -746,8 +769,11 @@
 				243021A32B665E2600580960 /* Intents.intentdefinition in Sources */,
 				249970442B5B921E00F995AD /* FirestoreManager.swift in Sources */,
 				249970482B5B945B00F995AD /* WeatherWidget.swift in Sources */,
+				2457E97B2B7FA3CB0093BB2C /* WeatherConditionInfo+CoreDataClass.swift in Sources */,
+				2457E97A2B7FA39E0093BB2C /* CoreDataStack.swift in Sources */,
 				2458714B2B5C1BE500FB9BA1 /* String+Extensions.swift in Sources */,
 				243021532B640C6600580960 /* StructWrapper.swift in Sources */,
+				2457E97C2B7FA3F90093BB2C /* Model.xcdatamodeld in Sources */,
 				247212E62B282F3F009A6DE5 /* WeatherWidgetBundle.swift in Sources */,
 				249871732B29995B00580566 /* AppColors.swift in Sources */,
 				249970472B5B928B00F995AD /* StorageCacheManager.swift in Sources */,
@@ -1244,6 +1270,19 @@
 			productName = "FirebaseStorageCombine-Community";
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		2457E9712B7F4E020093BB2C /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				2457E9722B7F4E020093BB2C /* Model.xcdatamodel */,
+			);
+			currentVersion = 2457E9722B7F4E020093BB2C /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 2430861D2B23FE86006C78E9 /* Project object */;
 }

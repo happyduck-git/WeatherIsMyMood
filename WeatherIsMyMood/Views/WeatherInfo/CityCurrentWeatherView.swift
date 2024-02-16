@@ -12,7 +12,7 @@ import PDFKit
 
 struct CityCurrentWeatherView: View {
     
-    private let fireStoreManager = FirestoreManager()
+    let fireStoreManager: FirestoreManager
     
     //MARK: - Properties
     @Binding var weather: Weather?

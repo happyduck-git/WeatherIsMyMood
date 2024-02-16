@@ -12,6 +12,7 @@ import CoreLocation
 struct WeatherView: View {
     
     @ObservedObject private var locationManager: LocationManager
+    private let storageManager: FirestoreManager
     
     @State private var isFirstLoading = true
     @State private var isLoading = false
@@ -25,8 +26,10 @@ struct WeatherView: View {
     @State private var searchedCityName: String = ""
     @State var locationFound: Bool = true
     
-    init(locationManager: LocationManager) {
+    init(locationManager: LocationManager,
+         storageManager: FirestoreManager) {
         self.locationManager = locationManager
+        self.storageManager = storageManager
         #if DEBUG
         print("WeatherViewInit")
         #endif
@@ -114,7 +117,8 @@ extension WeatherView {
                             .padding()
                     }
                     if let weather {
-                        CityCurrentWeatherView(weather: $weather,
+                        CityCurrentWeatherView(fireStoreManager: self.storageManager,
+                                               weather: $weather,
                                                cityName: $cityName)
                         .padding(.vertical, 10)
                         HourlyForcastView(hourWeatherList: self.hourlyWeatherData)
@@ -189,5 +193,6 @@ extension WeatherView {
 }
 
 #Preview {
-    WeatherView(locationManager: LocationManager(locationFetcher: CLLocationManager()))
+    WeatherView(locationManager: LocationManager(locationFetcher: CLLocationManager()),
+                storageManager: FirestoreManager())
 }
