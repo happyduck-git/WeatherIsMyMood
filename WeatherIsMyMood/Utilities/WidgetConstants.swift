@@ -32,6 +32,11 @@ enum WeatherConstants {
     static let deco = String(localized: "Deco")
     static let weatherDataAttribution = String(localized: "Weather Data Attribution")
     static let city = String(localized: "City")
+    static let feelsLike = String(localized: "Feels Like")
+    static let humidity = String(localized: "Humidity ")
+    static let uvIndex = String(localized: "UV Index ")
+    static let showMore = String(localized: "Show more")
+    static let showLess = String(localized: "Show less")
 }
 
 enum DecoConstants {

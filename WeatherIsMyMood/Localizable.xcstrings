@@ -184,6 +184,9 @@
         }
       }
     },
+    "Feels Like" : {
+
+    },
     "H" : {
       "localizations" : {
         "ko" : {
@@ -265,6 +268,9 @@
           }
         }
       }
+    },
+    "Humidity " : {
+
     },
     "L" : {
       "localizations" : {
@@ -495,6 +501,12 @@
         }
       }
     },
+    "Show less" : {
+
+    },
+    "Show more" : {
+
+    },
     "Stay tuned!" : {
       "localizations" : {
         "ko" : {
@@ -521,6 +533,9 @@
 
     },
     "Today" : {
+
+    },
+    "UV Index " : {
 
     },
     "Weather" : {

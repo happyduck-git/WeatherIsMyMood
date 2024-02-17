@@ -32,14 +32,14 @@ struct HourlyPrecipitationChartView: View {
             }
             
             Chart {
+                
                 ForEach(hourWeatherList.prefix(7), id: \.date) { weather in
                     BarMark(
-                        x: .value("Hour", weather .date.formatAsAbbreviatedTime()),
+                        x: .value("Hour", weather.date.formatAsAbbreviatedTime()),
                         y: .value("Precipitation", weather.precipitationChance.rounded())
                     )
                     .opacity(0.9)
                     .foregroundStyle(.indigo)
-                    
                 }
             }
             .padding()

@@ -34,15 +34,24 @@ struct TenDayForcastView: View {
                 Button(action: {
                     self.collapsed.toggle()
                 }, label: {
-                    Image(systemName: self.collapsed ? "chevron.down.circle" : "chevron.up.circle")
-                        .foregroundStyle(.foreground)
+                    HStack {
+                        Text(self.collapsed ? WeatherConstants.showMore : WeatherConstants.showLess)
+                            .foregroundStyle(.indigo)
+                        Image(systemName: self.collapsed ? "chevron.down.circle" : "chevron.up.circle")
+                            .foregroundStyle(.indigo)
+                    }
                 })
                 .padding(.horizontal)
             }
             .padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
             
             self.makeWeatherRow(self.today)
-            
+                .background(
+                    LinearGradient(colors: [.indigo, .blue], startPoint: .topLeading, endPoint: .bottom)
+                        .opacity(0.3)
+                        .clipShape(RoundedRectangle(cornerRadius: 15.0))
+                        .shadow(radius: 10)
+                )
             VStack(alignment: .leading) {
  
                 ForEach(self.otherDays, id: \.date) { item in

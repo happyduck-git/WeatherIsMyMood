@@ -30,6 +30,9 @@ struct SearchView: View {
                         .cornerRadius(10)
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 15))
                         .shadow(radius: 1)
+                        .onSubmit {
+                            onSearch()
+                        }
                     Button("",
                            systemImage: "magnifyingglass.circle.fill")
                     {
