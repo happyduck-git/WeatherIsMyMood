@@ -37,6 +37,7 @@ enum WeatherConstants {
     static let uvIndex = String(localized: "UV Index ")
     static let showMore = String(localized: "Show more")
     static let showLess = String(localized: "Show less")
+    static let previewDescription = String(localized: "Tap on an icon you like and see how it looks on dynamic island!") //"마음에 드는 아이콘을 눌러서 다이나믹 아일랜드에 \n어떻게 표시되는 지 확인해보세요!"
 }
 
 enum DecoConstants {

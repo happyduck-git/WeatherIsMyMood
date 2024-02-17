@@ -11,6 +11,8 @@ enum WeatherViewSection {
     case hourlyWeather
     case tenDays
     case precipitation
+    case weatherIcons
+    case emojis
     
     var title: String {
         switch self {
@@ -20,6 +22,10 @@ enum WeatherViewSection {
             return WeatherConstants.tenDayForcast
         case .precipitation:
             return WeatherConstants.precipitation
+        case .weatherIcons:
+            return DecoConstants.weather
+        case .emojis:
+            return DecoConstants.others
         }
     }
     
@@ -31,6 +37,10 @@ enum WeatherViewSection {
             return "list.clipboard"
         case .precipitation:
             return "cloud.rain.fill"
+        case .weatherIcons:
+            return "sun.dust.fill"
+        case .emojis:
+            return "gamecontroller.fill"
         }
     }
     
@@ -42,6 +52,10 @@ enum WeatherViewSection {
             return .teal
         case .precipitation:
             return .blue
+        case .weatherIcons:
+            return .skyblue
+        case .emojis:
+            return .yellow
         }
     }
 }
