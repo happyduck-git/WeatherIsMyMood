@@ -8,11 +8,14 @@
 import SwiftUI
 import WeatherKit
 import CoreLocation
+import Alamofire
 
 struct WeatherView: View {
     
     @ObservedObject private var locationManager: LocationManager
     private let storageManager: FirestoreManager
+    private let networkManager: NetworkManager = NetworkManager(alamofire: Session())
+    @State private var aqi: Int?
     
     @State private var isFirstLoading = true
     @State private var isLoading = false
@@ -74,6 +77,8 @@ struct WeatherView: View {
                     async let weather = weatherService.weather(for: location)
                     async let attribution = weatherService.attribution
                     async let cityName = locationManager.cityName(at: location)
+                    // Temp comment out
+//                    async let aqi = self.fetchAirQuality(location: location)
                     
                     self.weather = try await weather
                     self.attribution = try await attribution
@@ -84,6 +89,8 @@ struct WeatherView: View {
                     }
                     
                     self.hourlyWeatherData = self.filterHours(of: self.weather?.hourlyForecast, count: 24)
+                    
+//                    self.aqi = await aqi
                     
                     self.isLoading = false
                 }
@@ -156,6 +163,24 @@ extension WeatherView {
         .background {
             Color(ColorConstants.main)
                 .ignoresSafeArea()
+        }
+    }
+}
+
+extension WeatherView {
+    private func fetchAirQuality(location: CLLocation) async -> Int {
+        let lat = locationManager.currentLocation?.coordinate.latitude ?? 0
+        let lon = locationManager.currentLocation?.coordinate.longitude ?? 0
+        
+        let urlString = "https://api.openweathermap.org/data/2.5/air_pollution?lat=\(lat)&lon=\(lon)&appid=\(EnvironmentConfig.openWeatherApiKey)"
+        let result: Result<AirQuality, AFError> = await self.networkManager.fetchData(urlString: urlString)
+        
+        switch result {
+        case .success(let success):
+            return success.list.first?.main.aqi ?? 0
+        case .failure(let failure):
+            print("Error; -- \(failure)")
+            return 0
         }
     }
 }
