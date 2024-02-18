@@ -1,5 +1,5 @@
 //
-//  WeatherViewSections.swift
+//  ContentsSection.swift
 //  WeatherIsMyMood
 //
 //  Created by HappyDuck on 2/17/24.
@@ -7,9 +7,10 @@
 
 import SwiftUI
  
-enum WeatherViewSection {
+enum ContentsSection {
     case hourlyWeather
     case tenDays
+    case airQuality
     case precipitation
     case weatherIcons
     case emojis
@@ -20,6 +21,8 @@ enum WeatherViewSection {
             return WeatherConstants.hourlyWeather
         case .tenDays:
             return WeatherConstants.tenDayForcast
+        case .airQuality:
+            return WeatherConstants.aqForcast
         case .precipitation:
             return WeatherConstants.precipitation
         case .weatherIcons:
@@ -35,6 +38,8 @@ enum WeatherViewSection {
             return "sun.max.fill"
         case .tenDays:
             return "list.clipboard"
+        case .airQuality:
+            return "aqi.medium"
         case .precipitation:
             return "cloud.rain.fill"
         case .weatherIcons:
@@ -50,6 +55,8 @@ enum WeatherViewSection {
             return .orange
         case .tenDays:
             return .teal
+        case .airQuality:
+            return .gray
         case .precipitation:
             return .blue
         case .weatherIcons:

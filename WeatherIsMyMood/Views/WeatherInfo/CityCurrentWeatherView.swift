@@ -18,6 +18,7 @@ struct CityCurrentWeatherView: View {
     //MARK: - Properties
     @Binding var weather: Weather?
     @Binding var cityName: String
+    @Binding var degree : Double
     
     @State var previousWeather: Weather?
     @State var weatherImage: UIImage?
@@ -83,9 +84,7 @@ struct CityCurrentWeatherView: View {
                 if isFirstLoad {
                     self.previousWeather = self.weather
                     self.weatherComponents = self.updateWeatherComponents(with: self.weather)
-                    Task {
-                        self.weatherImage = await self.fetchBackgroundImage(self.weather)
-                    }
+                    self.weatherImage = await self.fetchBackgroundImage(self.weather)
                     self.isFirstLoad = false
                 }
                 
@@ -102,7 +101,7 @@ struct CityCurrentWeatherView: View {
             }
             
         }
-        
+        .rotation3DEffect(Angle(degrees: degree), axis: (x: 0, y: 1, z: 0))
     }
 }
 

@@ -15,7 +15,7 @@ struct WeatherView: View {
     @ObservedObject private var locationManager: LocationManager
     private let storageManager: FirestoreManager
     private let networkManager: NetworkManager = NetworkManager(alamofire: Session())
-    @State private var aqi: Int?
+    @State private var aqiList: [AQList] = []
     
     @State private var isFirstLoading = true
     @State private var isLoading = false
@@ -25,6 +25,7 @@ struct WeatherView: View {
     @State var hourlyWeatherData: [HourWeather] = []
     
     @State var attribution: WeatherAttribution?
+    @State private var location: CLLocation?
     @State private var cityName: String = ""
     @State private var searchedCityName: String = ""
     @State var locationFound: Bool = true
@@ -41,7 +42,6 @@ struct WeatherView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                
                 self.makeScrollView()
                 
                 if isLoading {
@@ -68,8 +68,9 @@ struct WeatherView: View {
             print("WeatherView appeared")
         }
         .task(id: locationManager.currentLocation) {
-
-            if let location = locationManager.currentLocation {
+            self.location = locationManager.currentLocation
+            
+            if let location = self.location {
                 #if DEBUG
                 print("Loc on weatherView: \(location.coordinate.latitude)")
                 #endif
@@ -77,20 +78,18 @@ struct WeatherView: View {
                     async let weather = weatherService.weather(for: location)
                     async let attribution = weatherService.attribution
                     async let cityName = locationManager.cityName(at: location)
-                    // Temp comment out
-//                    async let aqi = self.fetchAirQuality(location: location)
+                    async let aqList = self.fetchAirQualityPrediction(location: location)
                     
                     self.weather = try await weather
                     self.attribution = try await attribution
+                    self.hourlyWeatherData = self.filterHours(of: self.weather?.hourlyForecast, count: 24)
+                    self.aqiList = await aqList
+                    
                     if let unwrappedCityName = await cityName {
                         self.cityName = unwrappedCityName
                     } else {
                         self.locationFound = false
                     }
-                    
-                    self.hourlyWeatherData = self.filterHours(of: self.weather?.hourlyForecast, count: 24)
-                    
-//                    self.aqi = await aqi
                     
                     self.isLoading = false
                 }
@@ -124,19 +123,22 @@ extension WeatherView {
                             .padding()
                     }
                     if let weather {
-                        CityCurrentWeatherView(fireStoreManager: self.storageManager,
-                                               weather: $weather,
-                                               cityName: $cityName)
+                        CityWeatherView(fireStoreManager: self.storageManager,
+                                        weather: $weather,
+                                        cityName: $cityName,
+                                        aqList: $aqiList)
                         .padding(.vertical, 10)
                         
-                        HourlyForcastView(hourWeatherList: self.hourlyWeatherData)
+                        HourlyForcastView(hourWeatherList: self.$hourlyWeatherData)
                         
-                        TenDayForcastView(dayWeatherList: weather.dailyForecast.forecast)
+                        TenDayForcastView(weather: $weather)
                             .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                        
+                        AirQualityView(aqList: $aqiList)
                         
                         HourlyPrecipitationChartView(hourWeatherList: self.$hourlyWeatherData)
                         
-                        DataAttributionView(weatherAttribution: self.attribution)
+                        DataAttributionView(weatherAttribution: attribution)
                             .padding(EdgeInsets(top: 30, leading: 0, bottom: 10, trailing: 0))
                     } else {
                         Color(ColorConstants.main)
@@ -168,19 +170,23 @@ extension WeatherView {
 }
 
 extension WeatherView {
-    private func fetchAirQuality(location: CLLocation) async -> Int {
-        let lat = locationManager.currentLocation?.coordinate.latitude ?? 0
-        let lon = locationManager.currentLocation?.coordinate.longitude ?? 0
+    
+    /// Fetch air quality predictions
+    /// - Parameter location: Current location
+    /// - Returns: Air quality list
+    private func fetchAirQualityPrediction(location: CLLocation) async -> [AQList] {
+        let lat = location.coordinate.latitude
+        let lon = location.coordinate.longitude
         
-        let urlString = "https://api.openweathermap.org/data/2.5/air_pollution?lat=\(lat)&lon=\(lon)&appid=\(EnvironmentConfig.openWeatherApiKey)"
+        let urlString = "https://api.openweathermap.org/data/2.5/air_pollution/forecast?lat=\(lat)&lon=\(lon)&appid=\(EnvironmentConfig.openWeatherApiKey)"
         let result: Result<AirQuality, AFError> = await self.networkManager.fetchData(urlString: urlString)
         
         switch result {
-        case .success(let success):
-            return success.list.first?.main.aqi ?? 0
+        case .success(let result):
+            return result.list
         case .failure(let failure):
-            print("Error; -- \(failure)")
-            return 0
+            print("Error: -- \(failure)")
+            return []
         }
     }
 }

@@ -48,7 +48,16 @@
     "11asd;fkjas;dfka;sdfka;sdkfja;ldkfj" : {
 
     },
-    "asdf" : {
+    "Air quality" : {
+
+    },
+    "Air Quality" : {
+
+    },
+    "AQ Forcast" : {
+
+    },
+    "Cannot bring air quality.." : {
 
     },
     "City" : {
@@ -346,6 +355,9 @@
           }
         }
       }
+    },
+    "No data found" : {
+
     },
     "No rain is expected for 7hrs!" : {
       "localizations" : {

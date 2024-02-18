@@ -1,33 +1,24 @@
 //
-//  TenDayForcastView.swift
+//  AirQualityView.swift
 //  WeatherIsMyMood
 //
-//  Created by HappyDuck on 12/10/23.
+//  Created by HappyDuck on 2/19/24.
 //
 
 import SwiftUI
 import WeatherKit
 import CoreLocation
 
-struct TenDayForcastView: View {
-    @Binding var weather: Weather?
-    
-    @State var dayWeatherList: [DayWeather] = []
-    
-    private var today: DayWeather? {
-        dayWeatherList.first
-    }
-    
-    private var otherDays: [DayWeather] {
-        Array(dayWeatherList.dropFirst())
-    }
-    
+struct AirQualityView: View {
+    @Binding var aqList: [AQList]
+    @State private var today: AQICategory.Resources?
+    @State private var otherDays: [AQICategory.Resources] = []
     @State private var collapsed: Bool = true
     
     var body: some View {
         VStack(alignment: .leading) {
             HStack(alignment: .center) {
-                SectionTitleView(section: .tenDays)
+                SectionTitleView(section: .airQuality)
                     .shadow(radius: 10)
                     .frame(width: 200)
                 Spacer()
@@ -47,11 +38,11 @@ struct TenDayForcastView: View {
             
             self.makeWeatherRow(self.today)
                 .background(
-                    makeGradientBackgound()
+                    self.makeGradientBackgound()
                 )
             VStack(alignment: .leading) {
  
-                ForEach(self.otherDays, id: \.date) { item in
+                ForEach(self.otherDays, id: \.description) { item in
                     self.makeWeatherRow(item)
                 }
                 
@@ -59,51 +50,34 @@ struct TenDayForcastView: View {
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: collapsed ? 0 : .none)
             .clipped()
             .background(
-                makeGradientBackgound()
+                self.makeGradientBackgound()
             )
             .animation(.bouncy, value: collapsed)
             .transition(.slide)
         }
-        .onAppear {
-            self.processWeather()
-        }
         .modify {
             if #available(iOS 17.0, *) {
-                $0.onChange(of: self.weather) {
-                    self.processWeather()
+                $0.onChange(of: self.aqList) {
+                    self.divideAndSetValues()
                 }
             } else {
-                $0.onChange(of: weather) { _ in
-                    self.processWeather()
+                $0.onChange(of: self.aqList) { _ in
+                    self.divideAndSetValues()
                 }
             }
         }
     }
     
-}
-
-//MARK: - Process Data
-extension TenDayForcastView {
-    private func processWeather() {
-        self.dayWeatherList = weather?.dailyForecast.forecast.compactMap { $0 } ?? []
-    }
-}
-
-//MARK: - Make View
-extension TenDayForcastView {
     @ViewBuilder
-    private func makeWeatherRow(_ weather: DayWeather?) -> some View {
-        if let weather {
+    private func makeWeatherRow(_ aqi: AQICategory.Resources?) -> some View {
+        if let aqi {
             VStack {
                 HStack {
-                    Text(weather.date.abbreviatedDay())
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    Image(systemName: "\(weather.symbolName)")
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    Text(weather.lowTemperature.formatted())
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    Text(weather.highTemperature.formatted())
-                        .frame(maxWidth: .infinity, alignment: .trailing)
+                    aqi.icon
+                        .resizable()
+                        .frame(width: 30, height: 30)
+                    Spacer()
+                    Text(aqi.description)
                 }
                 .padding()
                 
@@ -117,17 +91,33 @@ extension TenDayForcastView {
                     .padding()
             })
         }
+        
     }
     
+}
+
+extension AirQualityView {
+    
+    private func divideAndSetValues() {
+        var resources = self.processAQList(self.aqList)
+        self.today = resources.removeFirst()
+        self.otherDays = resources
+    }
+    
+    private func processAQList(_ aqListArr: [AQList]) -> [AQICategory.Resources] {
+        return aqListArr[0...9].compactMap { self.convertToCategoryResources($0) }
+    }
+    
+    private func convertToCategoryResources(_ aqList: AQList?) -> AQICategory.Resources? {
+        return AQICategory.categoryForIndex(aqList?.main.aqi ?? 0).categoryResources
+    }
+}
+
+extension AirQualityView {
     private func makeGradientBackgound() -> some View {
-        LinearGradient(colors: [.indigo, .blue], startPoint: .topLeading, endPoint: .bottom)
+        LinearGradient(colors: [.skyblue, .pink], startPoint: .topLeading, endPoint: .bottom)
             .opacity(0.3)
             .clipShape(RoundedRectangle(cornerRadius: 15.0))
             .shadow(radius: 10)
     }
-}
-
-#Preview {
-    WeatherView(locationManager: LocationManager(locationFetcher: CLLocationManager()),
-                storageManager: FirestoreManager())
 }

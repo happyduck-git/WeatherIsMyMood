@@ -9,7 +9,7 @@ import SwiftUI
 import WeatherKit
 
 struct DataAttributionView: View {
-    var weatherAttribution: WeatherAttribution?
+    @State var weatherAttribution: WeatherAttribution?
     
     var body: some View {
         if let attrib = weatherAttribution {

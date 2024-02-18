@@ -138,7 +138,7 @@ extension DecorationView {
                 .padding()
             
             HStack{
-                WeatherTitleView(section: .weatherIcons)
+                SectionTitleView(section: .weatherIcons)
                     .frame(width: 200)
                     .padding()
                 Spacer()
@@ -148,7 +148,7 @@ extension DecorationView {
             self.emojiCollectionView(self.weatherIcons)
             
             HStack{
-                WeatherTitleView(section: .emojis)
+                SectionTitleView(section: .emojis)
                     .frame(width: 200)
                     .padding()
                 Spacer()

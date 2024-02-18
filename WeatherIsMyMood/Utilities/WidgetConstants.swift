@@ -28,6 +28,8 @@ enum WeatherConstants {
     static let hourlyWeather = String(localized: "Hourly Weather")
     static let tenDayForcast = String(localized: "10-Day Forcast")
     static let precipitation = String(localized: "Precipitation")
+    static let aqForcast = String(localized: "AQ Forcast")
+    static let airQuality = String(localized: "Air Quality")
     static let weather = String(localized: "Weather")
     static let deco = String(localized: "Deco")
     static let weatherDataAttribution = String(localized: "Weather Data Attribution")
@@ -38,6 +40,8 @@ enum WeatherConstants {
     static let showMore = String(localized: "Show more")
     static let showLess = String(localized: "Show less")
     static let previewDescription = String(localized: "Tap on an icon you like and see how it looks on dynamic island!") //"마음에 드는 아이콘을 눌러서 다이나믹 아일랜드에 \n어떻게 표시되는 지 확인해보세요!"
+    static let showAirQuality = String(localized: "Air quality")
+    static let noDataFound = String(localized: "No data found")
 }
 
 enum DecoConstants {

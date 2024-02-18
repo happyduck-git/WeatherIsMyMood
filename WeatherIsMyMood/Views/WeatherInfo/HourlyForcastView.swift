@@ -8,11 +8,11 @@
 import SwiftUI
 import WeatherKit
 struct HourlyForcastView: View {
-    let hourWeatherList: [HourWeather]
+    @Binding var hourWeatherList: [HourWeather]
     
     var body: some View {
         HStack {
-            WeatherTitleView(section: .hourlyWeather)
+            SectionTitleView(section: .hourlyWeather)
                 .shadow(radius: 10)
                 .frame(width: 200)
                 .padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))

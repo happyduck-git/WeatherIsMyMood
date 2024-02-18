@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct WeatherTitleView: View {
+struct SectionTitleView: View {
     
-    let section: WeatherViewSection
+    let section: ContentsSection
     
     var body: some View {
         ZStack(alignment: .center) {
@@ -35,5 +35,5 @@ struct WeatherTitleView: View {
 }
 
 #Preview {
-    WeatherTitleView(section: .precipitation)
+    SectionTitleView(section: .precipitation)
 }

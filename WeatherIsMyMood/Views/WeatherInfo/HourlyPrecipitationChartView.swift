@@ -16,7 +16,7 @@ struct HourlyPrecipitationChartView: View {
     var body: some View {
         
         HStack {
-            WeatherTitleView(section: .precipitation)
+            SectionTitleView(section: .precipitation)
                 .shadow(radius: 10)
                 .frame(width: 200)
                 .padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
