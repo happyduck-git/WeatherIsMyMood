@@ -30,7 +30,7 @@ struct HourlyForcastView: View {
                             Text(item.temperature.formatted())
                                 .fontWeight(.bold)
                         }
-                        .padding(EdgeInsets(top: 10, leading: 10, bottom: 20, trailing: 10))
+                        .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
                     }
                 }
             }

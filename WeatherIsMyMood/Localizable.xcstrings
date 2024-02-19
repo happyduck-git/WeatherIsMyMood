@@ -12,6 +12,12 @@
             "value" : "%"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%"
+          }
+        },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
@@ -66,6 +72,12 @@
             "value" : "대기질 지수"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Качество воздуха"
+          }
+        },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
@@ -80,6 +92,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "대기질 지수"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Качество воздуха"
           }
         },
         "zh-Hant" : {
@@ -98,6 +116,12 @@
             "value" : "대기상태 예보"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Прогноз AQI"
+          }
+        },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
@@ -114,6 +138,12 @@
             "value" : "대기 정보를 가져올 수 없습니다 😥"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Невозможно обеспечить качество воздуха"
+          }
+        },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
@@ -128,6 +158,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "일산화탄소"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Монооксид углерода"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "一氧化碳"
           }
         }
       }
@@ -266,7 +308,20 @@
       }
     },
     "Extreme" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Экстрим"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "非常高"
+          }
+        }
+      }
     },
     "Fair" : {
       "localizations" : {
@@ -274,6 +329,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "좋음"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Честное"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "好"
           }
         }
       }
@@ -284,6 +351,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "좋아요"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Честное сегодня"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今天很好的"
           }
         }
       }
@@ -311,6 +390,18 @@
             "state" : "translated",
             "value" : "좋음"
           }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Хороший"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "很好"
+          }
         }
       }
     },
@@ -320,6 +411,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "아주 좋아요"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Хорошо сегодня"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今天真好的"
           }
         }
       }
@@ -332,6 +435,12 @@
             "value" : "최고"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "H"
+          }
+        },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
@@ -341,7 +450,26 @@
       }
     },
     "High" : {
-
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "높음"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Высокий"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "高"
+          }
+        }
+      }
     },
     "Hour" : {
       "localizations" : {
@@ -417,6 +545,12 @@
             "value" : "습도"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Влажность"
+          }
+        },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
@@ -433,6 +567,12 @@
             "value" : "최저"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L"
+          }
+        },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
@@ -447,6 +587,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "날씨 정보를 불러오는 중입니다."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Загрузка данных о погоде"
           }
         },
         "zh-Hant" : {
@@ -503,11 +649,36 @@
       }
     },
     "Low" : {
-
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "낮음"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Низкий"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "低"
+          }
+        }
+      }
     },
     "m/s" : {
       "localizations" : {
         "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "m/s"
+          }
+        },
+        "ru" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "m/s"
@@ -528,6 +699,18 @@
             "state" : "translated",
             "value" : "보통"
           }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Умеренный"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "适度"
+          }
         }
       }
     },
@@ -537,6 +720,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "보통이에요"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Умеренный сегодня"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今天普通的"
           }
         }
       }
@@ -548,6 +743,18 @@
             "state" : "translated",
             "value" : "이산화질소"
           }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Диоксид азота"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "二氧化氮"
+          }
         }
       }
     },
@@ -557,6 +764,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "데이터가 없습니다"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Данные не найдены"
           }
         },
         "zh-Hant" : {
@@ -618,6 +831,18 @@
             "state" : "translated",
             "value" : "오존"
           }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Озон"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "臭氧"
+          }
         }
       }
     },
@@ -650,6 +875,18 @@
             "state" : "translated",
             "value" : "초미세먼지"
           }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PM-2.5"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PM-2.5"
+          }
         }
       }
     },
@@ -659,6 +896,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "미세먼지"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PM-10"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PM-10"
           }
         }
       }
@@ -670,6 +919,18 @@
             "state" : "translated",
             "value" : "나쁨"
           }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Плохой"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "差"
+          }
         }
       }
     },
@@ -679,6 +940,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "안 좋아요"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Плохо сегодня"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今天不太好的"
           }
         }
       }
@@ -779,6 +1052,12 @@
             "value" : "숨기기"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Показывай меньше"
+          }
+        },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
@@ -793,6 +1072,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "더보기"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Показать больше"
           }
         },
         "zh-Hant" : {
@@ -832,6 +1117,18 @@
             "state" : "translated",
             "value" : "아황산가스"
           }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Диоксид серы"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "二氧化硫"
+          }
         }
       }
     },
@@ -840,7 +1137,19 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "마음에 드는 아이콘을 눌러서 다이나믹 아일랜드에 \\n어떻게 표시되는 지 확인해보세요!"
+            "value" : "마음에 드는 아이콘을 눌러서 다이나믹 아일랜드에 어떻게 표시되는 지 확인해보세요!"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нажмите на значок, который вам нравится\nи посмотрите, как это выглядит на динамичном острове!"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "点一下喜欢的表情包，看一看灵动岛会显得怎样"
           }
         }
       }
@@ -851,7 +1160,13 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "마음에 드는 아이콘을 눌러서 다이나믹 아일랜드에 \\n어떻게 표시되는 지 확인해보세요!"
+            "value" : "DASDF"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\nНажмите на значок, который вам нравится\nи посмотрите, как это выглядит на динамичном острове!"
           }
         },
         "zh-Hant" : {
@@ -870,6 +1185,12 @@
             "value" : "오늘"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сегодня"
+          }
+        },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
@@ -886,6 +1207,12 @@
             "value" : "자외선 지수"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "УФ-индекс"
+          }
+        },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
@@ -895,7 +1222,26 @@
       }
     },
     "Very high" : {
-
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "매우 높음"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Очень высоко"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "很高"
+          }
+        }
+      }
     },
     "Very Poor" : {
       "extractionState" : "stale",
@@ -904,6 +1250,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "매우 나쁨"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Плохой"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "很差"
           }
         }
       }
@@ -914,6 +1272,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "아주 안 좋아요"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Очень плохо сегодня"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今天很不好的"
           }
         }
       }
@@ -948,6 +1318,12 @@
             "value" : "날씨 정보 출처"
           }
         },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Источник данных о погоде"
+          }
+        },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
@@ -962,6 +1338,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "웨더 아일랜드"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weather Island"
           }
         },
         "zh-Hant" : {

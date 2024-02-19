@@ -131,8 +131,8 @@ extension DecorationView {
             .padding(EdgeInsets(top: 10, leading: 120, bottom: 10, trailing: 120))
             
             Text(WeatherConstants.previewDescription)
-                .frame(alignment: .center)
-                .lineLimit(2)
+                .lineLimit(nil)
+                .multilineTextAlignment(.center)
                 .font(.caption2)
                 .foregroundStyle(.secondary)
                 .padding()
