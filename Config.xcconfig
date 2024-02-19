@@ -1,0 +1,13 @@
+//
+//  Config.xcconfig
+//  WeatherIsMyMood
+//
+//  Created by HappyDuck on 2/19/24.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+GOOGLE_API_KEY = AIzaSyAiMHmwQyaZ8_P7bAVCLjiMj150mbPq0OU
+
+// Open Weather API
+OPEN_WEATHER_API_KEY = f56939f84fac78526cfe2a4976d23210
