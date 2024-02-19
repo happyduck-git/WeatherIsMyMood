@@ -5,7 +5,20 @@
 
     },
     "%" : {
-
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%"
+          }
+        }
+      }
     },
     "%@" : {
 
@@ -20,7 +33,7 @@
         }
       }
     },
-    "1asd;fkjas;dfka;sdfka;sdkfja;ldkfj" : {
+    "%lf" : {
 
     },
     "10-Day Forcast" : {
@@ -45,20 +58,79 @@
         }
       }
     },
-    "11asd;fkjas;dfka;sdfka;sdkfja;ldkfj" : {
-
-    },
     "Air quality" : {
-
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "대기질 지수"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "空气质量"
+          }
+        }
+      }
     },
     "Air Quality" : {
-
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "대기질 지수"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "空气质量"
+          }
+        }
+      }
     },
     "AQ Forcast" : {
-
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "대기상태 예보"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "空气质量预报"
+          }
+        }
+      }
     },
     "Cannot bring air quality.." : {
-
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "대기 정보를 가져올 수 없습니다 😥"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "下载空气质量数据失败"
+          }
+        }
+      }
+    },
+    "Carbon monoxide" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "일산화탄소"
+          }
+        }
+      }
     },
     "City" : {
       "localizations" : {
@@ -193,8 +265,64 @@
         }
       }
     },
-    "Feels Like" : {
+    "Extreme" : {
 
+    },
+    "Fair" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "좋음"
+          }
+        }
+      }
+    },
+    "Fair today" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "좋아요"
+          }
+        }
+      }
+    },
+    "Feels Like" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "체감온도"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "体感温度"
+          }
+        }
+      }
+    },
+    "Good" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "좋음"
+          }
+        }
+      }
+    },
+    "Good today" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "아주 좋아요"
+          }
+        }
+      }
     },
     "H" : {
       "localizations" : {
@@ -211,6 +339,9 @@
           }
         }
       }
+    },
+    "High" : {
+
     },
     "Hour" : {
       "localizations" : {
@@ -279,7 +410,20 @@
       }
     },
     "Humidity " : {
-
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "습도"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "湿度"
+          }
+        }
+      }
     },
     "L" : {
       "localizations" : {
@@ -287,6 +431,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "최저"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L"
           }
         }
       }
@@ -297,6 +447,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "날씨 정보를 불러오는 중입니다."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在下载天气预报"
           }
         }
       }
@@ -346,8 +502,17 @@
         }
       }
     },
+    "Low" : {
+
+    },
     "m/s" : {
       "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "m/s"
+          }
+        },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
@@ -356,8 +521,51 @@
         }
       }
     },
+    "Moderate" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "보통"
+          }
+        }
+      }
+    },
+    "Moderate today" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "보통이에요"
+          }
+        }
+      }
+    },
+    "Nitrogen dioxide" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이산화질소"
+          }
+        }
+      }
+    },
     "No data found" : {
-
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "데이터가 없습니다"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未找到数据"
+          }
+        }
+      }
     },
     "No rain is expected for 7hrs!" : {
       "localizations" : {
@@ -403,6 +611,16 @@
         }
       }
     },
+    "Ozone" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "오존"
+          }
+        }
+      }
+    },
     "Personal Quote" : {
       "localizations" : {
         "ko" : {
@@ -421,6 +639,46 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "我的句子"
+          }
+        }
+      }
+    },
+    "PM-2.5" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "초미세먼지"
+          }
+        }
+      }
+    },
+    "PM-10" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "미세먼지"
+          }
+        }
+      }
+    },
+    "Poor" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "나쁨"
+          }
+        }
+      }
+    },
+    "Poor today" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "안 좋아요"
           }
         }
       }
@@ -514,10 +772,36 @@
       }
     },
     "Show less" : {
-
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "숨기기"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "显示较少"
+          }
+        }
+      }
     },
     "Show more" : {
-
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "더보기"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "显示更多"
+          }
+        }
+      }
     },
     "Stay tuned!" : {
       "localizations" : {
@@ -541,17 +825,98 @@
         }
       }
     },
-    "Tap on an icon you like and see how it looks on dynamic island!" : {
-
+    "Sulfur dioxide" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "아황산가스"
+          }
+        }
+      }
     },
-    "This is collapsible!" : {
-
+    "Tap on an icon you like \nand see how it looks on dynamic island!" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "마음에 드는 아이콘을 눌러서 다이나믹 아일랜드에 \\n어떻게 표시되는 지 확인해보세요!"
+          }
+        }
+      }
+    },
+    "Tap on an icon you like and see how it looks on dynamic island!" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "마음에 드는 아이콘을 눌러서 다이나믹 아일랜드에 \\n어떻게 표시되는 지 확인해보세요!"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "点一下喜欢的表情包，看一看灵动岛会显得怎样"
+          }
+        }
+      }
     },
     "Today" : {
-
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "오늘"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今天"
+          }
+        }
+      }
     },
     "UV Index " : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "자외선 지수"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "紫外线指数"
+          }
+        }
+      }
+    },
+    "Very high" : {
 
+    },
+    "Very Poor" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "매우 나쁨"
+          }
+        }
+      }
+    },
+    "Very Poor today" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "아주 안 좋아요"
+          }
+        }
+      }
     },
     "Weather" : {
       "localizations" : {
@@ -576,7 +941,20 @@
       }
     },
     "Weather Data Attribution" : {
-
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "날씨 정보 출처"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "天气数据源"
+          }
+        }
+      }
     },
     "Weather Island" : {
       "localizations" : {
@@ -595,7 +973,20 @@
       }
     },
     "WeatherAppIntentTitle" : {
-
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "WeatherAppIntentTitle"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "WeatherAppIntentTitle"
+          }
+        }
+      }
     },
     "Wind" : {
       "localizations" : {

@@ -15,6 +15,7 @@ struct AirQuality: Decodable {
 struct AQList: Decodable, Equatable {
     let main: AQMain
     let components: AQComponents
+    let dt: Date
 }
 
 struct AQMain: Decodable, Equatable {
@@ -32,12 +33,18 @@ struct AQComponents: Decodable, Equatable {
     let nh3: Double
 }
 
+struct AQResources {
+    let aqList: AQList
+    let category: AQICategory.Resources
+}
+
 enum AQICategory {
     case good, fair, moderate, poor, veryPoor
 
     struct Resources {
         let index: Int
         let description: String
+        let longDescription: String
         let icon: Image
         let color: Color
     }
@@ -56,6 +63,7 @@ enum AQICategory {
     var categoryResources: Resources {
         return Resources(index: index,
                          description: description,
+                         longDescription: longDescription,
                          icon: icon,
                          color: color)
     }
@@ -78,15 +86,30 @@ enum AQICategory {
     var description: String {
         switch self {
         case .good:
-            return "Good"
+            return WeatherConstants.good
         case .fair:
-            return "Fair"
+            return WeatherConstants.fair
         case .moderate:
-            return "Moderate"
+            return WeatherConstants.moderate
         case .poor:
-            return "Poor"
+            return WeatherConstants.poor
         case .veryPoor:
-            return "Very Poor"
+            return WeatherConstants.veryPoor
+        }
+    }
+    
+    var longDescription: String {
+        switch self {
+        case .good:
+            return WeatherConstants.goodLong
+        case .fair:
+            return WeatherConstants.fairLong
+        case .moderate:
+            return WeatherConstants.moderateLong
+        case .poor:
+            return WeatherConstants.poorLong
+        case .veryPoor:
+            return WeatherConstants.veryPoorLong
         }
     }
     
@@ -131,18 +154,18 @@ enum Pollutant: Hashable, Comparable {
     
     var description: String {
         switch self {
-        case .so2(let double):
-            return "SO2"
-        case .no2(let double):
-            return "NO2"
-        case .pm10(let double):
-            return "PM10"
-        case .pm2_5(let double):
-            return "PM25"
-        case .o3(let double):
-            return "O3"
-        case .co(let double):
-            return "CO"
+        case .so2(_):
+            return WeatherConstants.so2
+        case .no2(_):
+            return WeatherConstants.no2
+        case .pm10(_):
+            return WeatherConstants.pm10
+        case .pm2_5(_):
+            return WeatherConstants.pm2_5
+        case .o3(_):
+            return WeatherConstants.o3
+        case .co(_):
+            return WeatherConstants.co
         }
     }
 

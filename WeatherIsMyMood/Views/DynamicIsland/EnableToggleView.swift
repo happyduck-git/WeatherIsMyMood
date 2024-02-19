@@ -38,11 +38,15 @@ struct EnableToggleView: View {
             self.updateLiveActivity(self.isOn)
         })
         .onChange(of: self.weather) { _ in
+            #if DEBUG
             print("Weather is updated.")
+            #endif
             self.updateLiveActivity(self.isOn)
         }
         .onReceive(notiPulisher) { output in
+            #if DEBUG
             print("✅Receive noti from app \(output)")
+            #endif
             self.updateLiveActivity(self.isOn)
         }
     }

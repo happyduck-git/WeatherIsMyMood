@@ -65,7 +65,6 @@ struct WeatherView: View {
                 self.isFirstLoading.toggle()
                 self.isLoading = true
             }
-            print("WeatherView appeared")
         }
         .task(id: locationManager.currentLocation) {
             self.location = locationManager.currentLocation
@@ -134,7 +133,8 @@ extension WeatherView {
                         TenDayForcastView(weather: $weather)
                             .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
                         
-                        AirQualityView(aqList: $aqiList)
+                        //NOTE: Need to be delivered in the next version.
+//                        AirQualityView(aqList: $aqiList)
                         
                         HourlyPrecipitationChartView(hourWeatherList: self.$hourlyWeatherData)
                         
@@ -185,7 +185,9 @@ extension WeatherView {
         case .success(let result):
             return result.list
         case .failure(let failure):
+            #if DEBUG
             print("Error: -- \(failure)")
+            #endif
             return []
         }
     }
@@ -207,15 +209,15 @@ extension WeatherView {
     }
 
     private func filterHours(of hourlyWeathers: Forecast<HourWeather>?, count: Int) -> [HourWeather] {
-            guard let weathers = hourlyWeathers else { return [] }
-            guard let roundedCurrentDate = roundDownToNearestHour(Date()) else { return [] }
-            
-            return Array(
-                weathers.filter {
-                    $0.date >= roundedCurrentDate
-                }.prefix(count)
-            )
-        }
+        guard let weathers = hourlyWeathers else { return [] }
+        guard let roundedCurrentDate = roundDownToNearestHour(Date()) else { return [] }
+        
+        return Array(
+            weathers.filter {
+                $0.date >= roundedCurrentDate
+            }.prefix(count)
+        )
+    }
         
         // Round down to nearest hour (including current hour).
         private func roundDownToNearestHour(_ date: Date) -> Date? {

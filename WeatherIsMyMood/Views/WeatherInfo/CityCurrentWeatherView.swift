@@ -147,7 +147,9 @@ extension CityCurrentWeatherView {
             }
             
         } catch {
+            #if DEBUG
             print(error)
+            #endif
             return defaultImage
         }
     }

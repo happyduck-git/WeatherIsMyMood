@@ -11,8 +11,8 @@ import CoreLocation
 
 struct AirQualityView: View {
     @Binding var aqList: [AQList]
-    @State private var today: AQICategory.Resources?
-    @State private var otherDays: [AQICategory.Resources] = []
+    @State private var today: AQResources?
+    @State private var otherDays: [AQResources] = []
     @State private var collapsed: Bool = true
     
     var body: some View {
@@ -42,7 +42,7 @@ struct AirQualityView: View {
                 )
             VStack(alignment: .leading) {
  
-                ForEach(self.otherDays, id: \.description) { item in
+                ForEach(self.otherDays, id: \.aqList.dt) { item in
                     self.makeWeatherRow(item)
                 }
                 
@@ -69,15 +69,18 @@ struct AirQualityView: View {
     }
     
     @ViewBuilder
-    private func makeWeatherRow(_ aqi: AQICategory.Resources?) -> some View {
+    private func makeWeatherRow(_ aqi: AQResources?) -> some View {
         if let aqi {
             VStack {
                 HStack {
-                    aqi.icon
+                    Text("\(aqi.aqList.dt)")
+                    Text("\(aqi.aqList.components.pm10)")
+                    Text("\(aqi.aqList.components.pm2_5)")
+                    aqi.category.icon
                         .resizable()
                         .frame(width: 30, height: 30)
-                    Spacer()
-                    Text(aqi.description)
+                    
+                    Text(aqi.category.description)
                 }
                 .padding()
                 
@@ -100,16 +103,30 @@ extension AirQualityView {
     
     private func divideAndSetValues() {
         var resources = self.processAQList(self.aqList)
-        self.today = resources.removeFirst()
-        self.otherDays = resources
+        if !resources.isEmpty {
+            self.today = resources.removeFirst()
+            self.otherDays = resources
+        }
     }
     
-    private func processAQList(_ aqListArr: [AQList]) -> [AQICategory.Resources] {
-        return aqListArr[0...9].compactMap { self.convertToCategoryResources($0) }
+    private func processAQList(_ aqListArr: [AQList]) -> [AQResources] {
+        return filterAQLists(of: aqListArr, count: 10).compactMap { self.convertToCategoryResources($0) }
     }
     
-    private func convertToCategoryResources(_ aqList: AQList?) -> AQICategory.Resources? {
-        return AQICategory.categoryForIndex(aqList?.main.aqi ?? 0).categoryResources
+    private func convertToCategoryResources(_ aqList: AQList?) -> AQResources? {
+        guard let aqList else {
+            return nil
+        }
+        let category = AQICategory.categoryForIndex(aqList.main.aqi).categoryResources
+        return AQResources(aqList: aqList,
+                           category: category)
+    }
+    
+    private func filterAQLists(of aqListArr: [AQList], count: Int) -> [AQList] {
+        if aqListArr.isEmpty {
+            return []
+        }
+        return Array(aqListArr.prefix(count))
     }
 }
 

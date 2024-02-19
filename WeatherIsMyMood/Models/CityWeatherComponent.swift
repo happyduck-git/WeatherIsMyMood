@@ -32,7 +32,7 @@ enum CityWeatherComponent {
         case .humidity(let weather):
             return "\(weather?.currentWeather.humidity.convertToTempFormat(decimal: 2) ?? "0")%"
         case .uvIndex(let weather):
-            return weather?.currentWeather.uvIndex.category.rawValue ?? "moderate"
+            return weather?.currentWeather.uvIndex.category.description ?? WeatherConstants.moderate
         }
     }
     

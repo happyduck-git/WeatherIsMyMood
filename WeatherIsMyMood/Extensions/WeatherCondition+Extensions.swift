@@ -91,5 +91,20 @@ extension UVIndex.ExposureCategory {
             return .green
         }
     }
+    
+    var description: String {
+        switch self {
+        case .low:
+            return WeatherConstants.low
+        case .moderate:
+            return WeatherConstants.moderate
+        case .high:
+            return WeatherConstants.high
+        case .veryHigh:
+            return WeatherConstants.veryHigh
+        case .extreme:
+            return WeatherConstants.extreme
+        }
+    }
 }
 

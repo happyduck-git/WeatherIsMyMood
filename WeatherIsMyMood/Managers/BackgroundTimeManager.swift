@@ -23,7 +23,7 @@ final class BackgroundTimer: ObservableObject {
             UIApplication.shared.endBackgroundTask(backgroundTaskId) // The expiration Handler
         }
         
-        // -- The task itself: Wait and then execute --
+        //Wait and then execute.
         wait(delay: delay,
              repeating: repeating,
              backgroundTaskId: backgroundTaskId,

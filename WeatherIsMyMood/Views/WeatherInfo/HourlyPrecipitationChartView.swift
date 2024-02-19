@@ -11,7 +11,9 @@ import Charts
 
 struct HourlyPrecipitationChartView: View {
     @Binding var hourWeatherList: [HourWeather]
-    @State var noPrecipitation = Set<Bool>()
+    @State var noPrecipitation: Bool = false
+    @State var isLoading: Bool = true
+    private let numberOfDays: Int = 7
     
     var body: some View {
         
@@ -26,13 +28,11 @@ struct HourlyPrecipitationChartView: View {
         
         VStack(alignment: .leading) {
             
-            if noPrecipitation.contains(true) && noPrecipitation.count == 1 {
+            if noPrecipitation {
                 Text("No rain is expected for 7hrs!")
                     .padding()
             }
-            
             Chart {
-                
                 ForEach(hourWeatherList.prefix(7), id: \.date) { weather in
                     BarMark(
                         x: .value("Hour", weather.date.formatAsAbbreviatedTime()),
@@ -43,7 +43,6 @@ struct HourlyPrecipitationChartView: View {
                 }
             }
             .padding()
-            
         }
         .background {
             LinearGradient(colors: [.blue, .green], startPoint: .topLeading, endPoint: .bottom)
@@ -51,14 +50,30 @@ struct HourlyPrecipitationChartView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 15.0))
                 .shadow(radius: 10)
         }
-        .onChange(of: hourWeatherList, perform: { _ in
-            self.checkForPrecipitation()
-        })
+        .onAppear {
+            self.checkForPrecipitation(days: self.numberOfDays)
+        }
+        .modify {
+            if #available(iOS 17.0, *) {
+                $0.onChange(of: hourWeatherList) {
+                    self.checkForPrecipitation(days: self.numberOfDays)
+                }
+            } else {
+                $0.onChange(of: hourWeatherList) { _ in
+                    self.checkForPrecipitation(days: self.numberOfDays)
+                }
+            }
+        }
     }
 }
 
 extension HourlyPrecipitationChartView {
-    private func checkForPrecipitation() {
-        noPrecipitation.insert(hourWeatherList.prefix(7).contains { $0.precipitationAmount.value.isZero })
+    private func checkForPrecipitation(days: Int) {
+        let noRainDays = hourWeatherList.prefix(days).filter {$0.precipitationAmount.value.isZero}.count
+        if noRainDays == days {
+            noPrecipitation = true
+        } else {
+            noPrecipitation = false
+        }
     }
 }

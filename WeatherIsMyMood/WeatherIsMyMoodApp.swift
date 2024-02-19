@@ -20,10 +20,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         FirebaseApp.configure()
         return true
     }
-    
-    func applicationWillTerminate(_ application: UIApplication) {
-        print("Application will be terminated.")
-    }
+
 }
 
 @main
@@ -38,14 +35,14 @@ struct WeatherIsMyMoodApp: App {
     @State private var tasks: [UIBackgroundTaskIdentifier] = []
     
     var body: some Scene {
-
+        
         if #available(iOS 17.0, *) {
             return WindowGroup {
                 self.makeMainView(locationManager: self.locationManager,
                                   storageManager: self.storageManager)
-                    .onAppear {
-                        bgTimeManger.delegate = self
-                    }
+                .onAppear {
+                    bgTimeManger.delegate = self
+                }
             }
             .onChange(of: phase, initial: true) { _, newPhase in
                 switch newPhase {
@@ -55,10 +52,9 @@ struct WeatherIsMyMoodApp: App {
                 case .background:
                     self.tasks.append(setUpBackgroundUpdate(delay: 60 * 30, repeating: true))
                     
-                    let savedCount = UserDefaults.standard.integer(forKey: "app_refresh_demo")
-                    print("Saved Count in BG: \(savedCount)")
-                    let savedWeather = UserDefaults.standard.object(forKey: "app_refresh_weather")
-                    print("Saved weather in BG: \(String(describing: savedWeather))")
+                    #if DEBUG
+                    self.checkSavedBackgroundTasks()
+                    #endif
                     
                     scheduleBgAppRefreshTask()
                 default: break
@@ -66,9 +62,8 @@ struct WeatherIsMyMoodApp: App {
             }
             .backgroundTask(.appRefresh(BGTaskConstants.testId)) { _ in
                 await self.handleAppRefreshTask()
-                print("BG_refresh")
             }
-          
+            
         } else {
             return WindowGroup {
                 self.makeMainView(locationManager: self.locationManager,
@@ -77,11 +72,9 @@ struct WeatherIsMyMoodApp: App {
             .onChange(of: phase) { newPhase in
                 switch newPhase {
                 case .background:
-                    let savedCount = UserDefaults.standard.integer(forKey: "app_refresh_demo")
-                    print("Saved Count in BG: \(savedCount)")
-                    
-                    let savedWeather = UserDefaults.standard.string(forKey: "app_refresh_weather")
-                    print("Saved weather in BG: \(String(describing: savedWeather))")
+                #if DEBUG
+                    self.checkSavedBackgroundTasks()
+                #endif
                     
                     scheduleBgAppRefreshTask()
                 default: break
@@ -89,12 +82,14 @@ struct WeatherIsMyMoodApp: App {
             }
             .backgroundTask(.appRefresh(BGTaskConstants.testId)) { _ in
                 await self.handleAppRefreshTask()
-                print("BG_refresh")
             }
-          
+            
         }
     }
-    
+}
+
+//MARK: - Make View
+extension WeatherIsMyMoodApp {
     private func makeMainView(locationManager: LocationManager,
                               storageManager: FirestoreManager) -> some View {
         return MainView(locationManager: locationManager, storageManager: storageManager)
@@ -112,8 +107,10 @@ struct WeatherIsMyMoodApp: App {
                 }
             }
     }
-    
-    //MARK: - Schedule BG Task
+}
+
+//MARK: - Background Task
+extension WeatherIsMyMoodApp {
     
     private func scheduleBgAppRefreshTask() {
         
@@ -158,8 +155,10 @@ struct WeatherIsMyMoodApp: App {
     
     private func setUpBackgroundUpdate(delay interval: TimeInterval, repeating: Bool) -> UIBackgroundTaskIdentifier {
         let taskID = self.bgTimeManger.executeAfterDelay(delay: interval, repeating: repeating) {
-            //TODO: 
+            //TODO: Implement in next version update.
+            #if DEBUG
             print("Repeating on background...")
+            #endif
         }
         
         return taskID
@@ -169,8 +168,16 @@ struct WeatherIsMyMoodApp: App {
         guard !tasks.isEmpty else { return }
         self.bgTimeManger.cancelExecution(tasks: tasks)
     }
+    
+    private func checkSavedBackgroundTasks() {
+        let savedCount = UserDefaults.standard.integer(forKey: "app_refresh_demo")
+        let savedWeather = UserDefaults.standard.string(forKey: "app_refresh_weather")
+        print("Saved Count in BG: \(savedCount)")
+        print("Saved weather in BG: \(String(describing: savedWeather))")
+    }
 }
 
+//MARK: - Next version implementation
 extension WeatherIsMyMoodApp: BackgroundTimerDelegate {
     func backgroundTimerTaskExecuted(task: UIBackgroundTaskIdentifier, willRepeat: Bool) {
         guard !willRepeat else {
@@ -185,23 +192,5 @@ extension WeatherIsMyMoodApp: BackgroundTimerDelegate {
         self.tasks.removeAll()
     }
 
-    private func scheduleBgTask() {
-        let request = BGProcessingTaskRequest(identifier: BGTaskConstants.weatherUpdateId)
-        request.earliestBeginDate = .now.addingTimeInterval(3600*3)
-        request.requiresExternalPower = true
-        request.requiresNetworkConnectivity = true
-        
-        do {
-            try BGTaskScheduler.shared.submit(request)
-            #if DEBUG
-            print("Successfully submitted processing request.")
-            #endif
-        }
-        catch {
-            #if DEBUG
-            print("Error submitting request - \(error)")
-            #endif
-        }
-    }
 }
 

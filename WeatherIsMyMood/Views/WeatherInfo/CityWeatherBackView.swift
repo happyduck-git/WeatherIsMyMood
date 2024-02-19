@@ -25,6 +25,7 @@ struct CityWeatherBackView: View {
                     .fontWeight(.semibold)
                 
                 self.makeAqVieq()
+                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
                 self.makePollutantsView()
             }
         }
@@ -80,7 +81,7 @@ extension CityWeatherBackView {
                     .scaledToFit()
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 2, trailing: 10))
                     
-                Text(aqi.description)
+                Text(aqi.longDescription)
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 2, trailing: 10))
                     .fontWeight(.semibold)
                     .font(.body)
@@ -103,16 +104,19 @@ extension CityWeatherBackView {
                             .foregroundStyle(resource.color)
                             .padding(EdgeInsets(top: 0, leading: 0, bottom: 2, trailing: 10))
                         Text(key.description)
+                            .frame(width: 70, alignment: .leading)
                             .padding(EdgeInsets(top: 0, leading: 0, bottom: 2, trailing: 10))
                             .font(.caption)
                         Text(resource.description)
+                            .frame(alignment: .leading)
                             .padding(EdgeInsets(top: 0, leading: 0, bottom: 2, trailing: 0))
                             .fontWeight(.semibold)
                             .font(.caption)
                     }
-                    
+                    .fixedSize(horizontal: true, vertical: true)
                 }
             }
+            
         }
     }
 }
