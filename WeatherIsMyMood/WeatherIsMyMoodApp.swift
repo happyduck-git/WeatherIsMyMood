@@ -42,12 +42,7 @@ struct WeatherIsMyMoodApp: App {
             }
             .onChange(of: phase, initial: true) { _, newPhase in
                 switch newPhase {
-                case .active:
-                    self.cancelBackgroundTask(tasks: self.tasks)
-                    
                 case .background:
-                    self.tasks.append(setUpBackgroundUpdate(delay: 60 * 30, repeating: true))
-                    
                     #if DEBUG
                     self.checkSavedBackgroundTasks()
                     #endif
