@@ -67,7 +67,6 @@
 		248BEE682B81941E00C16082 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 248BEE672B81941E00C16082 /* Alamofire */; };
 		248BEE6A2B819BCF00C16082 /* EnvironmentConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248BEE692B819BCF00C16082 /* EnvironmentConfig.swift */; };
 		248BEE6C2B819C5200C16082 /* AirQuality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248BEE6B2B819C5200C16082 /* AirQuality.swift */; };
-		248BEE6E2B81E81D00C16082 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 248BEE6D2B81E81D00C16082 /* Config.xcconfig */; };
 		248BEE702B81FD4E00C16082 /* CityWeatherBackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248BEE6F2B81FD4E00C16082 /* CityWeatherBackView.swift */; };
 		248BEE742B81FFA100C16082 /* CityWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248BEE732B81FFA100C16082 /* CityWeatherView.swift */; };
 		248E3F452B249369001B10C3 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248E3F442B249369001B10C3 /* LocationManager.swift */; };
@@ -690,7 +689,6 @@
 				2457E9682B7EF8950093BB2C /* sun_color.json in Resources */,
 				24A66E092B275FB200B348CC /* GoogleService-Info.plist in Resources */,
 				241A803E2B29E04100706BB8 /* Localizable.xcstrings in Resources */,
-				248BEE6E2B81E81D00C16082 /* Config.xcconfig in Resources */,
 				241A80432B2A156500706BB8 /* Launch Screen.storyboard in Resources */,
 				2430862D2B23FE89006C78E9 /* Assets.xcassets in Resources */,
 				241A80472B2A177F00706BB8 /* Muli-Black.ttf in Resources */,
