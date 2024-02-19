@@ -7,6 +7,18 @@
 
 import Foundation
 
+enum BGTaskConstants {
+    static let testId = "com.gghoneycomb.WeatherIsMyMood.bg_test"
+    static let weatherUpdateId = "com.gghoneycomb.WeatherIsMyMood.bg_weather_update"
+}
+
+enum NotificationKeys {
+    static let widgetUpdate = "widget_update"
+    static let systemWidgetUpdate = "sys_widget_update"
+    static let backgroundUpdate = "bg_weather_update"
+    static let demoNoti = "demo_noti"
+}
+
 enum ColorConstants {
     static let main = "Main"
     static let widgetMain = "WidgetBG"
@@ -16,10 +28,40 @@ enum WeatherConstants {
     static let hourlyWeather = String(localized: "Hourly Weather")
     static let tenDayForcast = String(localized: "10-Day Forcast")
     static let precipitation = String(localized: "Precipitation")
+    static let aqForcast = String(localized: "AQ Forcast")
+    static let airQuality = String(localized: "Air Quality")
     static let weather = String(localized: "Weather")
     static let deco = String(localized: "Deco")
     static let weatherDataAttribution = String(localized: "Weather Data Attribution")
     static let city = String(localized: "City")
+    static let feelsLike = String(localized: "Feels Like")
+    static let humidity = String(localized: "Humidity ")
+    static let uvIndex = String(localized: "UV Index ")
+    static let showMore = String(localized: "Show more")
+    static let showLess = String(localized: "Show less")
+    static let previewDescription = String(localized: "Tap on an icon you like \nand see how it looks on dynamic island!")
+    static let showAirQuality = String(localized: "Air quality")
+    static let noDataFound = String(localized: "No data found")
+    static let good = String(localized: "Good")
+    static let fair = String(localized: "Fair")
+    static let moderate = String(localized: "Moderate")
+    static let poor = String(localized: "Poor")
+    static let veryPoor = String(localized: "Very Poor today")
+    static let goodLong = String(localized: "Good today")
+    static let fairLong = String(localized: "Fair today")
+    static let moderateLong = String(localized: "Moderate today")
+    static let poorLong = String(localized: "Poor today")
+    static let veryPoorLong = String(localized: "Very Poor today")
+    static let low = String(localized: "Low")
+    static let high = String(localized: "High")
+    static let veryHigh = String(localized: "Very high")
+    static let extreme = String(localized: "Extreme")
+    static let so2 = String(localized: "Sulfur dioxide")
+    static let no2 = String(localized: "Nitrogen dioxide")
+    static let pm10 = String(localized: "PM-10")
+    static let pm2_5 = String(localized: "PM-2.5")
+    static let o3 = String(localized: "Ozone")
+    static let co = String(localized: "Carbon monoxide")
 }
 
 enum DecoConstants {

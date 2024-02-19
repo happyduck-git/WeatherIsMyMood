@@ -9,15 +9,27 @@ import SwiftUI
 import CoreLocation
 
 struct MainView: View {
-    @StateObject private var locationManager: LocationManager = LocationManager(locationFetcher: CLLocationManager())
-
+    
+    @ObservedObject private var locationManager: LocationManager
+    private let storageManager: FirestoreManager
+    
+    //MARK: - Init
+    init(locationManager: LocationManager,
+         storageManager: FirestoreManager) {
+        self.locationManager = locationManager
+        self.storageManager = storageManager
+    }
+    
+    //MARK: - Body
     var body: some View {
         TabView {
-            WeatherView(locationManager: self.locationManager)
+            WeatherView(locationManager: self.locationManager,
+                        storageManager: self.storageManager)
                 .tabItem {
                     Label("Weather", systemImage: "cloud.sun.fill")
                 }
-            DecorationView(locationManager: self.locationManager)
+            DecorationView(locationManager: self.locationManager,
+                           storageManager: self.storageManager)
                 .tabItem {
                     Label("Deco", systemImage: "sparkles")
                 }
@@ -26,5 +38,6 @@ struct MainView: View {
 }
 
 #Preview {
-    MainView()
+    MainView(locationManager: LocationManager(locationFetcher: CLLocationManager()),
+             storageManager: FirestoreManager())
 }

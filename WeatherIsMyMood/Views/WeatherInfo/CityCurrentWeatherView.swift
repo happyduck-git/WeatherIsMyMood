@@ -9,123 +9,149 @@ import SwiftUI
 import WeatherKit
 import UIKit.UIImage
 import PDFKit
+import CoreLocation
 
 struct CityCurrentWeatherView: View {
     
-    private let fireStoreManager = FirestoreManager()
+    let fireStoreManager: FirestoreManager
     
     //MARK: - Properties
     @Binding var weather: Weather?
     @Binding var cityName: String
+    @Binding var degree : Double
     
     @State var previousWeather: Weather?
     @State var weatherImage: UIImage?
     @State var isFirstLoad = true
     
+    @State private var weatherComponents: [CityWeatherComponent] = []
+    
     //MARK: - View
     var body: some View {
-        if let weather {
-            ZStack {
-                if let weatherImage {
-                    Image(uiImage: weatherImage)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .opacity(0.5)
-                } else {
-                    Circle()
-                        .fill(.clear)
-                        .background {
-                            LinearGradient(
-                                colors: [.clear,
-                                         .white.opacity(0.6),
-                                         .clear],
-                                startPoint: .top,
-                                endPoint: .bottomTrailing
-                            )
-                            
-                            .clipShape(Circle())
-                        }
-                }
-                
+        
+        ZStack {
+            if let weatherImage {
+                Image(uiImage: weatherImage)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .opacity(0.5)
+            } else {
+                Circle()
+                    .fill(.clear)
+                    .background {
+                        LinearGradient(
+                            colors: [.clear,
+                                     .white.opacity(0.6),
+                                     .clear],
+                            startPoint: .top,
+                            endPoint: .bottomTrailing
+                        )
+                        
+                        .clipShape(Circle())
+                    }
+            }
+            
+            VStack {
+                TitleView(cityName: $cityName,
+                          weather: $weather)
                 VStack {
-                    TitleView(cityName: $cityName,
-                              weather: $weather)
-                    
+                    VStack(alignment: .leading) {
+                        ForEach(self.weatherComponents, id: \.title) {
+                            self.weatherComponentsView(title: $0.title,
+                                                       icon: $0.icon,
+                                                       color: $0.iconColor,
+                                                       value: $0.value)
+                        }
+                    }
+                    .padding(EdgeInsets(top: 10, leading: 10, bottom: 0, trailing: 10))
                     HStack {
                         SunStatusTimeView(status: .sunrise,
                                           weather: $weather)
-                            .padding()
+                        .padding(EdgeInsets(top: 5, leading: 10, bottom: 10, trailing: 10))
                         SunStatusTimeView(status: .sunset,
                                           weather: $weather)
-                            .padding()
+                        .padding(EdgeInsets(top: 5, leading: 10, bottom: 10, trailing: 10))
                     }
-                    .background {
-                        RoundedRectangle(cornerRadius: 8)
-                            .fill(Color.white.opacity(0.4))
-                    }
-                    
                 }
+                
+                .background {
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color.white.opacity(0.4))
+                }
+                
             }
             .task(id: self.weather) {
-                
                 if isFirstLoad {
-                    Task {
-                        do {
-                            self.previousWeather = self.weather
-                            
-                            let condition = WeatherCondition.getWeatherIconName(of: weather.currentWeather.condition.rawValue)
-                            let data = try await fireStoreManager.fetchBackground(condition)
-                            if let image = UIImage(data: data) {
-                                self.weatherImage = image
-                            } else {
-                                self.weatherImage = UIImage(resource: .weatherMorningBright)
-                            }
-                            
-                        } catch {
-                            print(error)
-                        }
-                    }
+                    self.previousWeather = self.weather
+                    self.weatherComponents = self.updateWeatherComponents(with: self.weather)
+                    self.weatherImage = await self.fetchBackgroundImage(self.weather)
                     self.isFirstLoad = false
                 }
                 
             }
-            .onChange(of: self.weather, perform: { newWeather in
-               
+            .onChange(of: self.weather) { newWeather in
+                
                 if shouldUpdateWeather(prev: previousWeather, new: newWeather) {
+                    self.previousWeather = newWeather
+                    self.weatherComponents = self.updateWeatherComponents(with: newWeather)
                     Task {
-                        do {
-                            self.previousWeather = newWeather
-                            
-                            let condition = WeatherCondition.getWeatherIconName(of: newWeather?.currentWeather.condition.rawValue ?? "sunny")
-                            let data = try await fireStoreManager.fetchBackground(condition)
-                            if let image = UIImage(data: data) {
-                                self.weatherImage = image
-                            } else {
-                                self.weatherImage = UIImage(resource: .weatherMorningBright)
-                            }
-                            
-                        } catch {
-                            print(error)
-                        }
+                        self.weatherImage = await self.fetchBackgroundImage(newWeather)
                     }
                 }
-            })
+            }
             
         }
-            
+        .rotation3DEffect(Angle(degrees: degree), axis: (x: 0, y: 1, z: 0))
     }
 }
 
+//MARK: - UI Components
 extension CityCurrentWeatherView {
-    private func shouldUpdateWeather(prev: Weather?, new: Weather?) -> Bool {
-        let oldTemp = prev?.currentWeather.temperature.value ?? 0.0
-        let newTemp = new?.currentWeather.temperature.value ?? 0.0
+    private func weatherComponentsView(title: String,
+                                       icon: String,
+                                       color: Color,
+                                       value: String) -> some View {
         
-        let condA = abs(oldTemp.rounded(.up) - newTemp.rounded(.up)) >= 1
-        let condB = prev?.currentWeather.condition != new?.currentWeather.condition
-        let result = condA || condB
+        HStack {
+            Image(systemName:icon)
+                .foregroundStyle(color)
+            Text(title)
+            Divider()
+                .frame(height: 10)
+            Text(value)
+                .fontWeight(.semibold)
+                .frame(alignment: .trailing)
+
+        }
         
-        return result
+    }
+}
+
+//MARK: - Fetch data
+extension CityCurrentWeatherView {
+    
+    private func fetchBackgroundImage(_ weather: Weather?) async -> UIImage {
+        let defaultImage = UIImage(resource: .weatherMorningBright)
+        
+        guard let weather else {
+            return defaultImage
+        }
+        
+        do {
+            let condition = WeatherCondition.getWeatherIconName(of: weather.currentWeather.condition.rawValue)
+            let data = try await fireStoreManager.fetchBackground(condition)
+            if let image = UIImage(data: data) {
+                return image
+            } else {
+                return defaultImage
+            }
+            
+        } catch {
+            #if DEBUG
+            print(error)
+            #endif
+            return defaultImage
+        }
     }
     
     private func updateWeatherView(with newWeather: Weather?) async throws {
@@ -146,4 +172,29 @@ extension CityCurrentWeatherView {
             //TODO: `newWeather found to be nil` handling.
         }
     }
+    
+    private func updateWeatherComponents(with newWeather: Weather?) -> [CityWeatherComponent] {
+        return [.feelsLike(weather: newWeather),
+                .humidity(weather: newWeather),
+                .uvIndex(weather: newWeather)]
+    }
+}
+
+//MARK: - Data processing
+extension CityCurrentWeatherView {
+    private func shouldUpdateWeather(prev: Weather?, new: Weather?) -> Bool {
+        let oldTemp = prev?.currentWeather.temperature.value ?? 0.0
+        let newTemp = new?.currentWeather.temperature.value ?? 0.0
+        
+        let condA = abs(oldTemp.rounded(.up) - newTemp.rounded(.up)) >= 1
+        let condB = prev?.currentWeather.condition != new?.currentWeather.condition
+        let result = condA || condB
+        
+        return result
+    }
+}
+
+#Preview {
+    WeatherView(locationManager: LocationManager(locationFetcher: CLLocationManager()),
+                storageManager: FirestoreManager())
 }

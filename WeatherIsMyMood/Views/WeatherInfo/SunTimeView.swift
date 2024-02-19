@@ -23,6 +23,7 @@ struct SunStatusTimeView: View {
             Image(systemName: self.status.rawValue)
                 .foregroundStyle(status == .sunrise ? .pink : .indigo)
             Text(dateTime)
+                .font(.caption)
         }
         .task(id: self.weather) {
             if let weather,

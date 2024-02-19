@@ -5,7 +5,7 @@
 // Created by HappyDuck on 12/11/23.
 
 
-import Foundation
+import SwiftUI
 import WeatherKit
 
 extension WeatherCondition {
@@ -69,3 +69,42 @@ extension WeatherCondition {
         return condition.weatherIcon
     }
 }
+
+extension UVIndex.ExposureCategory {
+    var indexIcon: String {
+        switch self {
+        case .high, .veryHigh, .extreme:
+            return "sun.max.fill"
+            
+        case .low, .moderate:
+            return "sun.min.fill"
+        }
+    }
+    
+    var iconColor: Color {
+        switch self {
+        case .veryHigh, .extreme:
+            return .red
+        case .high:
+            return .orange
+        case .low, .moderate:
+            return .green
+        }
+    }
+    
+    var description: String {
+        switch self {
+        case .low:
+            return WeatherConstants.low
+        case .moderate:
+            return WeatherConstants.moderate
+        case .high:
+            return WeatherConstants.high
+        case .veryHigh:
+            return WeatherConstants.veryHigh
+        case .extreme:
+            return WeatherConstants.extreme
+        }
+    }
+}
+
