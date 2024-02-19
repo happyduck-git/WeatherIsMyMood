@@ -36,11 +36,17 @@ struct CityWeatherView: View {
             }, label: {
                 VStack(alignment: .trailing) {
                     Text(isFlipped ? WeatherConstants.weather : WeatherConstants.showAirQuality)
-                    Image(.arrowRotation)
+                    Image(systemName: isFlipped ? "sun.max.circle" : "aqi.medium")
                         .resizable()
+                        .foregroundStyle(isFlipped ? .orange : .secondary)
                         .frame(width: 20, height: 20)
                 }
             })
+            .modify {
+                if #available(iOS 17.0, *) {
+                    $0.symbolEffect(.pulse)
+                }
+            }
             
             CityCurrentWeatherView(fireStoreManager: self.fireStoreManager,
                                    weather: self.$weather,
