@@ -309,6 +309,7 @@
 				249138322B6FCA1800D2E744 /* WeatherIsMyMood.xctestplan */,
 				245871472B5BE94C00FB9BA1 /* WeatherWidgetExtension.entitlements */,
 				24A0CA702B4F916B00635FB8 /* README.md */,
+				249615462B831CD20059817E /* Config.xcconfig */,
 				2467616D2B2D2D6D00C4CF4E /* InfoPlist.strings */,
 				243086272B23FE86006C78E9 /* WeatherIsMyMood */,
 				247212E42B282F3F009A6DE5 /* WeatherWidget */,
@@ -349,7 +350,6 @@
 				241A80422B2A156500706BB8 /* Launch Screen.storyboard */,
 				2457E9712B7F4E020093BB2C /* Model.xcdatamodeld */,
 				248BEE692B819BCF00C16082 /* EnvironmentConfig.swift */,
-				249615462B831CD20059817E /* Config.xcconfig */,
 			);
 			path = WeatherIsMyMood;
 			sourceTree = "<group>";
