@@ -206,7 +206,6 @@
 		248BEE642B81928E00C16082 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		248BEE692B819BCF00C16082 /* EnvironmentConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentConfig.swift; sourceTree = "<group>"; };
 		248BEE6B2B819C5200C16082 /* AirQuality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirQuality.swift; sourceTree = "<group>"; };
-		248BEE6D2B81E81D00C16082 /* Config.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		248BEE6F2B81FD4E00C16082 /* CityWeatherBackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityWeatherBackView.swift; sourceTree = "<group>"; };
 		248BEE732B81FFA100C16082 /* CityWeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityWeatherView.swift; sourceTree = "<group>"; };
 		248E3F422B24887C001B10C3 /* WeatherIsMyMood.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WeatherIsMyMood.entitlements; sourceTree = "<group>"; };
@@ -221,6 +220,7 @@
 		248E3F552B25B3CC001B10C3 /* SunTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunTimeView.swift; sourceTree = "<group>"; };
 		249138322B6FCA1800D2E744 /* WeatherIsMyMood.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = WeatherIsMyMood.xctestplan; sourceTree = "<group>"; };
 		249615442B825B740059817E /* AirQualityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirQualityView.swift; sourceTree = "<group>"; };
+		249615462B831CD20059817E /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		249871702B2967F000580566 /* Double+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
 		24A0CA702B4F916B00635FB8 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		24A66DEC2B269F1400B348CC /* UIScreen+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Extensions.swift"; sourceTree = "<group>"; };
@@ -347,7 +347,7 @@
 				241A80422B2A156500706BB8 /* Launch Screen.storyboard */,
 				2457E9712B7F4E020093BB2C /* Model.xcdatamodeld */,
 				248BEE692B819BCF00C16082 /* EnvironmentConfig.swift */,
-				248BEE6D2B81E81D00C16082 /* Config.xcconfig */,
+				249615462B831CD20059817E /* Config.xcconfig */,
 			);
 			path = WeatherIsMyMood;
 			sourceTree = "<group>";
@@ -875,7 +875,7 @@
 /* Begin XCBuildConfiguration section */
 		243086472B23FE8A006C78E9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 248BEE6D2B81E81D00C16082 /* Config.xcconfig */;
+			baseConfigurationReference = 249615462B831CD20059817E /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -940,7 +940,7 @@
 		};
 		243086482B23FE8A006C78E9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 248BEE6D2B81E81D00C16082 /* Config.xcconfig */;
+			baseConfigurationReference = 249615462B831CD20059817E /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -998,6 +998,7 @@
 		};
 		2430864A2B23FE8A006C78E9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 249615462B831CD20059817E /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1040,6 +1041,7 @@
 		};
 		2430864B2B23FE8A006C78E9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 249615462B831CD20059817E /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
