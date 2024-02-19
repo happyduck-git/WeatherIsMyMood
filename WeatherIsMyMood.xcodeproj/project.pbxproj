@@ -63,6 +63,8 @@
 		247212FB2B2841D5009A6DE5 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247212FA2B2841D5009A6DE5 /* UIImage+Extensions.swift */; };
 		247212FE2B28B2FA009A6DE5 /* StorageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247212FD2B28B2FA009A6DE5 /* StorageCacheManager.swift */; };
 		247213002B28C4AD009A6DE5 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247212FF2B28C4AD009A6DE5 /* View+Extensions.swift */; };
+		247553ED2B8327E5007B92BB /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 249615462B831CD20059817E /* Config.xcconfig */; };
+		247553EE2B832816007B92BB /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 249615462B831CD20059817E /* Config.xcconfig */; };
 		248BEE652B81928E00C16082 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248BEE642B81928E00C16082 /* NetworkManager.swift */; };
 		248BEE682B81941E00C16082 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 248BEE672B81941E00C16082 /* Alamofire */; };
 		248BEE6A2B819BCF00C16082 /* EnvironmentConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248BEE692B819BCF00C16082 /* EnvironmentConfig.swift */; };
@@ -689,6 +691,7 @@
 				2457E9682B7EF8950093BB2C /* sun_color.json in Resources */,
 				24A66E092B275FB200B348CC /* GoogleService-Info.plist in Resources */,
 				241A803E2B29E04100706BB8 /* Localizable.xcstrings in Resources */,
+				247553ED2B8327E5007B92BB /* Config.xcconfig in Resources */,
 				241A80432B2A156500706BB8 /* Launch Screen.storyboard in Resources */,
 				2430862D2B23FE89006C78E9 /* Assets.xcassets in Resources */,
 				241A80472B2A177F00706BB8 /* Muli-Black.ttf in Resources */,
@@ -714,6 +717,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				249871722B29928E00580566 /* Assets.xcassets in Resources */,
+				247553EE2B832816007B92BB /* Config.xcconfig in Resources */,
 				247212EE2B282F41009A6DE5 /* Assets.xcassets in Resources */,
 				243021952B6651E400580960 /* Localizable.xcstrings in Resources */,
 				2499704F2B5BC04700F995AD /* GoogleService-Info.plist in Resources */,
@@ -1084,6 +1088,7 @@
 		};
 		2430864D2B23FE8A006C78E9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 249615462B831CD20059817E /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1104,6 +1109,7 @@
 		};
 		2430864E2B23FE8A006C78E9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 249615462B831CD20059817E /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1124,6 +1130,7 @@
 		};
 		243086502B23FE8A006C78E9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 249615462B831CD20059817E /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1142,6 +1149,7 @@
 		};
 		243086512B23FE8A006C78E9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 249615462B831CD20059817E /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1160,6 +1168,7 @@
 		};
 		247212F42B282F41009A6DE5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 249615462B831CD20059817E /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
@@ -1189,6 +1198,7 @@
 		};
 		247212F52B282F41009A6DE5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 249615462B831CD20059817E /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
