@@ -121,7 +121,7 @@ extension WeatherView {
                             .foregroundStyle(.red.opacity(0.9))
                             .padding()
                     }
-                    if let weather {
+                    if weather != nil {
                         CityWeatherView(fireStoreManager: self.storageManager,
                                         weather: $weather,
                                         cityName: $cityName,

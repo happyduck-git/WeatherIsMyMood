@@ -40,7 +40,7 @@ final class CoreDataStack: CoreDataObject, ObservableObject {
 extension CoreDataStack {
     func saveWeatherCache(_ info: WeatherContent) {
         
-        let entity = NSEntityDescription.entity(forEntityName: self.weatherEntity,
+        let _ = NSEntityDescription.entity(forEntityName: self.weatherEntity,
                                                 in: self.context)
         
         let weather = WeatherConditionInfo(context: self.context)
