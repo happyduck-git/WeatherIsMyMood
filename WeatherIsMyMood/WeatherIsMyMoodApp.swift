@@ -31,7 +31,6 @@ struct WeatherIsMyMoodApp: App {
     @StateObject private var locationManager: LocationManager = LocationManager(locationFetcher: CLLocationManager())
     private let storageManager: FirestoreManager = FirestoreManager()
     @StateObject private var coreStack = CoreDataStack()
-    @ObservedObject private var bgTimeManger = BackgroundTimer()
     @State private var tasks: [UIBackgroundTaskIdentifier] = []
     
     var body: some Scene {
@@ -40,9 +39,6 @@ struct WeatherIsMyMoodApp: App {
             return WindowGroup {
                 self.makeMainView(locationManager: self.locationManager,
                                   storageManager: self.storageManager)
-                .onAppear {
-                    bgTimeManger.delegate = self
-                }
             }
             .onChange(of: phase, initial: true) { _, newPhase in
                 switch newPhase {
@@ -152,45 +148,12 @@ extension WeatherIsMyMoodApp {
         UserDefaults.standard.set(savedCount + 1, forKey: "app_refresh_demo")
        
     }
-    
-    private func setUpBackgroundUpdate(delay interval: TimeInterval, repeating: Bool) -> UIBackgroundTaskIdentifier {
-        let taskID = self.bgTimeManger.executeAfterDelay(delay: interval, repeating: repeating) {
-            //TODO: Implement in next version update.
-            #if DEBUG
-            print("Repeating on background...")
-            #endif
-        }
-        
-        return taskID
-    }
-    
-    private func cancelBackgroundTask(tasks: [UIBackgroundTaskIdentifier]) {
-        guard !tasks.isEmpty else { return }
-        self.bgTimeManger.cancelExecution(tasks: tasks)
-    }
-    
+
     private func checkSavedBackgroundTasks() {
         let savedCount = UserDefaults.standard.integer(forKey: "app_refresh_demo")
         let savedWeather = UserDefaults.standard.string(forKey: "app_refresh_weather")
         print("Saved Count in BG: \(savedCount)")
         print("Saved weather in BG: \(String(describing: savedWeather))")
     }
-}
-
-//MARK: - Next version implementation
-extension WeatherIsMyMoodApp: BackgroundTimerDelegate {
-    func backgroundTimerTaskExecuted(task: UIBackgroundTaskIdentifier, willRepeat: Bool) {
-        guard !willRepeat else {
-            return
-        }
-        
-        //TODO: - Handle task execution
-    }
-    
-    func backgroundTimerTaskCanceled(task: UIBackgroundTaskIdentifier) {
-        //TODO: - Handle task cancelation
-        self.tasks.removeAll()
-    }
-
 }
 
