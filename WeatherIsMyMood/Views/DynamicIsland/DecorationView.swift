@@ -7,6 +7,7 @@
 
 import SwiftUI
 import WeatherKit
+import CoreLocation
 
 struct DecorationView: View {
     
@@ -17,7 +18,7 @@ struct DecorationView: View {
     @AppStorage("isDynamicIslandOn") private var isOn = false
     
     private let weatherService = WeatherService.shared
-    private let storageManager = FirestoreManager()
+    private let storageManager: FirestoreManager
     
     @State private var weather: Weather?
     @State private var previousWeather: Weather?
@@ -27,8 +28,10 @@ struct DecorationView: View {
     @State private var otherIcons: [Data] = []
     @State private var selectedIcon: Data?
     
-    init(locationManager: LocationManager) {
+    init(locationManager: LocationManager,
+         storageManager: FirestoreManager) {
         self.locationManager = locationManager
+        self.storageManager = storageManager
     }
     
     var body: some View {
@@ -59,7 +62,7 @@ struct DecorationView: View {
             print("DecorationView disappeared")
         })
         .task(id: locationManager.currentLocation) {
-       
+            
             if let location = locationManager.currentLocation {
                 do {
                     self.weather = try await weatherService.weather(for: location)
@@ -106,7 +109,6 @@ extension DecorationView {
         
         self.otherIcons = try await others
         self.weatherIcons = try await weathers
-        self.isLoading = false
     }
 }
 
@@ -126,28 +128,34 @@ extension DecorationView {
             
             DynamicIslandPreviewView(weather: $weather,
                                      selectedIcon: $selectedIcon)
+            .padding(EdgeInsets(top: 10, leading: 120, bottom: 10, trailing: 120))
             
+            Text(WeatherConstants.previewDescription)
+                .lineLimit(nil)
+                .multilineTextAlignment(.center)
+                .font(.caption2)
+                .foregroundStyle(.secondary)
+                .padding()
             
-            HStack {
-                Text(DecoConstants.weather)
-                    .fontWeight(.bold)
-                    .frame(alignment: .leading)
-                    .padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 0))
+            HStack{
+                SectionTitleView(section: .weatherIcons)
+                    .frame(width: 200)
+                    .padding()
                 Spacer()
             }
             
+            
             self.emojiCollectionView(self.weatherIcons)
             
-            HStack {
-                Text(DecoConstants.others)
-                    .fontWeight(.bold)
-                    .frame(alignment: .leading)
-                    .padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 0))
+            HStack{
+                SectionTitleView(section: .emojis)
+                    .frame(width: 200)
+                    .padding()
                 Spacer()
             }
             
             self.emojiCollectionView(self.otherIcons)
-            
+
         }
         .scrollIndicators(.never)
         .background {
@@ -157,24 +165,23 @@ extension DecorationView {
     }
     
     private func emojiCollectionView(_ icons: [Data]) -> some View {
-
         let rows = 2
         let columns = (icons.count + 2) / rows
         return makeCollectionView(direction: .horizontal,
                                   row: 2,
                                   column: columns,
                                   data: icons)
-   
+        
         /* Horizontal */
         /*
-        let columns = 4
-        let rows = (icons.count + 2) / columns
-        return makeCollectionView(direction: .vertical,
-                                  row: rows,
-                                  column: columns,
-                                  data: icons)
-        */
-
+         let columns = 4
+         let rows = (icons.count + 2) / columns
+         return makeCollectionView(direction: .vertical,
+         row: rows,
+         column: columns,
+         data: icons)
+         */
+        
     }
     
     private func makeCollectionView(direction: Axis.Set, row: Int, column: Int, data: [Data]) -> some View {
@@ -203,5 +210,8 @@ extension DecorationView {
     }
 }
 
+#Preview {
+    DecorationView(locationManager: LocationManager(locationFetcher: CLLocationManager()), storageManager: FirestoreManager())
+}
 
 

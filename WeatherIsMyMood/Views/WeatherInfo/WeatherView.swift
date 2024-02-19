@@ -8,10 +8,14 @@
 import SwiftUI
 import WeatherKit
 import CoreLocation
+import Alamofire
 
 struct WeatherView: View {
     
     @ObservedObject private var locationManager: LocationManager
+    private let storageManager: FirestoreManager
+    private let networkManager: NetworkManager = NetworkManager(alamofire: Session())
+    @State private var aqiList: [AQList] = []
     
     @State private var isFirstLoading = true
     @State private var isLoading = false
@@ -21,12 +25,15 @@ struct WeatherView: View {
     @State var hourlyWeatherData: [HourWeather] = []
     
     @State var attribution: WeatherAttribution?
+    @State private var location: CLLocation?
     @State private var cityName: String = ""
     @State private var searchedCityName: String = ""
     @State var locationFound: Bool = true
     
-    init(locationManager: LocationManager) {
+    init(locationManager: LocationManager,
+         storageManager: FirestoreManager) {
         self.locationManager = locationManager
+        self.storageManager = storageManager
         #if DEBUG
         print("WeatherViewInit")
         #endif
@@ -35,7 +42,6 @@ struct WeatherView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                
                 self.makeScrollView()
                 
                 if isLoading {
@@ -59,11 +65,11 @@ struct WeatherView: View {
                 self.isFirstLoading.toggle()
                 self.isLoading = true
             }
-            print("WeatherView appeared")
         }
         .task(id: locationManager.currentLocation) {
-
-            if let location = locationManager.currentLocation {
+            self.location = locationManager.currentLocation
+            
+            if let location = self.location {
                 #if DEBUG
                 print("Loc on weatherView: \(location.coordinate.latitude)")
                 #endif
@@ -71,16 +77,18 @@ struct WeatherView: View {
                     async let weather = weatherService.weather(for: location)
                     async let attribution = weatherService.attribution
                     async let cityName = locationManager.cityName(at: location)
+                    async let aqList = self.fetchAirQualityPrediction(location: location)
                     
                     self.weather = try await weather
                     self.attribution = try await attribution
+                    self.hourlyWeatherData = self.filterHours(of: self.weather?.hourlyForecast, count: 24)
+                    self.aqiList = await aqList
+                    
                     if let unwrappedCityName = await cityName {
                         self.cityName = unwrappedCityName
                     } else {
                         self.locationFound = false
                     }
-                    
-                    self.hourlyWeatherData = self.filterHours(of: self.weather?.hourlyForecast, count: 24)
                     
                     self.isLoading = false
                 }
@@ -113,17 +121,25 @@ extension WeatherView {
                             .foregroundStyle(.red.opacity(0.9))
                             .padding()
                     }
-                    if let weather {
-                        CityCurrentWeatherView(weather: $weather,
-                                               cityName: $cityName)
+
+                    if weather != nil {
+                        CityWeatherView(fireStoreManager: self.storageManager,
+                                        weather: $weather,
+                                        cityName: $cityName,
+                                        aqList: $aqiList)
                         .padding(.vertical, 10)
-                        HourlyForcastView(hourWeatherList: self.hourlyWeatherData)
                         
-                        TenDayForcastView(dayWeatherList: weather.dailyForecast.forecast)
+                        HourlyForcastView(hourWeatherList: self.$hourlyWeatherData)
+                        
+                        TenDayForcastView(weather: $weather)
+                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                        
+                        //NOTE: Need to be delivered in the next version.
+//                        AirQualityView(aqList: $aqiList)
                         
                         HourlyPrecipitationChartView(hourWeatherList: self.$hourlyWeatherData)
                         
-                        DataAttributionView(weatherAttribution: self.attribution)
+                        DataAttributionView(weatherAttribution: attribution)
                             .padding(EdgeInsets(top: 30, leading: 0, bottom: 10, trailing: 0))
                     } else {
                         Color(ColorConstants.main)
@@ -155,6 +171,30 @@ extension WeatherView {
 }
 
 extension WeatherView {
+    
+    /// Fetch air quality predictions
+    /// - Parameter location: Current location
+    /// - Returns: Air quality list
+    private func fetchAirQualityPrediction(location: CLLocation) async -> [AQList] {
+        let lat = location.coordinate.latitude
+        let lon = location.coordinate.longitude
+        
+        let urlString = "https://api.openweathermap.org/data/2.5/air_pollution/forecast?lat=\(lat)&lon=\(lon)&appid=\(EnvironmentConfig.openWeatherApiKey)"
+        let result: Result<AirQuality, AFError> = await self.networkManager.fetchData(urlString: urlString)
+        
+        switch result {
+        case .success(let result):
+            return result.list
+        case .failure(let failure):
+            #if DEBUG
+            print("Error: -- \(failure)")
+            #endif
+            return []
+        }
+    }
+}
+
+extension WeatherView {
     private func updateLocationStatus(to city: String) {
         if !city.isEmpty {
             Task {
@@ -170,15 +210,15 @@ extension WeatherView {
     }
 
     private func filterHours(of hourlyWeathers: Forecast<HourWeather>?, count: Int) -> [HourWeather] {
-            guard let weathers = hourlyWeathers else { return [] }
-            guard let roundedCurrentDate = roundDownToNearestHour(Date()) else { return [] }
-            
-            return Array(
-                weathers.filter {
-                    $0.date >= roundedCurrentDate
-                }.prefix(count)
-            )
-        }
+        guard let weathers = hourlyWeathers else { return [] }
+        guard let roundedCurrentDate = roundDownToNearestHour(Date()) else { return [] }
+        
+        return Array(
+            weathers.filter {
+                $0.date >= roundedCurrentDate
+            }.prefix(count)
+        )
+    }
         
         // Round down to nearest hour (including current hour).
         private func roundDownToNearestHour(_ date: Date) -> Date? {
@@ -189,5 +229,6 @@ extension WeatherView {
 }
 
 #Preview {
-    WeatherView(locationManager: LocationManager(locationFetcher: CLLocationManager()))
+    WeatherView(locationManager: LocationManager(locationFetcher: CLLocationManager()),
+                storageManager: FirestoreManager())
 }

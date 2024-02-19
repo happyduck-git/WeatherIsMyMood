@@ -89,7 +89,7 @@ extension LocationManager {
 extension LocationManager: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("Location updated: \(locations.map({ $0.coordinate.latitude }))")
+        print("Location updated... LAT: \(locations.map({ $0.coordinate.latitude })), LON: \(locations.map({ $0.coordinate.longitude }))")
         self.locationFetcher(manager, didUpdateLocations: locations)
     }
     

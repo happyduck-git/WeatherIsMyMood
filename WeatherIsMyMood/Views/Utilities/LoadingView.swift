@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Lottie
 
 struct LoadingView: View {
     var body: some View {
@@ -13,10 +14,11 @@ struct LoadingView: View {
             Color(.black)
                 .opacity(0.2)
             
-            ProgressView()
-                .progressViewStyle(.circular)
-                .tint(.orange)
-                .scaleEffect(2)
+            LottieView(animation: .named("sun_color"))
+                .looping()
+                .resizable()
+                .frame(width: 120, height: 120)
+
         }
         .ignoresSafeArea()
     }

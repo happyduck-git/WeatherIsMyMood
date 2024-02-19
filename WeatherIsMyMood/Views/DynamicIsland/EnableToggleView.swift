@@ -11,6 +11,9 @@ import WeatherKit
 
 struct EnableToggleView: View {
     
+    private let notiPulisher =  NotificationCenter.default
+        .publisher(for: Notification.Name(NotificationKeys.backgroundUpdate), object: nil)
+    
     @State private var activity: Activity<WeatherAttributes>? = nil
     @Binding var isOn: Bool
     @Binding var weather: Weather?
@@ -34,6 +37,18 @@ struct EnableToggleView: View {
         .onChange(of: self.selectedIcon, perform: { _ in
             self.updateLiveActivity(self.isOn)
         })
+        .onChange(of: self.weather) { _ in
+            #if DEBUG
+            print("Weather is updated.")
+            #endif
+            self.updateLiveActivity(self.isOn)
+        }
+        .onReceive(notiPulisher) { output in
+            #if DEBUG
+            print("✅Receive noti from app \(output)")
+            #endif
+            self.updateLiveActivity(self.isOn)
+        }
     }
 }
 

@@ -14,6 +14,17 @@ extension Date {
         return formatter.string(from: self)
     }
     
+    /// Return days in abbreviated format.
+    /// Return the current day as "Today".
+    /// - Returns: Day
+    func abbreviatedDay() -> String {
+        let calendar = Calendar.current
+        if calendar.isDateInToday(self) {
+            return String(localized: "Today")
+        }
+        return formateAsAbbreviatedDay()
+    }
+    
     func formatAsAbbreviatedTime() -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "ha" // Custom format: Hour in 12-hour format + AM/PM designator

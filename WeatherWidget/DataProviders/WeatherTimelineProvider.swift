@@ -12,6 +12,7 @@ import AppIntents
 import Combine
 import FirebaseStorage
 import UIKit
+import ActivityKit
 
 protocol TimelineProviderTask {
     var defaultCityName: String { get }
@@ -125,6 +126,18 @@ struct WeatherTimelineProvider: AppIntentTimelineProvider, TimelineProviderTask 
         return Timeline(entries: [entry],
                         policy: .atEnd)
     }
+    
+//    func setUpSystemNotification() {
+//        let cfNofiCenter = CFNotificationCenterGetDarwinNotifyCenter()
+//        CFNotificationCenterAddObserver(cfNofiCenter,
+//                                        UnsafeRawPointer(Unmanaged.passUnretained(self).toOpaque()),
+//                                        { <#CFNotificationCenter?#>, <#UnsafeMutableRawPointer?#>, <#CFNotificationName?#>, <#UnsafeRawPointer?#>, <#CFDictionary?#> in
+//            <#code#>
+//        },
+//                                        NotificationKeys.systemWidgetUpdate as CFString,
+//                                        nil,
+//                                        .deliverImmediately)
+//    }
     
 }
 

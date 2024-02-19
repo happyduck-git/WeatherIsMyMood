@@ -11,12 +11,13 @@ import FirebaseStorage
 
 actor FirestoreManager {
     
-    private let storageRef = Storage.storage().reference()
+    private lazy var storageRef = Storage.storage().reference()
     private let cacheManager = StorageCacheManager.shared
     
     private let fileFormat = "png"
     
     typealias PaginatedResult = (data: [Data], pageToken: String?)
+
 }
 
 extension FirestoreManager {
@@ -52,15 +53,25 @@ extension FirestoreManager {
     }
     
     func fetchBackground(_ condition: String) async throws -> Data {
-        #if DEBUG
-        return try await self.storageRef
-            .child("dev_background/\(condition).\(fileFormat)")
-            .data(maxSize: 1 * 1024 * 1024)
-        #else
-        return try await self.storageRef
-            .child("background/\(condition).\(fileFormat)")
-            .data(maxSize: 1 * 1024 * 1024)
-        #endif
+        let key = "background_\(condition)"
+            
+        if let cachedData = self.cacheManager.getCache(for: key) {
+            return cachedData as Data
+        } else {
+            var folderRoot = "background"
+            
+            #if DEBUG
+            folderRoot = "dev_background"
+            #endif
+            
+            let data = try await self.storageRef
+                .child("\(folderRoot)/\(condition).\(fileFormat)")
+                .data(maxSize: 1 * 1024 * 1024)
+
+            self.cacheManager.setCache(data as NSData, for: key)
+            
+            return data
+        }
     }
     
     /// Ordered result (test).
