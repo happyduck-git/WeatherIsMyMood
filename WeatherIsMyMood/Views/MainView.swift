@@ -23,11 +23,14 @@ struct MainView: View {
     //MARK: - Body
     var body: some View {
         TabView {
+            /* Comment out for APNs testing */
+            /*
             WeatherView(locationManager: self.locationManager,
                         storageManager: self.storageManager)
                 .tabItem {
                     Label("Weather", systemImage: "cloud.sun.fill")
                 }
+             */
             DecorationView(locationManager: self.locationManager,
                            storageManager: self.storageManager)
                 .tabItem {

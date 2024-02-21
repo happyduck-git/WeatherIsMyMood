@@ -9,28 +9,73 @@ import SwiftUI
 import ActivityKit
 import WeatherKit
 
+extension Activity: Equatable {
+    public static func == (lhs: Activity<Attributes>, rhs: Activity<Attributes>) -> Bool {
+        return lhs.id == rhs.id
+    }
+}
+
 struct EnableToggleView: View {
     
     private let notiPulisher =  NotificationCenter.default
         .publisher(for: Notification.Name(NotificationKeys.backgroundUpdate), object: nil)
     
     @State private var activity: Activity<WeatherAttributes>? = nil
+    @State private var deviceToken: String = ""
+    @State private var pushToken: String = ""
     @Binding var isOn: Bool
     @Binding var weather: Weather?
     @Binding var selectedIcon: Data?
     
     var body: some View {
-        HStack {
-            Toggle(isOn: $isOn) {
-                Text(DecoConstants.enable)
+        VStack {
+            HStack {
+                Toggle(isOn: $isOn) {
+                    Text(DecoConstants.enable)
+                }
+                .padding(EdgeInsets(top: 20, leading: 30, bottom: 20, trailing: 30))
             }
-            .padding(EdgeInsets(top: 20, leading: 30, bottom: 20, trailing: 30))
+            .background {
+                RoundedRectangle(cornerRadius: 15, style: .continuous)
+                    .fill(.tertiary)
+                    .padding()
+            }
+            HStack {
+                Text("Device Token: \(self.deviceToken)")
+                Button(action: {
+                    self.pasteToClipboard(self.deviceToken)
+                }, label: {
+                    Text("키 복사")
+                })
+            }
+            Divider()
+            
+            HStack {
+                Text("Push Token: \(self.pushToken)")
+                Button(action: {
+                    self.pasteToClipboard(self.pushToken)
+                }, label: {
+                    Text("키 복사")
+                })
+            }
+            Divider()
+            
+            HStack {
+                Text("Activity Token: \(self.activity?.id ?? "없음")")
+                Button(action: {
+                    self.pasteToClipboard("\(self.activity?.id ?? "없음")")
+                }, label: {
+                    Text("복사")
+                })
+            }
+            
         }
-        .background {
-            RoundedRectangle(cornerRadius: 15, style: .continuous)
-                .fill(.tertiary)
-                .padding()
-        }
+        .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name(UserDefaultsKeys.deviceToken)), perform: {
+            guard let token = $0.object as? String else {
+                return
+            }
+            self.deviceToken = token
+        })
         .onChange(of: self.isOn, perform: { newValue in
             self.enableLiveActivity(self.isOn)
         })
@@ -92,7 +137,18 @@ extension EnableToggleView {
             
             do {
                 self.activity = try Activity<WeatherAttributes>.request(attributes: attrib,
-                                                                        content: content)
+                                                                        content: content,
+                                                                        pushType: .token)
+                
+                guard let activity = self.activity else { return }
+                Task {
+                    for await pushToken in activity.pushTokenUpdates {
+                        let pushTokenString = pushToken.reduce("") { $0 + String(format: "%02x", $1) }
+                        print("New push token: \(pushTokenString)")
+                        self.pushToken = pushTokenString
+                    }
+                }
+                
             }
             catch {
                 print("Error unwrapping weather, selectedIcon optional value. -- \(error)")
@@ -113,5 +169,12 @@ extension EnableToggleView {
 extension EnableToggleView {
     private func formatTemperature(_ temperature: Measurement<UnitTemperature>) -> String {
         return "\(temperature.formatted(.measurement(width: .narrow, numberFormatStyle: .number.precision(.fractionLength(0)))))"
+    }
+}
+
+//MARK: - APNS DEMO PURPOSE LOGICS
+extension EnableToggleView {
+    private func pasteToClipboard(_ str: String) {
+        UIPasteboard.general.string = str
     }
 }

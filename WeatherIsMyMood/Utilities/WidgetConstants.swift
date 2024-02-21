@@ -7,6 +7,10 @@
 
 import Foundation
 
+enum UserDefaultsKeys {
+    static let deviceToken = "device-token"
+}
+
 enum BGTaskConstants {
     static let testId = "com.gghoneycomb.WeatherIsMyMood.bg_test"
     static let weatherUpdateId = "com.gghoneycomb.WeatherIsMyMood.bg_weather_update"

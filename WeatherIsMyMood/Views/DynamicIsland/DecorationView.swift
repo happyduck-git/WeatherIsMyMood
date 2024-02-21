@@ -86,7 +86,8 @@ struct DecorationView: View {
                 if let newWeather {
                     Task {
                         do {
-                            try await self.updateWeatherData(newWeather)
+//                            try await self.updateWeatherData(newWeather)
+                            self.demoIconData()
                             self.previousWeather = newWeather
                             self.isLoading = false
                         }
@@ -109,6 +110,15 @@ extension DecorationView {
         
         self.otherIcons = try await others
         self.weatherIcons = try await weathers
+    }
+    
+    /// Give one local icon just for a demo purpose
+    private func demoIconData() {
+        guard let demoIconData = UIImage(resource: .clearCloudy).jpegData(compressionQuality: 0.5) else {
+            return
+        }
+        
+        self.weatherIcons.append(demoIconData)
     }
 }
 

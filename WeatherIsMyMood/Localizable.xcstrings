@@ -64,6 +64,9 @@
         }
       }
     },
+    "Activity Token: %@" : {
+
+    },
     "Air quality" : {
       "localizations" : {
         "ko" : {
@@ -284,6 +287,9 @@
           }
         }
       }
+    },
+    "Device Token: %@" : {
+
     },
     "Enable Dynamic Island" : {
       "localizations" : {
@@ -1022,6 +1028,9 @@
         }
       }
     },
+    "Push Token: %@" : {
+
+    },
     "Quote 📝" : {
       "localizations" : {
         "ko" : {
@@ -1413,6 +1422,9 @@
           }
         }
       }
+    },
+    "키 복사" : {
+
     }
   },
   "version" : "1.0"
