@@ -20,7 +20,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         FirebaseApp.configure()
         return true
     }
-
 }
 
 @main
@@ -34,7 +33,7 @@ struct WeatherIsMyMoodApp: App {
     @State private var tasks: [UIBackgroundTaskIdentifier] = []
     
     var body: some Scene {
-        
+
         if #available(iOS 17.0, *) {
             return WindowGroup {
                 self.makeMainView(locationManager: self.locationManager,
@@ -74,7 +73,6 @@ struct WeatherIsMyMoodApp: App {
             .backgroundTask(.appRefresh(BGTaskConstants.testId)) { _ in
                 await self.handleAppRefreshTask()
             }
-            
         }
     }
 }

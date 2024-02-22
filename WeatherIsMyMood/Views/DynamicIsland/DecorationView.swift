@@ -155,8 +155,7 @@ extension DecorationView {
             }
             
             self.emojiCollectionView(self.otherIcons)
-            
-            
+
         }
         .scrollIndicators(.never)
         .background {
@@ -166,7 +165,6 @@ extension DecorationView {
     }
     
     private func emojiCollectionView(_ icons: [Data]) -> some View {
-        
         let rows = 2
         let columns = (icons.count + 2) / rows
         return makeCollectionView(direction: .horizontal,
@@ -187,7 +185,7 @@ extension DecorationView {
     }
     
     private func makeCollectionView(direction: Axis.Set, row: Int, column: Int, data: [Data]) -> some View {
-        
+
         return ScrollView(direction) {
             VStack(alignment: .leading) {
                 ForEach(0..<row, id: \.self) { row in
@@ -200,7 +198,7 @@ extension DecorationView {
                                 EmojiViewCell(emojiData: data[index])
                                     .onTapGesture {
                                         self.selectedIcon = data[index]
-                                    }  
+                                    }
                             }
                         }
                     }
