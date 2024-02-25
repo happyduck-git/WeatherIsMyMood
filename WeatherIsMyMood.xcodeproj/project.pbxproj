@@ -95,7 +95,7 @@
 		249970482B5B945B00F995AD /* WeatherWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243465F22B5A69B600511D78 /* WeatherWidget.swift */; };
 		2499704F2B5BC04700F995AD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24A66E082B275FB200B348CC /* GoogleService-Info.plist */; };
 		24A66DED2B269F1400B348CC /* UIScreen+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A66DEC2B269F1400B348CC /* UIScreen+Extensions.swift */; };
-		24A66DEF2B26B18800B348CC /* CityCurrentWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A66DEE2B26B18800B348CC /* CityCurrentWeatherView.swift */; };
+		24A66DEF2B26B18800B348CC /* CityWeatherFrontView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A66DEE2B26B18800B348CC /* CityWeatherFrontView.swift */; };
 		24A66DF12B26DDCB00B348CC /* WeatherCondition+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A66DF02B26DDCA00B348CC /* WeatherCondition+Extensions.swift */; };
 		24A66DF32B26EEBB00B348CC /* EmojiViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A66DF22B26EEBB00B348CC /* EmojiViewCell.swift */; };
 		24A66DF52B2711A600B348CC /* DynamicIslandPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A66DF42B2711A600B348CC /* DynamicIslandPreviewView.swift */; };
@@ -226,7 +226,7 @@
 		249871702B2967F000580566 /* Double+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
 		24A0CA702B4F916B00635FB8 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		24A66DEC2B269F1400B348CC /* UIScreen+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Extensions.swift"; sourceTree = "<group>"; };
-		24A66DEE2B26B18800B348CC /* CityCurrentWeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityCurrentWeatherView.swift; sourceTree = "<group>"; };
+		24A66DEE2B26B18800B348CC /* CityWeatherFrontView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityWeatherFrontView.swift; sourceTree = "<group>"; };
 		24A66DF02B26DDCA00B348CC /* WeatherCondition+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WeatherCondition+Extensions.swift"; sourceTree = "<group>"; };
 		24A66DF22B26EEBB00B348CC /* EmojiViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiViewCell.swift; sourceTree = "<group>"; };
 		24A66DF42B2711A600B348CC /* DynamicIslandPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicIslandPreviewView.swift; sourceTree = "<group>"; };
@@ -414,7 +414,7 @@
 				248E3F532B25B1DE001B10C3 /* SearchView.swift */,
 				248E3F552B25B3CC001B10C3 /* SunTimeView.swift */,
 				2458CD212B25D720008F4AFE /* TitleView.swift */,
-				24A66DEE2B26B18800B348CC /* CityCurrentWeatherView.swift */,
+				24A66DEE2B26B18800B348CC /* CityWeatherFrontView.swift */,
 				248BEE6F2B81FD4E00C16082 /* CityWeatherBackView.swift */,
 				248BEE732B81FFA100C16082 /* CityWeatherView.swift */,
 				249615442B825B740059817E /* AirQualityView.swift */,
@@ -777,7 +777,7 @@
 				2457E9732B7F4E020093BB2C /* Model.xcdatamodeld in Sources */,
 				248E3F4E2B25959A001B10C3 /* SectionTitleView.swift in Sources */,
 				248E3F522B259C04001B10C3 /* DataAttributionView.swift in Sources */,
-				24A66DEF2B26B18800B348CC /* CityCurrentWeatherView.swift in Sources */,
+				24A66DEF2B26B18800B348CC /* CityWeatherFrontView.swift in Sources */,
 				247212FB2B2841D5009A6DE5 /* UIImage+Extensions.swift in Sources */,
 				2458CD222B25D720008F4AFE /* TitleView.swift in Sources */,
 				24A66E032B2749E900B348CC /* FirestoreManager.swift in Sources */,
@@ -1031,7 +1031,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-
 				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gghoneycomb.WeatherIsMyMood;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1075,7 +1074,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-
 				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gghoneycomb.WeatherIsMyMood;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1188,7 +1186,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-
 				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gghoneycomb.WeatherIsMyMood.WeatherWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -12,32 +12,21 @@ import Alamofire
 
 struct WeatherView: View {
     
-    @ObservedObject private var locationManager: LocationManager
-    private let storageManager: FirestoreManager
-    private let networkManager: NetworkManager = NetworkManager(alamofire: Session())
-    @State private var aqiList: [AQList] = []
+    @EnvironmentObject private var locationManager: LocationManager
+    @EnvironmentObject private var storageManager: FirestoreManager
+    @EnvironmentObject private var networkManager: NetworkManager
+    private let weatherService = WeatherService.shared
     
+    @State private var aqiList: [AQList] = []
     @State private var isFirstLoading = true
     @State private var isLoading = false
-    
-    private let weatherService = WeatherService.shared
     @State private var weather: Weather?
-    @State var hourlyWeatherData: [HourWeather] = []
-    
-    @State var attribution: WeatherAttribution?
+    @State private var hourlyWeatherData: [HourWeather] = []
+    @State private var attribution: WeatherAttribution?
     @State private var location: CLLocation?
     @State private var cityName: String = ""
     @State private var searchedCityName: String = ""
-    @State var locationFound: Bool = true
-    
-    init(locationManager: LocationManager,
-         storageManager: FirestoreManager) {
-        self.locationManager = locationManager
-        self.storageManager = storageManager
-        #if DEBUG
-        print("WeatherViewInit")
-        #endif
-    }
+    @State private var locationFound: Bool = true
 
     var body: some View {
         NavigationView {
@@ -123,8 +112,7 @@ extension WeatherView {
                     }
 
                     if weather != nil {
-                        CityWeatherView(fireStoreManager: self.storageManager,
-                                        weather: $weather,
+                        CityWeatherView(weather: $weather,
                                         cityName: $cityName,
                                         aqList: $aqiList)
                         .padding(.vertical, 10)
@@ -229,6 +217,5 @@ extension WeatherView {
 }
 
 #Preview {
-    WeatherView(locationManager: LocationManager(locationFetcher: CLLocationManager()),
-                storageManager: FirestoreManager())
+    WeatherView()
 }

@@ -13,16 +13,14 @@ struct TenDayForcastView: View {
     @Binding var weather: Weather?
     
     @State var dayWeatherList: [DayWeather] = []
+    @State private var collapsed: Bool = true
     
     private var today: DayWeather? {
         dayWeatherList.first
     }
-    
     private var otherDays: [DayWeather] {
         Array(dayWeatherList.dropFirst())
     }
-    
-    @State private var collapsed: Bool = true
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -128,6 +126,5 @@ extension TenDayForcastView {
 }
 
 #Preview {
-    WeatherView(locationManager: LocationManager(locationFetcher: CLLocationManager()),
-                storageManager: FirestoreManager())
+    WeatherView()
 }

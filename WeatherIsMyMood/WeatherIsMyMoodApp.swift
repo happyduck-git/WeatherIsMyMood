@@ -12,7 +12,7 @@ import AppTrackingTransparency
 import CoreLocation
 import BackgroundTasks
 import WeatherKit
-import SwiftData
+import Alamofire
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,
@@ -28,7 +28,8 @@ struct WeatherIsMyMoodApp: App {
     
     @Environment(\.scenePhase) private var phase
     @StateObject private var locationManager: LocationManager = LocationManager(locationFetcher: CLLocationManager())
-    private let storageManager: FirestoreManager = FirestoreManager()
+    @StateObject private var networkManager: NetworkManager = NetworkManager(alamofire: Session())
+    @StateObject private var storageManager: FirestoreManager = FirestoreManager()
     @StateObject private var coreStack = CoreDataStack()
     @State private var tasks: [UIBackgroundTaskIdentifier] = []
     
@@ -36,19 +37,10 @@ struct WeatherIsMyMoodApp: App {
 
         if #available(iOS 17.0, *) {
             return WindowGroup {
-                self.makeMainView(locationManager: self.locationManager,
-                                  storageManager: self.storageManager)
+                self.makeMainView()
             }
             .onChange(of: phase, initial: true) { _, newPhase in
-                switch newPhase {
-                case .background:
-                    #if DEBUG
-                    self.checkSavedBackgroundTasks()
-                    #endif
-                    
-                    scheduleBgAppRefreshTask()
-                default: break
-                }
+                self.assignTasksPerPhase(newPhase)
             }
             .backgroundTask(.appRefresh(BGTaskConstants.testId)) { _ in
                 await self.handleAppRefreshTask()
@@ -56,19 +48,10 @@ struct WeatherIsMyMoodApp: App {
             
         } else {
             return WindowGroup {
-                self.makeMainView(locationManager: self.locationManager,
-                                  storageManager: self.storageManager)
+                self.makeMainView()
             }
             .onChange(of: phase) { newPhase in
-                switch newPhase {
-                case .background:
-                #if DEBUG
-                    self.checkSavedBackgroundTasks()
-                #endif
-                    
-                    scheduleBgAppRefreshTask()
-                default: break
-                }
+                self.assignTasksPerPhase(newPhase)
             }
             .backgroundTask(.appRefresh(BGTaskConstants.testId)) { _ in
                 await self.handleAppRefreshTask()
@@ -79,9 +62,11 @@ struct WeatherIsMyMoodApp: App {
 
 //MARK: - Make View
 extension WeatherIsMyMoodApp {
-    private func makeMainView(locationManager: LocationManager,
-                              storageManager: FirestoreManager) -> some View {
-        return MainView(locationManager: locationManager, storageManager: storageManager)
+    private func makeMainView() -> some View {
+        return MainView()
+            .environmentObject(locationManager)
+            .environmentObject(networkManager)
+            .environmentObject(storageManager)
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
                 Task {
                     await ATTrackingManager.requestTrackingAuthorization()
@@ -96,6 +81,19 @@ extension WeatherIsMyMoodApp {
                 }
             }
     }
+    
+    private func assignTasksPerPhase(_ phase: ScenePhase) {
+        switch phase {
+        case .background:
+#if DEBUG
+            self.checkSavedBackgroundTasks()
+#endif
+            scheduleBgAppRefreshTask()
+        default:
+            break
+        }
+    }
+
 }
 
 //MARK: - Background Task
@@ -145,8 +143,10 @@ extension WeatherIsMyMoodApp {
     private func checkSavedBackgroundTasks() {
         let savedCount = UserDefaults.standard.integer(forKey: "app_refresh_demo")
         let savedWeather = UserDefaults.standard.string(forKey: "app_refresh_weather")
+#if DEBUG
         print("Saved Count in BG: \(savedCount)")
         print("Saved weather in BG: \(String(describing: savedWeather))")
+#endif
     }
 }
 

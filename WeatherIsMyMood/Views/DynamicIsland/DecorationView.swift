@@ -11,29 +11,21 @@ import CoreLocation
 
 struct DecorationView: View {
     
-    @ObservedObject private var locationManager: LocationManager
+    @AppStorage("isDynamicIslandOn") private var isOn = false
+    
+    @EnvironmentObject private var locationManager: LocationManager
+    @EnvironmentObject private var storageManager: FirestoreManager
+    private let weatherService = WeatherService.shared
     
     @State private var isFirstLoading = true
     @State private var isLoading = false
-    @AppStorage("isDynamicIslandOn") private var isOn = false
-    
-    private let weatherService = WeatherService.shared
-    private let storageManager: FirestoreManager
-    
     @State private var weather: Weather?
     @State private var previousWeather: Weather?
     @State private var condition: WeatherCondition = .clear
-    
     @State private var weatherIcons: [Data] = []
     @State private var otherIcons: [Data] = []
     @State private var selectedIcon: Data?
-    
-    init(locationManager: LocationManager,
-         storageManager: FirestoreManager) {
-        self.locationManager = locationManager
-        self.storageManager = storageManager
-    }
-    
+
     var body: some View {
         NavigationView {
             ZStack {
@@ -211,7 +203,7 @@ extension DecorationView {
 }
 
 #Preview {
-    DecorationView(locationManager: LocationManager(locationFetcher: CLLocationManager()), storageManager: FirestoreManager())
+    DecorationView()
 }
 
 

@@ -26,8 +26,15 @@ protocol AlamofirePrototype {
 
 extension Session: AlamofirePrototype {}
 
-struct NetworkManager: NetworkClient {
+final class NetworkManager: NetworkClient, ObservableObject {
     let alamofire: AlamofirePrototype
+    
+    init(alamofire: AlamofirePrototype) {
+        self.alamofire = alamofire
+    }
+    
+}
+extension NetworkManager {
     
     func request(urlString: String, method: HTTPMethod) -> DataRequest {
         return alamofire.request(urlString,

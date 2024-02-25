@@ -9,7 +9,7 @@ import Foundation
 import UIKit.UIImage
 import FirebaseStorage
 
-actor FirestoreManager {
+actor FirestoreManager: ObservableObject {
     
     private lazy var storageRef = Storage.storage().reference()
     private let cacheManager = StorageCacheManager.shared
