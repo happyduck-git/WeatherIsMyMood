@@ -11,7 +11,7 @@ import UIKit.UIImage
 
 struct WeatherLiveActivityWidget: Widget {
     
-    @State var sideInset: CGFloat = 20
+    private let sideInset: CGFloat = 20
     
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: WeatherAttributes.self) { ctx in

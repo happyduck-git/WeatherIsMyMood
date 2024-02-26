@@ -196,6 +196,9 @@
         }
       }
     },
+    "ColorPicker" : {
+
+    },
     "Condition" : {
       "localizations" : {
         "ko" : {
@@ -1043,6 +1046,12 @@
           }
         }
       }
+    },
+    "Reset" : {
+
+    },
+    "Select Color" : {
+
     },
     "Show less" : {
       "localizations" : {

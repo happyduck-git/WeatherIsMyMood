@@ -1,5 +1,5 @@
 //
-//  EnableToggleView.swift
+//  LiveActivityToggleView.swift
 //  WeatherIsMyMood
 //
 //  Created by HappyDuck on 12/12/23.
@@ -9,7 +9,7 @@ import SwiftUI
 import ActivityKit
 import WeatherKit
 
-struct EnableToggleView: View {
+struct LiveActivityToggleView: View {
     
     private let notiPulisher =  NotificationCenter.default
         .publisher(for: Notification.Name(NotificationKeys.backgroundUpdate), object: nil)
@@ -52,7 +52,7 @@ struct EnableToggleView: View {
     }
 }
 
-extension EnableToggleView {
+extension LiveActivityToggleView {
     private func updateLiveActivity(_ isOn: Bool) {
         if isOn {
             Task {
@@ -110,7 +110,7 @@ extension EnableToggleView {
     }
 }
 
-extension EnableToggleView {
+extension LiveActivityToggleView {
     private func formatTemperature(_ temperature: Measurement<UnitTemperature>) -> String {
         return "\(temperature.formatted(.measurement(width: .narrow, numberFormatStyle: .number.precision(.fractionLength(0)))))"
     }

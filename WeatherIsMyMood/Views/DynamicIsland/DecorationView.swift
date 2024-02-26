@@ -25,7 +25,7 @@ struct DecorationView: View {
     @State private var weatherIcons: [Data] = []
     @State private var otherIcons: [Data] = []
     @State private var selectedIcon: Data?
-
+    
     var body: some View {
         NavigationView {
             ZStack {
@@ -109,7 +109,7 @@ extension DecorationView {
     private func makeScrollView() -> some View {
         return ScrollView {
             
-            EnableToggleView(isOn: $isOn,
+            LiveActivityToggleView(isOn: $isOn,
                              weather: $weather,
                              selectedIcon: $selectedIcon)
             
@@ -118,31 +118,30 @@ extension DecorationView {
                 .frame(alignment: .leading)
                 .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
             
-            DynamicIslandPreviewView(weather: $weather,
-                                     selectedIcon: $selectedIcon)
-            .padding(EdgeInsets(top: 10, leading: 120, bottom: 10, trailing: 120))
-            
             Text(WeatherConstants.previewDescription)
                 .lineLimit(nil)
                 .multilineTextAlignment(.center)
                 .font(.caption2)
                 .foregroundStyle(.secondary)
-                .padding()
+                .padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
+            
+            LiveActivityPreviewView(weather: self.$weather,
+                                     selectedIcon: self.$selectedIcon)
+            
             
             HStack{
                 SectionTitleView(section: .weatherIcons)
                     .frame(width: 200)
-                    .padding()
+                    .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
                 Spacer()
             }
-            
             
             self.emojiCollectionView(self.weatherIcons)
             
             HStack{
                 SectionTitleView(section: .emojis)
                     .frame(width: 200)
-                    .padding()
+                    .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
                 Spacer()
             }
             

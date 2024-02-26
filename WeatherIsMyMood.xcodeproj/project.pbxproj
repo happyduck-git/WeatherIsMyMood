@@ -59,7 +59,7 @@
 		247212EE2B282F41009A6DE5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 247212ED2B282F41009A6DE5 /* Assets.xcassets */; };
 		247212F22B282F41009A6DE5 /* WeatherWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 247212DF2B282F3E009A6DE5 /* WeatherWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		247212F72B282FD1009A6DE5 /* WeatherAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247212D92B282CBF009A6DE5 /* WeatherAttributes.swift */; };
-		247212F92B2837F0009A6DE5 /* EnableToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247212F82B2837F0009A6DE5 /* EnableToggleView.swift */; };
+		247212F92B2837F0009A6DE5 /* LiveActivityToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247212F82B2837F0009A6DE5 /* LiveActivityToggleView.swift */; };
 		247212FB2B2841D5009A6DE5 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247212FA2B2841D5009A6DE5 /* UIImage+Extensions.swift */; };
 		247212FE2B28B2FA009A6DE5 /* StorageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247212FD2B28B2FA009A6DE5 /* StorageCacheManager.swift */; };
 		247213002B28C4AD009A6DE5 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247212FF2B28C4AD009A6DE5 /* View+Extensions.swift */; };
@@ -98,7 +98,7 @@
 		24A66DEF2B26B18800B348CC /* CityWeatherFrontView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A66DEE2B26B18800B348CC /* CityWeatherFrontView.swift */; };
 		24A66DF12B26DDCB00B348CC /* WeatherCondition+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A66DF02B26DDCA00B348CC /* WeatherCondition+Extensions.swift */; };
 		24A66DF32B26EEBB00B348CC /* EmojiViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A66DF22B26EEBB00B348CC /* EmojiViewCell.swift */; };
-		24A66DF52B2711A600B348CC /* DynamicIslandPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A66DF42B2711A600B348CC /* DynamicIslandPreviewView.swift */; };
+		24A66DF52B2711A600B348CC /* LiveActivityPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A66DF42B2711A600B348CC /* LiveActivityPreviewView.swift */; };
 		24A66DF92B2715B600B348CC /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 24A66DF82B2715B600B348CC /* FirebaseAnalytics */; };
 		24A66E032B2749E900B348CC /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A66E022B2749E900B348CC /* FirestoreManager.swift */; };
 		24A66E052B274ACB00B348CC /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 24A66E042B274ACB00B348CC /* FirebaseStorage */; };
@@ -201,7 +201,7 @@
 		247212E92B282F3F009A6DE5 /* WeatherLiveActivityWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherLiveActivityWidget.swift; sourceTree = "<group>"; };
 		247212ED2B282F41009A6DE5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		247212EF2B282F41009A6DE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		247212F82B2837F0009A6DE5 /* EnableToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnableToggleView.swift; sourceTree = "<group>"; };
+		247212F82B2837F0009A6DE5 /* LiveActivityToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityToggleView.swift; sourceTree = "<group>"; };
 		247212FA2B2841D5009A6DE5 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		247212FD2B28B2FA009A6DE5 /* StorageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageCacheManager.swift; sourceTree = "<group>"; };
 		247212FF2B28C4AD009A6DE5 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
@@ -229,7 +229,7 @@
 		24A66DEE2B26B18800B348CC /* CityWeatherFrontView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityWeatherFrontView.swift; sourceTree = "<group>"; };
 		24A66DF02B26DDCA00B348CC /* WeatherCondition+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WeatherCondition+Extensions.swift"; sourceTree = "<group>"; };
 		24A66DF22B26EEBB00B348CC /* EmojiViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiViewCell.swift; sourceTree = "<group>"; };
-		24A66DF42B2711A600B348CC /* DynamicIslandPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicIslandPreviewView.swift; sourceTree = "<group>"; };
+		24A66DF42B2711A600B348CC /* LiveActivityPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityPreviewView.swift; sourceTree = "<group>"; };
 		24A66E022B2749E900B348CC /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
 		24A66E082B275FB200B348CC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		24C561942B5C223A004BDEBB /* ExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionTests.swift; sourceTree = "<group>"; };
@@ -427,8 +427,8 @@
 			children = (
 				2458CD272B25F8BF008F4AFE /* DecorationView.swift */,
 				24A66DF22B26EEBB00B348CC /* EmojiViewCell.swift */,
-				24A66DF42B2711A600B348CC /* DynamicIslandPreviewView.swift */,
-				247212F82B2837F0009A6DE5 /* EnableToggleView.swift */,
+				24A66DF42B2711A600B348CC /* LiveActivityPreviewView.swift */,
+				247212F82B2837F0009A6DE5 /* LiveActivityToggleView.swift */,
 			);
 			path = DynamicIsland;
 			sourceTree = "<group>";
@@ -743,7 +743,7 @@
 				24C7D98C2B26145000453434 /* AppColors.swift in Sources */,
 				247212D72B2822E7009A6DE5 /* LoadingView.swift in Sources */,
 				249871712B2967F000580566 /* Double+Extensions.swift in Sources */,
-				247212F92B2837F0009A6DE5 /* EnableToggleView.swift in Sources */,
+				247212F92B2837F0009A6DE5 /* LiveActivityToggleView.swift in Sources */,
 				247212FE2B28B2FA009A6DE5 /* StorageCacheManager.swift in Sources */,
 				249970422B5B8E8900F995AD /* WeatherTimelineProvider.swift in Sources */,
 				2458714A2B5C1A6800FB9BA1 /* String+Extensions.swift in Sources */,
@@ -770,7 +770,7 @@
 				248E3F452B249369001B10C3 /* LocationManager.swift in Sources */,
 				243021502B63F14800580960 /* NSCacheManager.swift in Sources */,
 				248BEE702B81FD4E00C16082 /* CityWeatherBackView.swift in Sources */,
-				24A66DF52B2711A600B348CC /* DynamicIslandPreviewView.swift in Sources */,
+				24A66DF52B2711A600B348CC /* LiveActivityPreviewView.swift in Sources */,
 				241A803B2B29AD7800706BB8 /* WidgetConstants.swift in Sources */,
 				2457E9802B7FCA520093BB2C /* ContentsSection.swift in Sources */,
 				248E3F4C2B2583E1001B10C3 /* Date+Extensions.swift in Sources */,
