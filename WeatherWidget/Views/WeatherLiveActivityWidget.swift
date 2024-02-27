@@ -8,6 +8,7 @@
 import WidgetKit
 import SwiftUI
 import UIKit.UIImage
+import UIKit
 
 struct WeatherLiveActivityWidget: Widget {
     
@@ -25,21 +26,42 @@ struct WeatherLiveActivityWidget: Widget {
                 VStack(alignment: .leading) {
                     Text(WidgetConstants.appName)
                         .font(.system(size: 12))
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(
+//                            Color(red: ctx.attributes.textColors.red,
+//                                  green: ctx.attributes.textColors.green,
+//                                  blue: ctx.attributes.textColors.blue)
+                            ctx.attributes
+                                .textColors
+                                .opacity(0.5)
+                        )
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
                     HStack {
                         Text(WidgetConstants.currentTemp)
                             .font(.system(size: 16))
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(
+//                                Color(red: ctx.attributes.textColors.red,
+//                                      green: ctx.attributes.textColors.green,
+//                                      blue: ctx.attributes.textColors.blue)
+                                ctx.attributes
+                                    .textColors
+                                    .opacity(0.5)
+                            )
                         
                         Text(ctx.state.temperature)
                             .font(.system(size: 16))
-                            .foregroundStyle(.primary)
+                            .foregroundStyle(
+                                ctx.attributes
+                                    .textColors
+
+//                                Color(red: ctx.attributes.textColors.red,
+//                                      green: ctx.attributes.textColors.green,
+//                                      blue: ctx.attributes.textColors.blue)
+                            )
                     }
                 }
                 Spacer()
-                if let image = UIImage(data: ctx.state.icon) {
+                if let image = UIImage(data: ctx.attributes.icon) {
                     Image(uiImage: image)
                         .resizable()
                         .frame(width: 40, height: 40)
@@ -49,7 +71,11 @@ struct WeatherLiveActivityWidget: Widget {
             .frame(maxHeight: .infinity)
             .padding(EdgeInsets(top: 0, leading: sideInset, bottom: 0, trailing: sideInset))
             .background {
-                Color.widgetBG
+                ctx.attributes
+                    .bgColors
+//                Color(red: ctx.attributes.bgColors.red,
+//                      green: ctx.attributes.bgColors.green,
+//                      blue: ctx.attributes.bgColors.blue)
             }
             
         } dynamicIsland: { ctx in
@@ -57,7 +83,7 @@ struct WeatherLiveActivityWidget: Widget {
             DynamicIsland {
                 DynamicIslandExpandedRegion(.leading) {
                     HStack(alignment: .center) {
-                        if let image = UIImage(data: ctx.state.icon) {
+                        if let image = UIImage(data: ctx.attributes.icon) {
                             Image(uiImage: image)
                                 .resizable()
                                 .frame(width: 32, height: 32)
@@ -76,7 +102,7 @@ struct WeatherLiveActivityWidget: Widget {
                 }
             } compactLeading: {
                 
-                if let image = UIImage(data: ctx.state.icon) {
+                if let image = UIImage(data: ctx.attributes.icon) {
                     Image(uiImage: image)
                         .resizable()
                         .frame(width: 24, height: 24)
@@ -86,7 +112,7 @@ struct WeatherLiveActivityWidget: Widget {
                 Text(ctx.state.temperature)
                 
             } minimal: {
-                if let image = UIImage(data: ctx.state.icon) {
+                if let image = UIImage(data: ctx.attributes.icon) {
                     Image(uiImage: image)
                         .resizable()
                         .frame(width: 24, height: 24)

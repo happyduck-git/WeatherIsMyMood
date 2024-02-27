@@ -69,6 +69,8 @@ enum DecoConstants {
     static let weather = String(localized: "Weather")
     static let preview = String(localized: "Preview")
     static let others = String(localized: "Others")
+    static let reset = String(localized: "Reset")
+    static let change = String(localized: "Change")
 }
 
 enum WidgetConstants {

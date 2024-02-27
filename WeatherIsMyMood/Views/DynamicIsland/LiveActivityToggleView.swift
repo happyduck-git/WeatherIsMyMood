@@ -8,6 +8,11 @@
 import SwiftUI
 import ActivityKit
 import WeatherKit
+import UIKit.UIColor
+
+enum LiveActivityError: Error {
+    case iconNotSelected
+}
 
 struct LiveActivityToggleView: View {
     
@@ -15,9 +20,16 @@ struct LiveActivityToggleView: View {
         .publisher(for: Notification.Name(NotificationKeys.backgroundUpdate), object: nil)
     
     @State private var activity: Activity<WeatherAttributes>? = nil
+    @State private var activityError: LiveActivityError? = nil
+    @State private var isHidden: Bool = true
     @Binding var isOn: Bool
     @Binding var weather: Weather?
     @Binding var selectedIcon: Data?
+    @Binding var selectedColor: Color
+    @Binding var selectedTextColor: Color
+    @Binding var isConfirmed: Bool
+    
+    private let defaultColor: [CGFloat] = [0, 0, 0, 1.0]
     
     var body: some View {
         HStack {
@@ -31,9 +43,27 @@ struct LiveActivityToggleView: View {
                 .fill(.tertiary)
                 .padding()
         }
-        .onChange(of: self.isOn, perform: { newValue in
-            self.enableLiveActivity(self.isOn)
-        })
+        .modify {
+            if #available(iOS 17.0, *) {
+                $0.onChange(of: self.isOn) {
+                    //TODO: Send server a new token.
+                    self.enableLiveActivity(self.isOn)
+                }
+                .onChange(of: self.isConfirmed) {
+                    if $0 {
+                        // If users confirm change, enable LA again
+                       //TODO: and send server a new token.
+                        self.enableLiveActivity(self.isOn)
+                    } else {
+                        // If users did not confirm change, no action needed.
+                    }
+                }
+            } else {
+                $0.onChange(of: self.isOn, perform: { newValue in
+                    self.enableLiveActivity(self.isOn)
+                })
+            }
+        }
         .onChange(of: self.selectedIcon, perform: { _ in
             self.updateLiveActivity(self.isOn)
         })
@@ -57,7 +87,7 @@ extension LiveActivityToggleView {
         if isOn {
             Task {
                 
-                guard let weather, let selectedIcon else {
+                guard let weather else {
                     return
                 }
 
@@ -65,9 +95,8 @@ extension LiveActivityToggleView {
                     self.enableLiveActivity(isOn)
                     return
                 }
-                    
+                
                 let content = ActivityContent.init(state: WeatherAttributes.ContentState(
-                    icon: selectedIcon,
                     temperature: self.formatTemperature(weather.currentWeather.temperature)),
                                                    staleDate: nil)
                 await activity.update(content)
@@ -76,39 +105,52 @@ extension LiveActivityToggleView {
     }
     
     private func enableLiveActivity(_ isOn: Bool) {
-
+        
         if isOn {
-            guard let weather, let selectedIcon else {
-                return
+            if self.activity?.activityState == .active || self.activity?.activityState == .stale {
+                self.endCurrentActivity()
             }
+            guard let weather, let selectedIcon else { return }
+
+            let attrib = WeatherAttributes(bgColors: selectedColor,
+                                           textColors: selectedTextColor,
+                                           icon: selectedIcon)
             
-            let attrib = WeatherAttributes()
-            
-            let content = ActivityContent.init(state: WeatherAttributes.ContentState(
-                icon: selectedIcon,
-                temperature: self.formatTemperature(weather.currentWeather.temperature)),
-                                               staleDate: nil
+            let content = ActivityContent.init(
+                state: WeatherAttributes.ContentState(
+                    temperature: self.formatTemperature(weather.currentWeather.temperature)
+                ),
+                staleDate: nil
             )
             
             do {
                 self.activity = try Activity<WeatherAttributes>.request(attributes: attrib,
                                                                         content: content)
+                self.isConfirmed = false
             }
             catch {
-                print("Error unwrapping weather, selectedIcon optional value. -- \(error)")
+                print("Error requesting a live activity. -- \(error)")
             }
-            
-            
+
         } else {
-            Task {
-                let content = ActivityContent.init(state: WeatherAttributes.ContentState(icon: Data(), temperature: ""),
-                                                   staleDate: nil)
-                await self.activity?.end(content,
-                                         dismissalPolicy:.immediate)
-            }
+            self.endCurrentActivity()
+        }
+    }
+    
+    private func endCurrentActivity() {
+        Task {
+            let content = ActivityContent.init(
+                state: WeatherAttributes.ContentState(
+                    temperature: ""
+                ),
+                staleDate: nil
+            )
+            await self.activity?.end(content,
+                                     dismissalPolicy:.immediate)
         }
     }
 }
+
 
 extension LiveActivityToggleView {
     private func formatTemperature(_ temperature: Measurement<UnitTemperature>) -> String {

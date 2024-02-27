@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		240D07652B8DEAF900848FE0 /* UserAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240D07642B8DEAF900848FE0 /* UserAttributes.swift */; };
 		241A803B2B29AD7800706BB8 /* WidgetConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241A803A2B29AD7800706BB8 /* WidgetConstants.swift */; };
 		241A803C2B29AD9800706BB8 /* WidgetConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241A803A2B29AD7800706BB8 /* WidgetConstants.swift */; };
 		241A803E2B29E04100706BB8 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 241A803D2B29E04000706BB8 /* Localizable.xcstrings */; };
@@ -107,6 +108,7 @@
 		24C561952B5C223A004BDEBB /* ExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C561942B5C223A004BDEBB /* ExtensionTests.swift */; };
 		24C7D98C2B26145000453434 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7D98B2B26145000453434 /* AppColors.swift */; };
 		24C7D98E2B26160E00453434 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7D98D2B26160E00453434 /* Color+Extension.swift */; };
+		24D9767B2B8DD73300FE57D7 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7D98D2B26160E00453434 /* Color+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -148,6 +150,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		240D07642B8DEAF900848FE0 /* UserAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAttributes.swift; sourceTree = "<group>"; };
 		241A803A2B29AD7800706BB8 /* WidgetConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetConstants.swift; sourceTree = "<group>"; };
 		241A803D2B29E04000706BB8 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		241A80422B2A156500706BB8 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
@@ -398,6 +401,7 @@
 				2457E97F2B7FCA520093BB2C /* ContentsSection.swift */,
 				2457E9812B80D1950093BB2C /* CityWeatherComponent.swift */,
 				248BEE6B2B819C5200C16082 /* AirQuality.swift */,
+				240D07642B8DEAF900848FE0 /* UserAttributes.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -763,6 +767,7 @@
 				248BEE742B81FFA100C16082 /* CityWeatherView.swift in Sources */,
 				249970412B5B8E8400F995AD /* WeatherAppIntent.swift in Sources */,
 				2458CD282B25F8BF008F4AFE /* DecorationView.swift in Sources */,
+				240D07652B8DEAF900848FE0 /* UserAttributes.swift in Sources */,
 				24A66DED2B269F1400B348CC /* UIScreen+Extensions.swift in Sources */,
 				248BEE6A2B819BCF00C16082 /* EnvironmentConfig.swift in Sources */,
 				248E3F472B25769E001B10C3 /* HourlyForcastView.swift in Sources */,
@@ -809,6 +814,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				243021A32B665E2600580960 /* Intents.intentdefinition in Sources */,
+				24D9767B2B8DD73300FE57D7 /* Color+Extension.swift in Sources */,
 				249970442B5B921E00F995AD /* FirestoreManager.swift in Sources */,
 				249970482B5B945B00F995AD /* WeatherWidget.swift in Sources */,
 				2457E97B2B7FA3CB0093BB2C /* WeatherConditionInfo+CoreDataClass.swift in Sources */,

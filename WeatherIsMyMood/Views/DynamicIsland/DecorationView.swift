@@ -12,19 +12,27 @@ import CoreLocation
 struct DecorationView: View {
     
     @AppStorage("isDynamicIslandOn") private var isOn = false
-    
+    @AppStorage("widgetBGColors") private var savedBgColor: Color = .widgetBG
+    @AppStorage("widgetTextColors") private var savedTextColor: Color = .primary
+    @AppStorage("widgetIcon") private var savedIcon: Data?
+
     @EnvironmentObject private var locationManager: LocationManager
     @EnvironmentObject private var storageManager: FirestoreManager
     private let weatherService = WeatherService.shared
     
-    @State private var isFirstLoading = true
-    @State private var isLoading = false
+    @State private var isFirstLoading: Bool = true
+    @State private var isLoading: Bool = false
+    @State private var isFirstAppear: Bool = true
     @State private var weather: Weather?
     @State private var previousWeather: Weather?
     @State private var condition: WeatherCondition = .clear
     @State private var weatherIcons: [Data] = []
     @State private var otherIcons: [Data] = []
-    @State private var selectedIcon: Data?
+    @State private var newBgColor: Color = .widgetBG
+    @State private var newTextColor: Color = .primary
+    @State private var newIcon: Data?
+    @State private var updateNeeded: Bool = false
+    @State private var isConfirmed: Bool = true
     
     var body: some View {
         NavigationView {
@@ -37,19 +45,37 @@ struct DecorationView: View {
             }
             .toolbarBackground(Color(ColorConstants.main), for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
-            .toolbar(content: {
+            .toolbar {
                 ToolbarItem(placement: .principal) {
                     Image(.logo)
                         .resizable()
                         .frame(width: 40, height: 50, alignment: .bottom)
                         .aspectRatio(contentMode: .fit)
                 }
-            })
+                
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        self.isConfirmed = true
+                        self.updateNeeded = false
+                        self.savedIcon = self.newIcon
+                        self.savedBgColor = self.newBgColor
+                        self.savedTextColor = self.newTextColor
+                    } label: {
+                        Text(DecoConstants.change)
+                    }
+                    .foregroundStyle(self.updateNeeded ? .blue : .gray)
+                    .disabled(self.updateNeeded ? false : true)
+                }
+            }
         }
-        
-        .onAppear(perform: {
-            print("DecorationView appeared")
-        })
+        .onAppear {
+            if self.isFirstAppear {
+                self.newBgColor = self.savedBgColor
+                self.newTextColor = self.savedTextColor
+                self.newIcon = self.savedIcon
+                self.isFirstAppear = false
+            }
+        }
         .onDisappear(perform: {
             print("DecorationView disappeared")
         })
@@ -89,6 +115,12 @@ struct DecorationView: View {
                 }
             }
         })
+        .onChange(of: self.updateNeeded) {
+            if $0 {
+                self.isConfirmed = false
+            }
+        }
+
     }
     
 }
@@ -101,6 +133,11 @@ extension DecorationView {
         
         self.otherIcons = try await others
         self.weatherIcons = try await weathers
+        
+        // Check if there is no saved icon, assign the first icon.
+        if self.savedIcon == nil {
+            self.savedIcon = self.weatherIcons.first
+        }
     }
 }
 
@@ -109,9 +146,15 @@ extension DecorationView {
     private func makeScrollView() -> some View {
         return ScrollView {
             
-            LiveActivityToggleView(isOn: $isOn,
-                             weather: $weather,
-                             selectedIcon: $selectedIcon)
+            LiveActivityToggleView(isOn: self.$isOn,
+                                   weather: self.$weather,
+                                   selectedIcon: self.$savedIcon,
+                                   selectedColor: self.$savedBgColor,
+                                   selectedTextColor: self.$savedTextColor,
+                                   newBgColor: self.$newBgColor,
+                                   newTextColor: self.$newTextColor,
+                                   newIcon: self.$newIcon,
+                                   isConfirmed: self.$isConfirmed)
             
             Text(DecoConstants.preview)
                 .fontWeight(.bold)
@@ -124,10 +167,15 @@ extension DecorationView {
                 .font(.caption2)
                 .foregroundStyle(.secondary)
                 .padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
-            
+
             LiveActivityPreviewView(weather: self.$weather,
-                                     selectedIcon: self.$selectedIcon)
-            
+                                    selectedColor: self.$savedBgColor,
+                                    selectedTextColor: self.$savedTextColor,
+                                    selectedIcon: self.$savedIcon,
+                                    newBgColor: self.$newBgColor,
+                                    newTextColor: self.$newTextColor,
+                                    newIcon: self.$newIcon,
+                                    updateNeeded: self.$updateNeeded)
             
             HStack{
                 SectionTitleView(section: .weatherIcons)
@@ -188,7 +236,7 @@ extension DecorationView {
                                 
                                 EmojiViewCell(emojiData: data[index])
                                     .onTapGesture {
-                                        self.selectedIcon = data[index]
+                                        self.newIcon = data[index]
                                     }
                             }
                         }

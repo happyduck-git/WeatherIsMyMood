@@ -8,22 +8,29 @@
 import SwiftUI
 import WeatherKit
 import CoreLocation
+import UIKit
+import Combine
 
 struct LiveActivityPreviewView: View {
     
     @Binding var weather: Weather?
+    @Binding var selectedColor: Color
+    @Binding var selectedTextColor: Color
     @Binding var selectedIcon: Data?
-    @State var selectedColor: Color = Color.widgetBG
-    @State var selectedTextColor: Color = .primary
+    @Binding var newBgColor: Color
+    @Binding var newTextColor: Color
+    @Binding var newIcon: Data?
+    @Binding var updateNeeded: Bool
+    
     @State private var temperature: String = "0"
     @State private var showColorPalettes = false
     
     var body: some View {
-        if let weather {
+        if let _ = weather {
             
             VStack {
-                self.makeDynamicIslandPreview(icon: selectedIcon, temperature: temperature)
-                self.makeLockScreenPreview(icon: selectedIcon, temperature: temperature)
+                self.makeDynamicIslandPreview(icon: newIcon, temperature: temperature)
+                self.makeLockScreenPreview(icon: newIcon, temperature: temperature)
             }
             .onAppear {
                 self.temperature = self.convertFormat(temperature: self.weather?.currentWeather.temperature)
@@ -32,8 +39,18 @@ struct LiveActivityPreviewView: View {
                 self.temperature = self.convertFormat(temperature: self.weather?.currentWeather.temperature)
                 print("Weather on DPV has changed -- \(String(describing: self.selectedIcon))")
             })
+            .onChange(of: self.newBgColor) { _ in
+                self.updateNeeded = true
+            }
+            .onChange(of: self.newTextColor) { _ in
+                self.updateNeeded = true
+            }
+            .onChange(of: self.newIcon) { _ in
+                self.updateNeeded = true
+            }
         }
     }
+
 }
 
 extension LiveActivityPreviewView {
@@ -49,10 +66,7 @@ extension LiveActivityPreviewView {
                         .frame(width: 20, height: 20)
                         .padding(EdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 0))
                 } else {
-                    Image(.clearCloudy)
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                        .padding(EdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 0))
+                    self.defaultWeatherImage()
                 }
                 
                 Spacer()
@@ -83,17 +97,18 @@ extension LiveActivityPreviewView {
                 VStack(alignment: .leading) {
                     Text(WidgetConstants.appName)
                         .font(.system(size: 12))
-                        .foregroundStyle(self.selectedTextColor.opacity(0.5))
+                        .foregroundStyle(self.newTextColor)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    
+                        .opacity(0.5)
                     HStack {
                         Text(WidgetConstants.currentTemp)
                             .font(.system(size: 16))
-                            .foregroundStyle(self.selectedTextColor.opacity(0.5))
+                            .foregroundStyle(self.newTextColor)
+                            .opacity(0.5)
                         
                         Text(temperature)
                             .font(.system(size: 16))
-                            .foregroundStyle(self.selectedTextColor)
+                            .foregroundStyle(self.newTextColor)
                     }
                 }
                 Spacer()
@@ -103,22 +118,16 @@ extension LiveActivityPreviewView {
                         .frame(width: 40, height: 40)
                         .aspectRatio(contentMode: .fit)
                 } else {
-                    Image(.clearCloudy)
-                        .resizable()
-                        .frame(width: 40, height: 40)
-                        .padding(EdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 0))
+                    self.defaultWeatherImage()
                 }
             }
             .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
             .background {
                 RoundedRectangle(cornerRadius: 10, style: .circular)
-                    .fill(self.selectedColor)
-                    
+                    .fill(self.newBgColor)
             }
             
             Button {
-                // Back to original color
-//                self.selectedColor = .widgetBG
                 self.showColorPalettes.toggle()
             } label: {
                 Image(systemName: "paintpalette.fill")
@@ -126,7 +135,6 @@ extension LiveActivityPreviewView {
                 
             }
             .sheet(isPresented: self.$showColorPalettes) {
-                
                 self.makeBottomSheetView()
                     .presentationDetents([.height(200)])
             }
@@ -153,8 +161,9 @@ extension LiveActivityPreviewView {
             }
             .padding()
             
-            makePaletteView(title: "Text", color: self.$selectedTextColor)
-            makePaletteView(title: "Background", color: self.$selectedColor)
+            makePaletteView(title: "Text", color: self.$newTextColor)
+            makePaletteView(title: "Background", color: self.$newBgColor)
+
         }
         
     }
@@ -170,6 +179,14 @@ extension LiveActivityPreviewView {
         }
         .padding(.horizontal)
     }
+    
+    private func defaultWeatherImage() -> some View {
+        Image(systemName: "circle.dashed")
+            .resizable()
+            .frame(width: 20, height: 20)
+            .foregroundStyle(.gray)
+            .padding(EdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 0))
+    }
 }
 
 extension LiveActivityPreviewView {
@@ -182,8 +199,8 @@ extension LiveActivityPreviewView {
     }
     
     private func resetColor() {
-        self.selectedColor = .widgetBG
-        self.selectedTextColor = .primary
+        self.newBgColor = .widgetBG
+        self.newTextColor = .primary
     }
 }
 
@@ -200,30 +217,4 @@ extension LiveActivityPreviewView {
 #Preview {
 //    DynamicIslandPreviewView_Previews() as! any View
     DecorationView()
-}
-
-import SwiftUI
-import UIKit
-
-extension Color {
-    func toHex() -> String? {
-        let uic = UIColor(self)
-        guard let components = uic.cgColor.components, components.count >= 3 else {
-            return nil
-        }
-        let r = Float(components[0])
-        let g = Float(components[1])
-        let b = Float(components[2])
-        var a = Float(1.0)
-
-        if components.count >= 4 {
-            a = Float(components[3])
-        }
-
-        if a != Float(1.0) {
-            return String(format: "%02lX%02lX%02lX%02lX", lroundf(r * 255), lroundf(g * 255), lroundf(b * 255), lroundf(a * 255))
-        } else {
-            return String(format: "%02lX%02lX%02lX", lroundf(r * 255), lroundf(g * 255), lroundf(b * 255))
-        }
-    }
 }
