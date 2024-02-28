@@ -139,20 +139,20 @@ extension LiveActivityToggleView {
             do {
                 self.activity = try Activity<WeatherAttributes>.request(attributes: attrib,
                                                                         content: content)
-                self.isConfirmed = false
                 
                 guard let activity = self.activity else {
                     print("Actionvty found nil")
-                    return }
+                    return
+                }
+                
                 Task {
-                    print(activity.pushTokenUpdates)
                     for await pushToken in activity.pushTokenUpdates {
                         let pushTokenString = pushToken.reduce("") { $0 + String(format: "%02x", $1) }
                         print("New push token: \(pushTokenString)")
                         self.pushToken = pushTokenString
                     }
                 }
-                
+                self.isConfirmed = false
             }
             catch {
                 print("Error requesting a live activity. -- \(error)")
