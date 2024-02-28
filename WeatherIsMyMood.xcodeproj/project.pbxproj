@@ -13,6 +13,9 @@
 		241A803E2B29E04100706BB8 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 241A803D2B29E04000706BB8 /* Localizable.xcstrings */; };
 		241A80432B2A156500706BB8 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 241A80422B2A156500706BB8 /* Launch Screen.storyboard */; };
 		241A80472B2A177F00706BB8 /* Muli-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 241A80462B2A177F00706BB8 /* Muli-Black.ttf */; };
+		2423779A2B8F5B2100CC8EF7 /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242377992B8F5B2100CC8EF7 /* NetworkManagerTests.swift */; };
+		2423779D2B8F88D700CC8EF7 /* aqi_mock_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 2423779C2B8F88D700CC8EF7 /* aqi_mock_response.json */; };
+		2423779E2B8F904100CC8EF7 /* aqi_mock_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 2423779C2B8F88D700CC8EF7 /* aqi_mock_response.json */; };
 		243021472B5D67E800580960 /* WeatherCondition+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A66DF02B26DDCA00B348CC /* WeatherCondition+Extensions.swift */; };
 		243021492B5EA6D200580960 /* LocationManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243021482B5EA6D200580960 /* LocationManagerTest.swift */; };
 		2430214E2B63EC3400580960 /* NSCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2430214D2B63EC3400580960 /* NSCacheManager.swift */; };
@@ -155,6 +158,8 @@
 		241A803D2B29E04000706BB8 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		241A80422B2A156500706BB8 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		241A80462B2A177F00706BB8 /* Muli-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Muli-Black.ttf"; sourceTree = "<group>"; };
+		242377992B8F5B2100CC8EF7 /* NetworkManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
+		2423779C2B8F88D700CC8EF7 /* aqi_mock_response.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = aqi_mock_response.json; sourceTree = "<group>"; };
 		243021482B5EA6D200580960 /* LocationManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerTest.swift; sourceTree = "<group>"; };
 		2430214A2B5FD4A700580960 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2430214B2B5FD4B300580960 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -298,6 +303,14 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		2423779B2B8F88C300CC8EF7 /* MockJsons */ = {
+			isa = PBXGroup;
+			children = (
+				2423779C2B8F88D700CC8EF7 /* aqi_mock_response.json */,
+			);
+			path = MockJsons;
+			sourceTree = "<group>";
+		};
 		2430214C2B63EBFF00580960 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
@@ -368,10 +381,12 @@
 		243086382B23FE8A006C78E9 /* WeatherIsMyMoodTests */ = {
 			isa = PBXGroup;
 			children = (
+				2423779B2B8F88C300CC8EF7 /* MockJsons */,
 				243086392B23FE8A006C78E9 /* WeatherIsMyMoodTests.swift */,
 				24C561942B5C223A004BDEBB /* ExtensionTests.swift */,
 				243021482B5EA6D200580960 /* LocationManagerTest.swift */,
 				243021542B640F4200580960 /* NSCacheManagerTests.swift */,
+				242377992B8F5B2100CC8EF7 /* NetworkManagerTests.swift */,
 			);
 			path = WeatherIsMyMoodTests;
 			sourceTree = "<group>";
@@ -694,6 +709,7 @@
 				2457E9692B7EF8950093BB2C /* sun.json in Resources */,
 				2457E9682B7EF8950093BB2C /* sun_color.json in Resources */,
 				24A66E092B275FB200B348CC /* GoogleService-Info.plist in Resources */,
+				2423779E2B8F904100CC8EF7 /* aqi_mock_response.json in Resources */,
 				241A803E2B29E04100706BB8 /* Localizable.xcstrings in Resources */,
 				247553ED2B8327E5007B92BB /* Config.xcconfig in Resources */,
 				241A80432B2A156500706BB8 /* Launch Screen.storyboard in Resources */,
@@ -706,6 +722,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2423779D2B8F88D700CC8EF7 /* aqi_mock_response.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -793,6 +810,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2423779A2B8F5B2100CC8EF7 /* NetworkManagerTests.swift in Sources */,
 				2430863A2B23FE8A006C78E9 /* WeatherIsMyMoodTests.swift in Sources */,
 				243021492B5EA6D200580960 /* LocationManagerTest.swift in Sources */,
 				24C561952B5C223A004BDEBB /* ExtensionTests.swift in Sources */,

@@ -13,31 +13,18 @@ protocol NetworkClient {
     func fetchData<T: Decodable>(urlString: String) async -> Result<T, AFError>
 }
 
-protocol AlamofirePrototype {
-    typealias RequestModifier = (inout URLRequest) throws -> Void
-    func request(_ convertible: URLConvertible,
-                 method: HTTPMethod,
-                 parameters: Parameters?,
-                 encoding: ParameterEncoding,
-                 headers: HTTPHeaders?,
-                 interceptor: RequestInterceptor?,
-                 requestModifier: RequestModifier?) -> DataRequest
-}
-
-extension Session: AlamofirePrototype {}
-
 final class NetworkManager: NetworkClient, ObservableObject {
-    let alamofire: AlamofirePrototype
+    let session: Session
     
-    init(alamofire: AlamofirePrototype) {
-        self.alamofire = alamofire
+    init(session: Session) {
+        self.session = session
     }
     
 }
 extension NetworkManager {
     
     func request(urlString: String, method: HTTPMethod) -> DataRequest {
-        return alamofire.request(urlString,
+        return session.request(urlString,
                            method: method,
                            parameters: nil,
                            encoding: URLEncoding.default,
