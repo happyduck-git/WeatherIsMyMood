@@ -19,6 +19,7 @@ struct LiveActivityToggleView: View {
     private let notiPulisher =  NotificationCenter.default
         .publisher(for: Notification.Name(NotificationKeys.backgroundUpdate), object: nil)
     
+    @State private var pushToken: String = String()
     @State private var activity: Activity<WeatherAttributes>? = nil
     @State private var activityError: LiveActivityError? = nil
     @State private var isHidden: Bool = true
@@ -32,16 +33,28 @@ struct LiveActivityToggleView: View {
     private let defaultColor: [CGFloat] = [0, 0, 0, 1.0]
     
     var body: some View {
-        HStack {
-            Toggle(isOn: $isOn) {
-                Text(DecoConstants.enable)
+        VStack {
+            Text(pushToken)
+            Button {
+                UIPasteboard.general.string = pushToken
+            } label: {
+                Text("복사하기")
             }
-            .padding(EdgeInsets(top: 20, leading: 30, bottom: 20, trailing: 30))
-        }
-        .background {
-            RoundedRectangle(cornerRadius: 15, style: .continuous)
-                .fill(.tertiary)
-                .padding()
+            
+            HStack {
+                Toggle(isOn: $isOn) {
+                    Text(DecoConstants.enable)
+                }
+                .padding(EdgeInsets(top: 20, leading: 30, bottom: 20, trailing: 30))
+                
+                
+
+            }
+            .background {
+                RoundedRectangle(cornerRadius: 15, style: .continuous)
+                    .fill(.tertiary)
+                    .padding()
+            }
         }
         .modify {
             if #available(iOS 17.0, *) {
@@ -127,6 +140,19 @@ extension LiveActivityToggleView {
                 self.activity = try Activity<WeatherAttributes>.request(attributes: attrib,
                                                                         content: content)
                 self.isConfirmed = false
+                
+                guard let activity = self.activity else {
+                    print("Actionvty found nil")
+                    return }
+                Task {
+                    print(activity.pushTokenUpdates)
+                    for await pushToken in activity.pushTokenUpdates {
+                        let pushTokenString = pushToken.reduce("") { $0 + String(format: "%02x", $1) }
+                        print("New push token: \(pushTokenString)")
+                        self.pushToken = pushTokenString
+                    }
+                }
+                
             }
             catch {
                 print("Error requesting a live activity. -- \(error)")

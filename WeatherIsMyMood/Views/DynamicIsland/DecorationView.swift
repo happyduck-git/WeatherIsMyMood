@@ -151,9 +151,6 @@ extension DecorationView {
                                    selectedIcon: self.$savedIcon,
                                    selectedColor: self.$savedBgColor,
                                    selectedTextColor: self.$savedTextColor,
-                                   newBgColor: self.$newBgColor,
-                                   newTextColor: self.$newTextColor,
-                                   newIcon: self.$newIcon,
                                    isConfirmed: self.$isConfirmed)
             
             Text(DecoConstants.preview)
