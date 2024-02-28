@@ -13,7 +13,6 @@
 		241A803E2B29E04100706BB8 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 241A803D2B29E04000706BB8 /* Localizable.xcstrings */; };
 		241A80432B2A156500706BB8 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 241A80422B2A156500706BB8 /* Launch Screen.storyboard */; };
 		241A80472B2A177F00706BB8 /* Muli-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 241A80462B2A177F00706BB8 /* Muli-Black.ttf */; };
-		241FBADF2B8F267E00017BFE /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 241FBADE2B8F267E00017BFE /* FirebaseAnalytics */; };
 		243021472B5D67E800580960 /* WeatherCondition+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A66DF02B26DDCA00B348CC /* WeatherCondition+Extensions.swift */; };
 		243021492B5EA6D200580960 /* LocationManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243021482B5EA6D200580960 /* LocationManagerTest.swift */; };
 		2430214E2B63EC3400580960 /* NSCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2430214D2B63EC3400580960 /* NSCacheManager.swift */; };
@@ -248,7 +247,6 @@
 				248BEE682B81941E00C16082 /* Alamofire in Frameworks */,
 				24A66E072B274ACB00B348CC /* FirebaseStorageCombine-Community in Frameworks */,
 				24A66E052B274ACB00B348CC /* FirebaseStorage in Frameworks */,
-				241FBADF2B8F267E00017BFE /* FirebaseAnalytics in Frameworks */,
 				2457E96D2B7EF9E10093BB2C /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -567,7 +565,6 @@
 				24A66E062B274ACB00B348CC /* FirebaseStorageCombine-Community */,
 				2457E96C2B7EF9E10093BB2C /* Lottie */,
 				248BEE672B81941E00C16082 /* Alamofire */,
-				241FBADE2B8F267E00017BFE /* FirebaseAnalytics */,
 			);
 			productName = WeatherIsMyMood;
 			productReference = 243086252B23FE86006C78E9 /* WeatherIsMyMood.app */;
@@ -1310,11 +1307,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		241FBADE2B8F267E00017BFE /* FirebaseAnalytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 24A66DF62B27159C00B348CC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalytics;
-		};
 		2457E96C2B7EF9E10093BB2C /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2457E9642B7EF7110093BB2C /* XCRemoteSwiftPackageReference "lottie-ios" */;
