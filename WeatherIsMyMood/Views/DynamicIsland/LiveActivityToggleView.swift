@@ -56,21 +56,24 @@ struct LiveActivityToggleView: View {
                     .padding()
             }
         }
+//        .onAppear(perform: {
+//            print("LIVETOGGLEVIEW: \(self.selectedColor)")
+//        })
         .modify {
             if #available(iOS 17.0, *) {
                 $0.onChange(of: self.isOn) {
                     //TODO: Send server a new token.
                     self.enableLiveActivity(self.isOn)
                 }
-//                .onChange(of: self.isConfirmed) {
-//                    if $0 {
-//                        // If users confirm change, enable LA again
-//                       //TODO: and send server a new token.
-//                        self.enableLiveActivity(self.isOn)
-//                    } else {
-//                        // If users did not confirm change, no action needed.
-//                    }
-//                }
+                .onChange(of: self.isConfirmed) {
+                    if $0 {
+                        // If users confirm change, enable LA again
+                       //TODO: and send server a new token.
+                        self.enableLiveActivity(self.isOn)
+                    } else {
+                        // If users did not confirm change, no action needed.
+                    }
+                }
             } else {
                 $0.onChange(of: self.isOn, perform: { newValue in
                     self.enableLiveActivity(self.isOn)
@@ -138,7 +141,8 @@ extension LiveActivityToggleView {
             
             do {
                 self.activity = try Activity<WeatherAttributes>.request(attributes: attrib,
-                                                                        content: content)
+                                                                        content: content,
+                                                                        pushType: .token)
                 
                 guard let activity = self.activity else {
                     print("Actionvty found nil")
@@ -146,15 +150,12 @@ extension LiveActivityToggleView {
                 }
                 
                 Task {
-                    print(activity.pushToken)
-                    print(activity.pushTokenUpdates)
-                    print(activity.id)
-                    
                     for await pushToken in activity.pushTokenUpdates {
-//                        print(activity.pushTokenUpdates)
-//                        let pushTokenString = pushToken.reduce("") { $0 + String(format: "%02x", $1) }
-                        print("New push token: \(pushToken)")
-//                        self.pushToken = pushTokenString
+                        let pushTokenString = pushToken.reduce("") { $0 + String(format: "%02x", $1) }
+                        #if DEBUG
+                        print("New push token: \(pushTokenString)")
+                        #endif
+                        self.pushToken = pushTokenString
                     }
                     print("PUsh token for loop ended.")
                 }

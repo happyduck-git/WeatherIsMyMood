@@ -198,6 +198,9 @@ extension DecorationView {
             Color(ColorConstants.main)
                 .ignoresSafeArea()
         }
+        .onAppear {
+            print("Svaed BG COLOR: \(self.savedBgColor)")
+        }
     }
     
     private func emojiCollectionView(_ icons: [Data]) -> some View {

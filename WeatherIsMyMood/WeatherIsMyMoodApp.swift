@@ -18,10 +18,39 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         FirebaseApp.configure()
+        /* Allow alert */
+        UNUserNotificationCenter.current()
+            .requestAuthorization(options: [.alert, .badge]) { success, error in
+                if let error = error {
+                    print("Error requesting authorization: \(error)")
+                }
+                if success {
+                    print("APNs 등록 성공")
+                } else {
+                    print("Notification authorization failed.")
+                }
+            }
+        
+        /* Request Device Token from APNs */
+        application.registerForRemoteNotifications()
         return true
     }
+    
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        let tokenParts = deviceToken.map { data in
+            return String(format: "%02.2hhx", data)
+        }
+        
+        print("DEVICE TOKEN: \(tokenParts.joined())")
+    }
+ 
 }
-
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) async -> UNNotificationPresentationOptions {
+        return [.banner, .list]
+    }
+}
 @main
 struct WeatherIsMyMoodApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
