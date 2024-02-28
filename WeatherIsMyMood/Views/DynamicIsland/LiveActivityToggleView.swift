@@ -62,24 +62,24 @@ struct LiveActivityToggleView: View {
                     //TODO: Send server a new token.
                     self.enableLiveActivity(self.isOn)
                 }
-                .onChange(of: self.isConfirmed) {
-                    if $0 {
-                        // If users confirm change, enable LA again
-                       //TODO: and send server a new token.
-                        self.enableLiveActivity(self.isOn)
-                    } else {
-                        // If users did not confirm change, no action needed.
-                    }
-                }
+//                .onChange(of: self.isConfirmed) {
+//                    if $0 {
+//                        // If users confirm change, enable LA again
+//                       //TODO: and send server a new token.
+//                        self.enableLiveActivity(self.isOn)
+//                    } else {
+//                        // If users did not confirm change, no action needed.
+//                    }
+//                }
             } else {
                 $0.onChange(of: self.isOn, perform: { newValue in
                     self.enableLiveActivity(self.isOn)
                 })
             }
         }
-        .onChange(of: self.selectedIcon, perform: { _ in
-            self.updateLiveActivity(self.isOn)
-        })
+//        .onChange(of: self.selectedIcon, perform: { _ in
+//            self.updateLiveActivity(self.isOn)
+//        })
         .onChange(of: self.weather) { _ in
             #if DEBUG
             print("Weather is updated.")
@@ -144,13 +144,15 @@ extension LiveActivityToggleView {
                     print("Actionvty found nil")
                     return
                 }
-                
+                print(self.activity?.activityState)
                 Task {
                     for await pushToken in activity.pushTokenUpdates {
+                        print(activity.pushTokenUpdates)
                         let pushTokenString = pushToken.reduce("") { $0 + String(format: "%02x", $1) }
                         print("New push token: \(pushTokenString)")
                         self.pushToken = pushTokenString
                     }
+                    print("PUsh token for loop ended.")
                 }
                 self.isConfirmed = false
             }
@@ -160,6 +162,7 @@ extension LiveActivityToggleView {
 
         } else {
             self.endCurrentActivity()
+            print(self.activity?.activityState)
         }
     }
     
