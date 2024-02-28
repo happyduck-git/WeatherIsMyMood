@@ -144,13 +144,17 @@ extension LiveActivityToggleView {
                     print("Actionvty found nil")
                     return
                 }
-                print(self.activity?.activityState)
+                
                 Task {
+                    print(activity.pushToken)
+                    print(activity.pushTokenUpdates)
+                    print(activity.id)
+                    
                     for await pushToken in activity.pushTokenUpdates {
-                        print(activity.pushTokenUpdates)
-                        let pushTokenString = pushToken.reduce("") { $0 + String(format: "%02x", $1) }
-                        print("New push token: \(pushTokenString)")
-                        self.pushToken = pushTokenString
+//                        print(activity.pushTokenUpdates)
+//                        let pushTokenString = pushToken.reduce("") { $0 + String(format: "%02x", $1) }
+                        print("New push token: \(pushToken)")
+//                        self.pushToken = pushTokenString
                     }
                     print("PUsh token for loop ended.")
                 }
@@ -162,7 +166,7 @@ extension LiveActivityToggleView {
 
         } else {
             self.endCurrentActivity()
-            print(self.activity?.activityState)
+            
         }
     }
     
@@ -176,6 +180,7 @@ extension LiveActivityToggleView {
             )
             await self.activity?.end(content,
                                      dismissalPolicy:.immediate)
+            print(self.activity?.activityState)
         }
     }
 }
