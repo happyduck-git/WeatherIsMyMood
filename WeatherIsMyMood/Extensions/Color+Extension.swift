@@ -41,7 +41,7 @@ extension Color: Codable {
     }
     
     func toHex(alpha: Bool = false) -> String? {
-        guard let components = cgColor?.components, components.count >= 3 else {
+        guard let components = UIColor(self).cgColor.components, components.count >= 3 else {
             return nil
         }
         

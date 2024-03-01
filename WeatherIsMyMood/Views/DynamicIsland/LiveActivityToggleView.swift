@@ -29,8 +29,6 @@ struct LiveActivityToggleView: View {
     @Binding var selectedTextColor: Color
     @Binding var isConfirmed: Bool
     
-    private let defaultColor: [CGFloat] = [0, 0, 0, 1.0]
-    
     var body: some View {
         HStack {
             Toggle(isOn: $isOn) {
@@ -112,8 +110,8 @@ extension LiveActivityToggleView {
             }
             guard let weather, let selectedIcon else { return }
 
-            let attrib = WeatherAttributes(bgColors: selectedColor,
-                                           textColors: selectedTextColor,
+            let attrib = WeatherAttributes(bgColor: selectedColor,
+                                           textColor: selectedTextColor,
                                            icon: selectedIcon)
             
             let content = ActivityContent.init(

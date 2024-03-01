@@ -27,11 +27,8 @@ struct WeatherLiveActivityWidget: Widget {
                     Text(WidgetConstants.appName)
                         .font(.system(size: 12))
                         .foregroundStyle(
-//                            Color(red: ctx.attributes.textColors.red,
-//                                  green: ctx.attributes.textColors.green,
-//                                  blue: ctx.attributes.textColors.blue)
                             ctx.attributes
-                                .textColors
+                                .textColor
                                 .opacity(0.5)
                         )
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -40,11 +37,8 @@ struct WeatherLiveActivityWidget: Widget {
                         Text(WidgetConstants.currentTemp)
                             .font(.system(size: 16))
                             .foregroundStyle(
-//                                Color(red: ctx.attributes.textColors.red,
-//                                      green: ctx.attributes.textColors.green,
-//                                      blue: ctx.attributes.textColors.blue)
                                 ctx.attributes
-                                    .textColors
+                                    .textColor
                                     .opacity(0.5)
                             )
                         
@@ -52,11 +46,7 @@ struct WeatherLiveActivityWidget: Widget {
                             .font(.system(size: 16))
                             .foregroundStyle(
                                 ctx.attributes
-                                    .textColors
-
-//                                Color(red: ctx.attributes.textColors.red,
-//                                      green: ctx.attributes.textColors.green,
-//                                      blue: ctx.attributes.textColors.blue)
+                                    .textColor
                             )
                     }
                 }
@@ -72,10 +62,7 @@ struct WeatherLiveActivityWidget: Widget {
             .padding(EdgeInsets(top: 0, leading: sideInset, bottom: 0, trailing: sideInset))
             .background {
                 ctx.attributes
-                    .bgColors
-//                Color(red: ctx.attributes.bgColors.red,
-//                      green: ctx.attributes.bgColors.green,
-//                      blue: ctx.attributes.bgColors.blue)
+                    .bgColor
             }
             
         } dynamicIsland: { ctx in

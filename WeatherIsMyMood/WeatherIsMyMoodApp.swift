@@ -28,7 +28,7 @@ struct WeatherIsMyMoodApp: App {
     
     @Environment(\.scenePhase) private var phase
     @StateObject private var locationManager: LocationManager = LocationManager(locationFetcher: CLLocationManager())
-    @StateObject private var networkManager: NetworkManager = NetworkManager(alamofire: Session())
+    @StateObject private var networkManager: NetworkManager = NetworkManager(session: Session())
     @StateObject private var storageManager: FirestoreManager = FirestoreManager()
     @StateObject private var coreStack = CoreDataStack()
     @State private var tasks: [UIBackgroundTaskIdentifier] = []
