@@ -71,6 +71,10 @@ enum DecoConstants {
     static let others = String(localized: "Others")
     static let reset = String(localized: "Reset")
     static let change = String(localized: "Change")
+    static let selectColor = String(localized: "Select Color")
+    static let systemColor = String(localized: "System Color")
+    static let text = String(localized: "Text")
+    static let background = String(localized: "Background")
 }
 
 enum WidgetConstants {

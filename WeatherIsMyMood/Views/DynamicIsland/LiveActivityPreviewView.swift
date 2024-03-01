@@ -21,9 +21,11 @@ struct LiveActivityPreviewView: View {
     @Binding var newTextColor: Color
     @Binding var newIcon: Data?
     @Binding var updateNeeded: Bool
+    @Binding var isSystemColor: Bool
     
     @State private var temperature: String = "0"
     @State private var showColorPalettes = false
+    @State private var opacity: Double = 0.0
     
     var body: some View {
         if let _ = weather {
@@ -50,7 +52,7 @@ struct LiveActivityPreviewView: View {
             }
         }
     }
-
+    
 }
 
 extension LiveActivityPreviewView {
@@ -97,18 +99,18 @@ extension LiveActivityPreviewView {
                 VStack(alignment: .leading) {
                     Text(WidgetConstants.appName)
                         .font(.system(size: 12))
-                        .foregroundStyle(self.newTextColor)
+                        .foregroundStyle(isSystemColor ? .primary : self.newTextColor)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .opacity(0.5)
                     HStack {
                         Text(WidgetConstants.currentTemp)
                             .font(.system(size: 16))
-                            .foregroundStyle(self.newTextColor)
+                            .foregroundStyle(isSystemColor ? .primary : self.newTextColor)
                             .opacity(0.5)
                         
                         Text(temperature)
                             .font(.system(size: 16))
-                            .foregroundStyle(self.newTextColor)
+                            .foregroundStyle(isSystemColor ? .primary : self.newTextColor)
                     }
                 }
                 Spacer()
@@ -124,7 +126,7 @@ extension LiveActivityPreviewView {
             .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
             .background {
                 RoundedRectangle(cornerRadius: 10, style: .circular)
-                    .fill(self.newBgColor)
+                    .fill(isSystemColor ? .widgetBG : self.newBgColor)
             }
             
             Button {
@@ -134,9 +136,11 @@ extension LiveActivityPreviewView {
                     .symbolRenderingMode(.multicolor)
                 
             }
+            .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
             .sheet(isPresented: self.$showColorPalettes) {
                 self.makeBottomSheetView()
-                    .presentationDetents([.height(200)])
+                    .presentationDetents([.height(self.isSystemColor ? 180 : 200)]) //TODO: Add smooth transition animation.
+                    .animation(.bouncy, value: true)
             }
         }
         .frame(width: 310, height: 80)
@@ -145,39 +149,43 @@ extension LiveActivityPreviewView {
     @ViewBuilder
     private func makeBottomSheetView() -> some View {
         VStack(alignment: .leading) {
+            Text(DecoConstants.selectColor)
+                .font(.title2)
+                .bold()
+                .padding()
             HStack {
-                Text("Select Color")
-                    .font(.title2)
-                    .bold()
-                Spacer()
-                Button {
-                    self.resetColor()
-                } label: {
-                    VStack {
-                        Image(systemName: "arrow.clockwise.circle")
-                        Text("Reset")
+                Toggle(isOn: self.$isSystemColor) {
+                    Text(DecoConstants.systemColor)
+                        .bold()
+                }
+                .modify {
+                    if #available(iOS 17.0, *) {
+                        $0.onChange(of: self.isSystemColor) {
+                            if self.isSystemColor { self.updateNeeded = true }
+                        }
+                    } else {
+                        $0.onChange(of: self.isSystemColor) { _ in
+                            if self.isSystemColor { self.updateNeeded = true }
+                        }
                     }
                 }
             }
-            .padding()
+            .padding(.horizontal)
+            makePaletteView(title: DecoConstants.text, color: self.$newTextColor, systemSetting: self.isSystemColor)
+            makePaletteView(title: DecoConstants.background, color: self.$newBgColor, systemSetting: self.isSystemColor)
             
-            makePaletteView(title: "Text", color: self.$newTextColor)
-            makePaletteView(title: "Background", color: self.$newBgColor)
-
         }
-        
+        .padding()
     }
     
     @ViewBuilder
-    private func makePaletteView(title: String, color: Binding<Color>) -> some View {
-        HStack {
+    private func makePaletteView(title: String, color: Binding<Color>, systemSetting: Bool) -> some View {
+        ColorPicker(selection: color,
+                    supportsOpacity: false) {
             Text(title)
-            ColorPicker(selection: color,
-                        supportsOpacity: false) {
-                Text("ColorPicker")
-            }.labelsHidden()
-        }
-        .padding(.horizontal)
+                .bold()
+        }.padding(.horizontal)
+            .opacity(self.isSystemColor ? 0.0 : 1.0)
     }
     
     private func defaultWeatherImage() -> some View {
@@ -197,24 +205,8 @@ extension LiveActivityPreviewView {
             return "0"
         }
     }
-    
-    private func resetColor() {
-        self.newBgColor = .widgetBG
-        self.newTextColor = .primary
-    }
 }
 
-//struct DynamicIslandPreviewView_Previews: PreviewProvider {
-//    @State static var weather: Weather? = nil
-//    @State static var selectedIcon: Data? = nil // Replace 'YourIconType' with the actual type
-//    
-//    static var previews: some View {
-//        DynamicIslandPreviewView(weather: $weather, selectedIcon: $selectedIcon)
-//    }
-//}
-
-
 #Preview {
-//    DynamicIslandPreviewView_Previews() as! any View
     DecorationView()
 }

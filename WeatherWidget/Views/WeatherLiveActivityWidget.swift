@@ -27,9 +27,7 @@ struct WeatherLiveActivityWidget: Widget {
                     Text(WidgetConstants.appName)
                         .font(.system(size: 12))
                         .foregroundStyle(
-                            ctx.attributes
-                                .textColor
-                                .opacity(0.5)
+                            ctx.attributes.isSystemSetting ? Color.secondary : ctx.attributes.textColor.opacity(0.5)
                         )
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
@@ -37,16 +35,13 @@ struct WeatherLiveActivityWidget: Widget {
                         Text(WidgetConstants.currentTemp)
                             .font(.system(size: 16))
                             .foregroundStyle(
-                                ctx.attributes
-                                    .textColor
-                                    .opacity(0.5)
+                                ctx.attributes.isSystemSetting ? Color.secondary : ctx.attributes.textColor.opacity(0.5)
                             )
                         
                         Text(ctx.state.temperature)
                             .font(.system(size: 16))
                             .foregroundStyle(
-                                ctx.attributes
-                                    .textColor
+                                ctx.attributes.isSystemSetting ? Color.primary : ctx.attributes.textColor
                             )
                     }
                 }
@@ -61,8 +56,7 @@ struct WeatherLiveActivityWidget: Widget {
             .frame(maxHeight: .infinity)
             .padding(EdgeInsets(top: 0, leading: sideInset, bottom: 0, trailing: sideInset))
             .background {
-                ctx.attributes
-                    .bgColor
+                ctx.attributes.isSystemSetting ? Color.widgetBG : ctx.attributes.bgColor //TODO: System setting works
             }
             
         } dynamicIsland: { ctx in

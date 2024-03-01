@@ -130,6 +130,9 @@
         }
       }
     },
+    "Background" : {
+
+    },
     "Cannot bring air quality.." : {
       "localizations" : {
         "ko" : {
@@ -198,9 +201,6 @@
           }
         }
       }
-    },
-    "ColorPicker" : {
-
     },
     "Condition" : {
       "localizations" : {
@@ -1144,6 +1144,9 @@
         }
       }
     },
+    "System Color" : {
+
+    },
     "Tap on an icon you like \nand see how it looks on dynamic island!" : {
       "localizations" : {
         "ko" : {
@@ -1188,6 +1191,9 @@
           }
         }
       }
+    },
+    "Text" : {
+
     },
     "Today" : {
       "localizations" : {

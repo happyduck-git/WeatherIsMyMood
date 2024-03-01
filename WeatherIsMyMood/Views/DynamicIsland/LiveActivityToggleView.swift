@@ -22,6 +22,7 @@ struct LiveActivityToggleView: View {
     @State private var activity: Activity<WeatherAttributes>? = nil
     @State private var activityError: LiveActivityError? = nil
     @State private var isHidden: Bool = true
+    @Binding var isSystemSetting: Bool
     @Binding var isOn: Bool
     @Binding var weather: Weather?
     @Binding var selectedIcon: Data?
@@ -52,8 +53,6 @@ struct LiveActivityToggleView: View {
                         // If users confirm change, enable LA again
                        //TODO: and send server a new token.
                         self.enableLiveActivity(self.isOn)
-                    } else {
-                        // If users did not confirm change, no action needed.
                     }
                 }
             } else {
@@ -85,18 +84,17 @@ extension LiveActivityToggleView {
         if isOn {
             Task {
                 
-                guard let weather else {
-                    return
-                }
+                guard let weather else { return }
 
                 guard let activity else {
                     self.enableLiveActivity(isOn)
                     return
                 }
                 
-                let content = ActivityContent.init(state: WeatherAttributes.ContentState(
-                    temperature: self.formatTemperature(weather.currentWeather.temperature)),
-                                                   staleDate: nil)
+                let content = ActivityContent.init(
+                    state: WeatherAttributes.ContentState(temperature: self.formatTemperature(weather.currentWeather.temperature)),
+                    staleDate: nil
+                )
                 await activity.update(content)
             }
         }
@@ -105,12 +103,13 @@ extension LiveActivityToggleView {
     private func enableLiveActivity(_ isOn: Bool) {
         
         if isOn {
-            if self.activity?.activityState == .active || self.activity?.activityState == .stale {
+            if self.activity != nil  {
                 self.endCurrentActivity()
             }
             guard let weather, let selectedIcon else { return }
 
-            let attrib = WeatherAttributes(bgColor: selectedColor,
+            let attrib = WeatherAttributes(isSystemSetting: isSystemSetting,
+                                           bgColor: selectedColor,
                                            textColor: selectedTextColor,
                                            icon: selectedIcon)
             

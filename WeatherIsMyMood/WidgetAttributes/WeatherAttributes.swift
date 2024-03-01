@@ -11,7 +11,8 @@ import UIKit
 import SwiftUI
 
 struct WeatherAttributes: ActivityAttributes {
-//    typealias WeatherAttributes = ContentState
+
+    let isSystemSetting: Bool
     let bgColor: Color
     let textColor: Color
     let icon: Data

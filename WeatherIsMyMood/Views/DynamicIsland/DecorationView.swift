@@ -29,6 +29,7 @@ struct DecorationView: View {
     @State private var condition: WeatherCondition = .clear
     @State private var weatherIcons: [Data] = []
     @State private var otherIcons: [Data] = []
+    @State private var isSystemSetting: Bool = true
     @State private var newBgColor: Color = .widgetBG
     @State private var newTextColor: Color = .primary
     @State private var newIcon: Data?
@@ -157,7 +158,8 @@ extension DecorationView {
     private func makeScrollView() -> some View {
         return ScrollView {
             
-            LiveActivityToggleView(isOn: self.$isOn,
+            LiveActivityToggleView(isSystemSetting: self.$isSystemSetting,
+                                   isOn: self.$isOn,
                                    weather: self.$weather,
                                    selectedIcon: self.$savedIcon,
                                    selectedColor: self.$savedBgColor,
@@ -183,7 +185,8 @@ extension DecorationView {
                                     newBgColor: self.$newBgColor,
                                     newTextColor: self.$newTextColor,
                                     newIcon: self.$newIcon,
-                                    updateNeeded: self.$updateNeeded)
+                                    updateNeeded: self.$updateNeeded,
+                                    isSystemColor: self.$isSystemSetting)
             
             HStack{
                 SectionTitleView(section: .weatherIcons)
