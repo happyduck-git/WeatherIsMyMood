@@ -9,16 +9,26 @@ import SwiftUI
 import Lottie
 
 struct LoadingView: View {
+    
+    private let filename: String?
+    //MARK: - Init
+    init(filename: String? = nil) {
+        self.filename = filename
+    }
+    //MARK: - View
     var body: some View {
         ZStack {
             Color(.black)
-                .opacity(0.2)
+                .opacity(0.3)
             
-            LottieView(animation: .named("sun_color"))
-                .looping()
-                .resizable()
-                .frame(width: 120, height: 120)
-
+            if let filename {
+                LottieView(animation: .named(filename))
+                    .looping()
+                    .resizable()
+                    .frame(width: 120, height: 120)
+            } else {
+                ProgressView()
+            }
         }
         .ignoresSafeArea()
     }

@@ -34,7 +34,7 @@ struct WeatherView: View {
                 self.makeScrollView()
                 
                 if isLoading {
-                    LoadingView()
+                    LoadingView(filename: "sun_color")
                 }
             }
             .toolbarBackground(Color(ColorConstants.main), for: .navigationBar)

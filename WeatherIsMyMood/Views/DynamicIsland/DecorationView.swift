@@ -22,6 +22,7 @@ struct DecorationView: View {
     
     @State private var isFirstLoading: Bool = true
     @State private var isLoading: Bool = false
+    @State private var settingInProgress: Bool = false
     @State private var isFirstAppear: Bool = true
     @State private var weather: Weather?
     @State private var previousWeather: Weather?
@@ -40,7 +41,11 @@ struct DecorationView: View {
                 self.makeScrollView()
                 
                 if isLoading {
-                    LoadingView()
+                    LoadingView(filename: "sun_color")
+                }
+                
+                if settingInProgress {
+                    LoadingView(filename: "setting")
                 }
             }
             .toolbarBackground(Color(ColorConstants.main), for: .navigationBar)
@@ -57,9 +62,9 @@ struct DecorationView: View {
                     Button {
                         self.isConfirmed = true
                         self.updateNeeded = false
-                        self.savedIcon = self.newIcon
-                        self.savedBgColor = self.newBgColor
-                        self.savedTextColor = self.newTextColor
+//                        self.settingInProgress = true //NOTE: Need to add Task.sleep for 1 second and change its value to false.
+                        self.submitNewWidgetAttributes()
+                      
                     } label: {
                         Text(DecoConstants.change)
                     }
@@ -138,6 +143,12 @@ extension DecorationView {
         if self.savedIcon == nil {
             self.savedIcon = self.weatherIcons.first
         }
+    }
+    
+    private func submitNewWidgetAttributes() {
+        self.savedIcon = self.newIcon
+        self.savedBgColor = self.newBgColor
+        self.savedTextColor = self.newTextColor
     }
 }
 
