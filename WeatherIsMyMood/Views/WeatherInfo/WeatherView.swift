@@ -136,13 +136,14 @@ extension WeatherView {
                 } header: {
                     
                     SearchView(searchCity: $searchedCityName) {
-                        self.updateLocationStatus(to: searchedCityName)
+                        Task {
+                            await self.updateLocationStatus(to: searchedCityName)
+                        }
                         
                     } backToCurrentLocation: {
                         searchedCityName = ""
                         Task {
-                            await self.locationManager.requestOnTimeLocation()
-                            self.updateLocationStatus(to: self.locationManager.cityName ?? "Seoul")
+                            await self.backToCurrentLocation()
                         }
                     }
                     .frame(width: UIScreen.screenWidth)
@@ -183,18 +184,22 @@ extension WeatherView {
 }
 
 extension WeatherView {
-    private func updateLocationStatus(to city: String) {
+    private func updateLocationStatus(to city: String) async {
         if !city.isEmpty {
-            Task {
-                let loc = await self.locationManager.location(forCity: city, geocoder: CLGeocoder())
-                guard let loc else {
-                    self.locationFound = false
-                    return
-                }
-                self.locationFound = true
-                self.locationManager.currentLocation = loc
+            self.isLoading = true
+            let loc = await self.locationManager.location(forCity: city, geocoder: CLGeocoder())
+            guard let loc else {
+                self.locationFound = false
+                return
             }
+            self.locationFound = true
+            self.locationManager.currentLocation = loc
         }
+    }
+    
+    private func backToCurrentLocation() async {
+        await self.locationManager.requestOnTimeLocation()
+        await self.updateLocationStatus(to: self.locationManager.cityName ?? "Seoul")
     }
 
     private func filterHours(of hourlyWeathers: Forecast<HourWeather>?, count: Int) -> [HourWeather] {
