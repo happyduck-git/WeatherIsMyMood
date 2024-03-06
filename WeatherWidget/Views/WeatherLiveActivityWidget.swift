@@ -13,6 +13,7 @@ import UIKit
 struct WeatherLiveActivityWidget: Widget {
     
     private let sideInset: CGFloat = 20
+    private let iconSizeSmall: CGFloat = 20
     
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: WeatherAttributes.self) { ctx in
@@ -86,7 +87,7 @@ struct WeatherLiveActivityWidget: Widget {
                 if let image = UIImage(data: ctx.attributes.icon) {
                     Image(uiImage: image)
                         .resizable()
-                        .frame(width: 24, height: 24)
+                        .frame(width: iconSizeSmall, height: iconSizeSmall)
                         .aspectRatio(contentMode: .fit)
                 }
             } compactTrailing: {
@@ -96,7 +97,7 @@ struct WeatherLiveActivityWidget: Widget {
                 if let image = UIImage(data: ctx.attributes.icon) {
                     Image(uiImage: image)
                         .resizable()
-                        .frame(width: 24, height: 24)
+                        .frame(width: iconSizeSmall, height: iconSizeSmall)
                         .aspectRatio(contentMode: .fit)
                         .padding()
                 }

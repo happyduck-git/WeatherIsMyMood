@@ -44,31 +44,42 @@ struct LiveActivityToggleView: View {
         }
         .modify {
             if #available(iOS 17.0, *) {
-                $0.onChange(of: self.isOn) {
-                    //TODO: Send server a new token.
-                    self.enableLiveActivity(self.isOn)
+                $0.onChange(of: self.isOn) { newValue in
+                    self.enableLiveActivity(newValue)
                 }
                 .onChange(of: self.isConfirmed) {
                     if $0 {
-                        // If users confirm change, enable LA again
-                       //TODO: and send server a new token.
                         self.enableLiveActivity(self.isOn)
                     }
                 }
+                .onChange(of: self.selectedIcon) { _ in
+                    self.updateLiveActivity(self.isOn)
+                }
+                .onChange(of: self.weather) { _ in
+                    #if DEBUG
+                    print("Weather is updated.")
+                    #endif
+                    self.updateLiveActivity(self.isOn)
+                }
             } else {
                 $0.onChange(of: self.isOn, perform: { newValue in
-                    self.enableLiveActivity(self.isOn)
+                    self.enableLiveActivity(newValue)
+                })
+                .onChange(of: self.isConfirmed, perform: {
+                    if $0 {
+                        self.enableLiveActivity(self.isOn)
+                    }
+                })
+                .onChange(of: self.selectedIcon, perform: { _ in
+                    self.updateLiveActivity(self.isOn)
+                })
+                .onChange(of: self.weather, perform: { _ in
+                    #if DEBUG
+                    print("Weather is updated.")
+                    #endif
+                    self.updateLiveActivity(self.isOn)
                 })
             }
-        }
-        .onChange(of: self.selectedIcon, perform: { _ in
-            self.updateLiveActivity(self.isOn)
-        })
-        .onChange(of: self.weather) { _ in
-            #if DEBUG
-            print("Weather is updated.")
-            #endif
-            self.updateLiveActivity(self.isOn)
         }
         .onReceive(notiPulisher) { output in
             #if DEBUG
@@ -101,6 +112,7 @@ extension LiveActivityToggleView {
     }
     
     private func enableLiveActivity(_ isOn: Bool) {
+        //TODO: Send server a new token (NEXT UPDATE)
         
         if isOn {
             if self.activity != nil  {

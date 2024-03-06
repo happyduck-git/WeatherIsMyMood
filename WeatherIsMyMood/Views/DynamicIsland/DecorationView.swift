@@ -63,9 +63,8 @@ struct DecorationView: View {
                     Button {
                         self.isConfirmed = true
                         self.updateNeeded = false
-//                        self.settingInProgress = true //NOTE: Need to add Task.sleep for 1 second and change its value to false.
+                        self.settingInProgress = true
                         self.submitNewWidgetAttributes()
-                      
                     } label: {
                         Text(DecoConstants.change)
                     }
@@ -103,32 +102,41 @@ struct DecorationView: View {
                 print("Location found to be nil -- DecorationView")
             }
         }
-        .onChange(of: self.weather, perform: { newWeather in
-            if self.previousWeather?.currentWeather.condition != newWeather?.currentWeather.condition {
-                self.isLoading = true
-                
-                if let newWeather {
-                    Task {
-                        do {
-                            try await self.updateWeatherData(newWeather)
-                            self.previousWeather = newWeather
-                            self.isLoading = false
-                        }
-                        catch {
-                            print("Error fetching weather icons -- \(error)")
-                        }
-                    }
-                }
-            }
-        })
+        .onChange(of: self.weather) { newWeather in
+            self.updateWeather(with: newWeather)
+        }
         .onChange(of: self.updateNeeded) {
             if $0 {
                 self.isConfirmed = false
             }
         }
-
+        .onChange(of: self.settingInProgress) {
+            if $0 {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    self.settingInProgress = false
+                }
+            }
+        }
     }
     
+    private func updateWeather(with newWeather: Weather?) {
+        if self.previousWeather?.currentWeather.condition != newWeather?.currentWeather.condition {
+            self.isLoading = true
+            
+            if let newWeather {
+                Task {
+                    do {
+                        try await self.updateWeatherData(newWeather)
+                        self.previousWeather = newWeather
+                        self.isLoading = false
+                    }
+                    catch {
+                        print("Error fetching weather icons -- \(error)")
+                    }
+                }
+            }
+        }
+    }
 }
 
 extension DecorationView {
