@@ -15,7 +15,8 @@ struct DecorationView: View {
     @AppStorage("widgetBGColors") private var savedBgColor: Color = .widgetBG
     @AppStorage("widgetTextColors") private var savedTextColor: Color = .primary
     @AppStorage("widgetIcon") private var savedIcon: Data?
-
+    @AppStorage("widgetSystemSetting") private var isSystemSetting: Bool = true
+    
     @EnvironmentObject private var locationManager: LocationManager
     @EnvironmentObject private var storageManager: FirestoreManager
     private let weatherService = WeatherService.shared
@@ -29,7 +30,6 @@ struct DecorationView: View {
     @State private var condition: WeatherCondition = .clear
     @State private var weatherIcons: [Data] = []
     @State private var otherIcons: [Data] = []
-    @State private var isSystemSetting: Bool = true
     @State private var newBgColor: Color = .widgetBG
     @State private var newTextColor: Color = .primary
     @State private var newIcon: Data?

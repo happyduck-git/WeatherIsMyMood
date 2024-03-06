@@ -115,7 +115,7 @@ extension LiveActivityToggleView {
         //TODO: Send server a new token (NEXT UPDATE)
         
         if isOn {
-            if self.activity != nil  {
+            if self.activity != nil || !Activity<WeatherAttributes>.activities.isEmpty {
                 self.endCurrentActivity()
             }
             guard let weather, let selectedIcon else { return }
@@ -154,8 +154,10 @@ extension LiveActivityToggleView {
                 ),
                 staleDate: nil
             )
-            await self.activity?.end(content,
-                                     dismissalPolicy:.immediate)
+            for activity in Activity<WeatherAttributes>.activities {
+                await activity.end(content,
+                                   dismissalPolicy:.immediate)
+            }
         }
     }
 }

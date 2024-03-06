@@ -39,6 +39,16 @@
         }
       }
     },
+    "%@-- count: %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@-- count: %2$lld"
+          }
+        }
+      }
+    },
     "%lf" : {
 
     },
@@ -63,6 +73,9 @@
           }
         }
       }
+    },
+    "Activities" : {
+
     },
     "Air quality" : {
       "localizations" : {
@@ -131,6 +144,9 @@
       }
     },
     "Background" : {
+
+    },
+    "Cancel" : {
 
     },
     "Cannot bring air quality.." : {

@@ -30,7 +30,7 @@ struct WeatherIsMyMoodApp: App {
     @StateObject private var locationManager: LocationManager = LocationManager(locationFetcher: CLLocationManager())
     @StateObject private var networkManager: NetworkManager = NetworkManager(session: Session())
     @StateObject private var storageManager: FirestoreManager = FirestoreManager()
-    @StateObject private var coreStack = CoreDataStack()
+    @StateObject private var coreStack = CoreDataManager()
     @State private var tasks: [UIBackgroundTaskIdentifier] = []
     
     var body: some Scene {
