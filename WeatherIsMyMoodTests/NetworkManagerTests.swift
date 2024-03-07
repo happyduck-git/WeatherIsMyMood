@@ -17,7 +17,7 @@ final class NetworkManagerTests: XCTestCase {
         
         let sessionConfig = URLSessionConfiguration.default
         sessionConfig.protocolClasses = [MockURLProtocol.self]
-        networkManager = NetworkManager(alamofire: Session(configuration: sessionConfig))
+        networkManager = NetworkManager(session: Session(configuration: sessionConfig))
     }
     
     override func tearDownWithError() throws {
