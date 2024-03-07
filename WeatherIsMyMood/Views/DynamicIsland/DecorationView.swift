@@ -184,7 +184,7 @@ extension DecorationView {
                 .multilineTextAlignment(.center)
                 .font(.caption2)
                 .foregroundStyle(.secondary)
-                .padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
+                .padding(EdgeInsets(top: 10, leading: 50, bottom: 10, trailing: 50))
 
             LiveActivityPreviewView(weather: self.$weather,
                                     selectedColor: self.$savedBgColor,
