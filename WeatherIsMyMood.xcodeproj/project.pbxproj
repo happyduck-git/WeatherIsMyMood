@@ -38,7 +38,6 @@
 		243465F32B5A69B600511D78 /* WeatherWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243465F22B5A69B600511D78 /* WeatherWidget.swift */; };
 		2457E9632B7C9FF60093BB2C /* BackgroundTimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2457E9622B7C9FF60093BB2C /* BackgroundTimeManager.swift */; };
 		2457E9682B7EF8950093BB2C /* sun_color.json in Resources */ = {isa = PBXBuildFile; fileRef = 2457E9662B7EF8940093BB2C /* sun_color.json */; };
-		2457E9692B7EF8950093BB2C /* sun.json in Resources */ = {isa = PBXBuildFile; fileRef = 2457E9672B7EF8940093BB2C /* sun.json */; };
 		2457E96B2B7EF8CB0093BB2C /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2457E96A2B7EF8CB0093BB2C /* LottieView.swift */; };
 		2457E96D2B7EF9E10093BB2C /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 2457E96C2B7EF9E10093BB2C /* Lottie */; };
 		2457E9732B7F4E020093BB2C /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2457E9712B7F4E020093BB2C /* Model.xcdatamodeld */; };
@@ -191,7 +190,6 @@
 		243A98BA2B9989F80043DDC3 /* ci_post_clone.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_post_clone.sh; sourceTree = "<group>"; };
 		2457E9622B7C9FF60093BB2C /* BackgroundTimeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundTimeManager.swift; sourceTree = "<group>"; };
 		2457E9662B7EF8940093BB2C /* sun_color.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sun_color.json; sourceTree = "<group>"; };
-		2457E9672B7EF8940093BB2C /* sun.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sun.json; sourceTree = "<group>"; };
 		2457E96A2B7EF8CB0093BB2C /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		2457E9722B7F4E020093BB2C /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		2457E9742B7F54980093BB2C /* WeatherConditionInfo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WeatherConditionInfo+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -421,7 +419,6 @@
 			children = (
 				242377A12B915B4700CC8EF7 /* setting.json */,
 				2457E9662B7EF8940093BB2C /* sun_color.json */,
-				2457E9672B7EF8940093BB2C /* sun.json */,
 			);
 			path = Lottie;
 			sourceTree = "<group>";
@@ -733,7 +730,6 @@
 			files = (
 				243086302B23FE89006C78E9 /* Preview Assets.xcassets in Resources */,
 				2467616B2B2D2D6D00C4CF4E /* InfoPlist.strings in Resources */,
-				2457E9692B7EF8950093BB2C /* sun.json in Resources */,
 				2457E9682B7EF8950093BB2C /* sun_color.json in Resources */,
 				24A66E092B275FB200B348CC /* GoogleService-Info.plist in Resources */,
 				2423779E2B8F904100CC8EF7 /* aqi_mock_response.json in Resources */,
