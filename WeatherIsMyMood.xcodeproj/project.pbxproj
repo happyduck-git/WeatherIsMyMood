@@ -99,7 +99,6 @@
 		249970462B5B926E00F995AD /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 249970452B5B926E00F995AD /* FirebaseStorage */; };
 		249970472B5B928B00F995AD /* StorageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247212FD2B28B2FA009A6DE5 /* StorageCacheManager.swift */; };
 		249970482B5B945B00F995AD /* WeatherWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243465F22B5A69B600511D78 /* WeatherWidget.swift */; };
-		2499704F2B5BC04700F995AD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24A66E082B275FB200B348CC /* GoogleService-Info.plist */; };
 		24A66DED2B269F1400B348CC /* UIScreen+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A66DEC2B269F1400B348CC /* UIScreen+Extensions.swift */; };
 		24A66DEF2B26B18800B348CC /* CityWeatherFrontView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A66DEE2B26B18800B348CC /* CityWeatherFrontView.swift */; };
 		24A66DF12B26DDCB00B348CC /* WeatherCondition+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A66DF02B26DDCA00B348CC /* WeatherCondition+Extensions.swift */; };
@@ -109,7 +108,6 @@
 		24A66E032B2749E900B348CC /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A66E022B2749E900B348CC /* FirestoreManager.swift */; };
 		24A66E052B274ACB00B348CC /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 24A66E042B274ACB00B348CC /* FirebaseStorage */; };
 		24A66E072B274ACB00B348CC /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 24A66E062B274ACB00B348CC /* FirebaseStorageCombine-Community */; };
-		24A66E092B275FB200B348CC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24A66E082B275FB200B348CC /* GoogleService-Info.plist */; };
 		24C561952B5C223A004BDEBB /* ExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C561942B5C223A004BDEBB /* ExtensionTests.swift */; };
 		24C7D98C2B26145000453434 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7D98B2B26145000453434 /* AppColors.swift */; };
 		24C7D98E2B26160E00453434 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7D98D2B26160E00453434 /* Color+Extension.swift */; };
@@ -245,7 +243,6 @@
 		24A66DF22B26EEBB00B348CC /* EmojiViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiViewCell.swift; sourceTree = "<group>"; };
 		24A66DF42B2711A600B348CC /* LiveActivityPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityPreviewView.swift; sourceTree = "<group>"; };
 		24A66E022B2749E900B348CC /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
-		24A66E082B275FB200B348CC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		24C561942B5C223A004BDEBB /* ExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionTests.swift; sourceTree = "<group>"; };
 		24C7D98B2B26145000453434 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
 		24C7D98D2B26160E00453434 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
@@ -359,7 +356,6 @@
 			isa = PBXGroup;
 			children = (
 				245AEF2F2B5B88FD003DD73B /* Info.plist */,
-				24A66E082B275FB200B348CC /* GoogleService-Info.plist */,
 				248E3F422B24887C001B10C3 /* WeatherIsMyMood.entitlements */,
 				241A80442B2A176200706BB8 /* Assets */,
 				248E3F4A2B2583D3001B10C3 /* Extensions */,
@@ -735,7 +731,6 @@
 				2467616B2B2D2D6D00C4CF4E /* InfoPlist.strings in Resources */,
 				2457E9692B7EF8950093BB2C /* sun.json in Resources */,
 				2457E9682B7EF8950093BB2C /* sun_color.json in Resources */,
-				24A66E092B275FB200B348CC /* GoogleService-Info.plist in Resources */,
 				2423779E2B8F904100CC8EF7 /* aqi_mock_response.json in Resources */,
 				242377A22B915B4700CC8EF7 /* setting.json in Resources */,
 				241A803E2B29E04100706BB8 /* Localizable.xcstrings in Resources */,
@@ -769,7 +764,6 @@
 				247553EE2B832816007B92BB /* Config.xcconfig in Resources */,
 				247212EE2B282F41009A6DE5 /* Assets.xcassets in Resources */,
 				243021952B6651E400580960 /* Localizable.xcstrings in Resources */,
-				2499704F2B5BC04700F995AD /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
