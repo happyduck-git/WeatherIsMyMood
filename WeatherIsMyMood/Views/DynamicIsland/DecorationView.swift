@@ -11,28 +11,30 @@ import CoreLocation
 
 struct DecorationView: View {
     
-    @ObservedObject private var locationManager: LocationManager
-    
-    @State private var isFirstLoading = true
-    @State private var isLoading = false
     @AppStorage("isDynamicIslandOn") private var isOn = false
+    @AppStorage("widgetBGColors") private var savedBgColor: Color = .widgetBG
+    @AppStorage("widgetTextColors") private var savedTextColor: Color = .primary
+    @AppStorage("widgetIcon") private var savedIcon: Data?
+    @AppStorage("widgetSystemSetting") private var isSystemSetting: Bool = true
     
+    @EnvironmentObject private var locationManager: LocationManager
+    @EnvironmentObject private var storageManager: FirestoreManager
     private let weatherService = WeatherService.shared
-    private let storageManager: FirestoreManager
     
+    @State private var isFirstLoading: Bool = true
+    @State private var isLoading: Bool = false
+    @State private var settingInProgress: Bool = false
+    @State private var isFirstAppear: Bool = true
     @State private var weather: Weather?
     @State private var previousWeather: Weather?
     @State private var condition: WeatherCondition = .clear
-    
     @State private var weatherIcons: [Data] = []
     @State private var otherIcons: [Data] = []
-    @State private var selectedIcon: Data?
-    
-    init(locationManager: LocationManager,
-         storageManager: FirestoreManager) {
-        self.locationManager = locationManager
-        self.storageManager = storageManager
-    }
+    @State private var newBgColor: Color = .widgetBG
+    @State private var newTextColor: Color = .primary
+    @State private var newIcon: Data?
+    @State private var updateNeeded: Bool = false
+    @State private var isConfirmed: Bool = true
     
     var body: some View {
         NavigationView {
@@ -40,24 +42,45 @@ struct DecorationView: View {
                 self.makeScrollView()
                 
                 if isLoading {
-                    LoadingView()
+                    LoadingView(filename: "sun_color")
+                }
+                
+                if settingInProgress {
+                    LoadingView(filename: "setting")
                 }
             }
             .toolbarBackground(Color(ColorConstants.main), for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
-            .toolbar(content: {
+            .toolbar {
                 ToolbarItem(placement: .principal) {
                     Image(.logo)
                         .resizable()
                         .frame(width: 40, height: 50, alignment: .bottom)
                         .aspectRatio(contentMode: .fit)
                 }
-            })
+                
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        self.isConfirmed = true
+                        self.updateNeeded = false
+                        self.settingInProgress = true
+                        self.submitNewWidgetAttributes()
+                    } label: {
+                        Text(DecoConstants.change)
+                    }
+                    .foregroundStyle(self.updateNeeded ? .blue : .gray)
+                    .disabled(self.updateNeeded ? false : true)
+                }
+            }
         }
-        
-        .onAppear(perform: {
-            print("DecorationView appeared")
-        })
+        .onAppear {
+            if self.isFirstAppear {
+                self.newBgColor = self.savedBgColor
+                self.newTextColor = self.savedTextColor
+                self.newIcon = self.savedIcon
+                self.isFirstAppear = false
+            }
+        }
         .onDisappear(perform: {
             print("DecorationView disappeared")
         })
@@ -79,26 +102,41 @@ struct DecorationView: View {
                 print("Location found to be nil -- DecorationView")
             }
         }
-        .onChange(of: self.weather, perform: { newWeather in
-            if self.previousWeather?.currentWeather.condition != newWeather?.currentWeather.condition {
-                self.isLoading = true
-                
-                if let newWeather {
-                    Task {
-                        do {
-                            try await self.updateWeatherData(newWeather)
-                            self.previousWeather = newWeather
-                            self.isLoading = false
-                        }
-                        catch {
-                            print("Error fetching weather icons -- \(error)")
-                        }
+        .onChange(of: self.weather) { newWeather in
+            self.updateWeather(with: newWeather)
+        }
+        .onChange(of: self.updateNeeded) {
+            if $0 {
+                self.isConfirmed = false
+            }
+        }
+        .onChange(of: self.settingInProgress) {
+            if $0 {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    self.settingInProgress = false
+                }
+            }
+        }
+    }
+    
+    private func updateWeather(with newWeather: Weather?) {
+        if self.previousWeather?.currentWeather.condition != newWeather?.currentWeather.condition {
+            self.isLoading = true
+            
+            if let newWeather {
+                Task {
+                    do {
+                        try await self.updateWeatherData(newWeather)
+                        self.previousWeather = newWeather
+                        self.isLoading = false
+                    }
+                    catch {
+                        print("Error fetching weather icons -- \(error)")
                     }
                 }
             }
-        })
+        }
     }
-    
 }
 
 extension DecorationView {
@@ -109,6 +147,17 @@ extension DecorationView {
         
         self.otherIcons = try await others
         self.weatherIcons = try await weathers
+        
+        // Check if there is no saved icon, assign the first icon.
+        if self.savedIcon == nil {
+            self.savedIcon = self.weatherIcons.first
+        }
+    }
+    
+    private func submitNewWidgetAttributes() {
+        self.savedIcon = self.newIcon
+        self.savedBgColor = self.newBgColor
+        self.savedTextColor = self.newTextColor
     }
 }
 
@@ -117,40 +166,49 @@ extension DecorationView {
     private func makeScrollView() -> some View {
         return ScrollView {
             
-            EnableToggleView(isOn: $isOn,
-                             weather: $weather,
-                             selectedIcon: $selectedIcon)
+            LiveActivityToggleView(isSystemSetting: self.$isSystemSetting,
+                                   isOn: self.$isOn,
+                                   weather: self.$weather,
+                                   selectedIcon: self.$savedIcon,
+                                   selectedColor: self.$savedBgColor,
+                                   selectedTextColor: self.$savedTextColor,
+                                   isConfirmed: self.$isConfirmed)
             
             Text(DecoConstants.preview)
                 .fontWeight(.bold)
                 .frame(alignment: .leading)
                 .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
             
-            DynamicIslandPreviewView(weather: $weather,
-                                     selectedIcon: $selectedIcon)
-            .padding(EdgeInsets(top: 10, leading: 120, bottom: 10, trailing: 120))
-            
             Text(WeatherConstants.previewDescription)
                 .lineLimit(nil)
                 .multilineTextAlignment(.center)
                 .font(.caption2)
                 .foregroundStyle(.secondary)
-                .padding()
+                .padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
+
+            LiveActivityPreviewView(weather: self.$weather,
+                                    selectedColor: self.$savedBgColor,
+                                    selectedTextColor: self.$savedTextColor,
+                                    selectedIcon: self.$savedIcon,
+                                    newBgColor: self.$newBgColor,
+                                    newTextColor: self.$newTextColor,
+                                    newIcon: self.$newIcon,
+                                    updateNeeded: self.$updateNeeded,
+                                    isSystemColor: self.$isSystemSetting)
             
             HStack{
                 SectionTitleView(section: .weatherIcons)
                     .frame(width: 200)
-                    .padding()
+                    .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
                 Spacer()
             }
-            
             
             self.emojiCollectionView(self.weatherIcons)
             
             HStack{
                 SectionTitleView(section: .emojis)
                     .frame(width: 200)
-                    .padding()
+                    .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
                 Spacer()
             }
             
@@ -197,7 +255,7 @@ extension DecorationView {
                                 
                                 EmojiViewCell(emojiData: data[index])
                                     .onTapGesture {
-                                        self.selectedIcon = data[index]
+                                        self.newIcon = data[index]
                                     }
                             }
                         }
@@ -211,7 +269,7 @@ extension DecorationView {
 }
 
 #Preview {
-    DecorationView(locationManager: LocationManager(locationFetcher: CLLocationManager()), storageManager: FirestoreManager())
+    DecorationView()
 }
 
 

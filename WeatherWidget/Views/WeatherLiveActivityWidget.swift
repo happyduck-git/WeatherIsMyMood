@@ -8,10 +8,12 @@
 import WidgetKit
 import SwiftUI
 import UIKit.UIImage
+import UIKit
 
 struct WeatherLiveActivityWidget: Widget {
     
-    @State var sideInset: CGFloat = 20
+    private let sideInset: CGFloat = 20
+    private let iconSizeSmall: CGFloat = 20
     
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: WeatherAttributes.self) { ctx in
@@ -25,21 +27,27 @@ struct WeatherLiveActivityWidget: Widget {
                 VStack(alignment: .leading) {
                     Text(WidgetConstants.appName)
                         .font(.system(size: 12))
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(
+                            ctx.attributes.isSystemSetting ? Color.secondary : ctx.attributes.textColor.opacity(0.5)
+                        )
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
                     HStack {
                         Text(WidgetConstants.currentTemp)
                             .font(.system(size: 16))
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(
+                                ctx.attributes.isSystemSetting ? Color.secondary : ctx.attributes.textColor.opacity(0.5)
+                            )
                         
                         Text(ctx.state.temperature)
                             .font(.system(size: 16))
-                            .foregroundStyle(.primary)
+                            .foregroundStyle(
+                                ctx.attributes.isSystemSetting ? Color.primary : ctx.attributes.textColor
+                            )
                     }
                 }
                 Spacer()
-                if let image = UIImage(data: ctx.state.icon) {
+                if let image = UIImage(data: ctx.attributes.icon) {
                     Image(uiImage: image)
                         .resizable()
                         .frame(width: 40, height: 40)
@@ -49,7 +57,7 @@ struct WeatherLiveActivityWidget: Widget {
             .frame(maxHeight: .infinity)
             .padding(EdgeInsets(top: 0, leading: sideInset, bottom: 0, trailing: sideInset))
             .background {
-                Color.widgetBG
+                ctx.attributes.isSystemSetting ? Color.widgetBG : ctx.attributes.bgColor //TODO: System setting works
             }
             
         } dynamicIsland: { ctx in
@@ -57,7 +65,7 @@ struct WeatherLiveActivityWidget: Widget {
             DynamicIsland {
                 DynamicIslandExpandedRegion(.leading) {
                     HStack(alignment: .center) {
-                        if let image = UIImage(data: ctx.state.icon) {
+                        if let image = UIImage(data: ctx.attributes.icon) {
                             Image(uiImage: image)
                                 .resizable()
                                 .frame(width: 32, height: 32)
@@ -76,20 +84,20 @@ struct WeatherLiveActivityWidget: Widget {
                 }
             } compactLeading: {
                 
-                if let image = UIImage(data: ctx.state.icon) {
+                if let image = UIImage(data: ctx.attributes.icon) {
                     Image(uiImage: image)
                         .resizable()
-                        .frame(width: 24, height: 24)
+                        .frame(width: iconSizeSmall, height: iconSizeSmall)
                         .aspectRatio(contentMode: .fit)
                 }
             } compactTrailing: {
                 Text(ctx.state.temperature)
                 
             } minimal: {
-                if let image = UIImage(data: ctx.state.icon) {
+                if let image = UIImage(data: ctx.attributes.icon) {
                     Image(uiImage: image)
                         .resizable()
-                        .frame(width: 24, height: 24)
+                        .frame(width: iconSizeSmall, height: iconSizeSmall)
                         .aspectRatio(contentMode: .fit)
                         .padding()
                 }

@@ -1,5 +1,5 @@
 //
-//  CityCurrentWeatherView.swift
+//  CityWeatherFrontView.swift
 //  WeatherIsMyMood
 //
 //  Created by HappyDuck on 12/11/23.
@@ -11,9 +11,9 @@ import UIKit.UIImage
 import PDFKit
 import CoreLocation
 
-struct CityCurrentWeatherView: View {
+struct CityWeatherFrontView: View {
     
-    let fireStoreManager: FirestoreManager
+    @EnvironmentObject private var fireStoreManager: FirestoreManager
     
     //MARK: - Properties
     @Binding var weather: Weather?
@@ -23,7 +23,6 @@ struct CityCurrentWeatherView: View {
     @State var previousWeather: Weather?
     @State var weatherImage: UIImage?
     @State var isFirstLoad = true
-    
     @State private var weatherComponents: [CityWeatherComponent] = []
     
     //MARK: - View
@@ -106,7 +105,7 @@ struct CityCurrentWeatherView: View {
 }
 
 //MARK: - UI Components
-extension CityCurrentWeatherView {
+extension CityWeatherFrontView {
     private func weatherComponentsView(title: String,
                                        icon: String,
                                        color: Color,
@@ -128,7 +127,7 @@ extension CityCurrentWeatherView {
 }
 
 //MARK: - Fetch data
-extension CityCurrentWeatherView {
+extension CityWeatherFrontView {
     
     private func fetchBackgroundImage(_ weather: Weather?) async -> UIImage {
         let defaultImage = UIImage(resource: .weatherMorningBright)
@@ -181,7 +180,7 @@ extension CityCurrentWeatherView {
 }
 
 //MARK: - Data processing
-extension CityCurrentWeatherView {
+extension CityWeatherFrontView {
     private func shouldUpdateWeather(prev: Weather?, new: Weather?) -> Bool {
         let oldTemp = prev?.currentWeather.temperature.value ?? 0.0
         let newTemp = new?.currentWeather.temperature.value ?? 0.0
@@ -195,6 +194,5 @@ extension CityCurrentWeatherView {
 }
 
 #Preview {
-    WeatherView(locationManager: LocationManager(locationFetcher: CLLocationManager()),
-                storageManager: FirestoreManager())
+    WeatherView()
 }

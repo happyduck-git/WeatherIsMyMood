@@ -6,6 +6,7 @@
 //
 
 import CoreData
+import ActivityKit
 
 protocol CoreDataObject {
     var persistentContaier: NSPersistentContainer { get }
@@ -14,34 +15,63 @@ protocol CoreDataObject {
     func fetchWeatherCache(condition: String, completion: @escaping (WeatherConditionInfo?) -> ())
 }
 
-final class CoreDataStack: CoreDataObject, ObservableObject {
+final class CoreDataManager: CoreDataObject, ObservableObject {
+    
+    @Published var error: Error?
+    
+    private let weatherEntity = "WeatherConditionInfo"
+    private let currentActivity = "CurrentActivity"
     
     lazy var persistentContaier: NSPersistentContainer = {
-             let container = NSPersistentContainer(name: "Model")
-             
-             // Load any persistent stores, which creates a store if none exists.
-             container.loadPersistentStores { _, error in
-                 if let error {
-                     #if DEBUG
-                     fatalError("Failed to load persistent stores: \(error.localizedDescription)")
-                     #else
-                     print("Failed to load persistent stores: \(error.localizedDescription)")
-                     #endif
-                 }
-             }
-             return container
+        let container = NSPersistentContainer(name: "Model")
+        
+        // Load any persistent stores, which creates a store if none exists.
+        container.loadPersistentStores { _, error in
+            if let error {
+#if DEBUG
+                fatalError("Failed to load persistent stores: \(error.localizedDescription)")
+#else
+                print("Failed to load persistent stores: \(error.localizedDescription)")
+#endif
+            }
+        }
+        return container
     }()
     
     lazy var context: NSManagedObjectContext = self.persistentContaier.viewContext
     
-    private let weatherEntity = "WeatherConditionInfo"
 }
 
-extension CoreDataStack {
+extension CoreDataManager {
+
+    func save<T: NSManagedObject>(_ data: T) {
+        self.context.insert(data)
+        if self.context.hasChanges {
+            do {
+                try self.context.save()
+            }
+            catch {
+                self.error = CoreDataError.saveNotSuccess
+            }
+        }
+    }
+    
+    func delete<T: NSManagedObject>(_ data: T) {
+        self.context.delete(data)
+        do {
+            try self.context.save()
+        }
+        catch {
+            self.error = CoreDataError.saveNotSuccess
+        }
+    }
+}
+
+extension CoreDataManager {
     func saveWeatherCache(_ info: WeatherContent) {
         
         let _ = NSEntityDescription.entity(forEntityName: self.weatherEntity,
-                                                in: self.context)
+                                           in: self.context)
         
         let weather = WeatherConditionInfo(context: self.context)
         weather.backgroundImage = info.imageData
@@ -76,5 +106,12 @@ extension CoreDataStack {
         catch {
             completion(nil)
         }
+    }
+}
+
+extension CoreDataManager {
+    enum CoreDataError: Error {
+        case saveNotSuccess
+        case deleteNotSuccess
     }
 }

@@ -9,32 +9,26 @@ import Foundation
 import Alamofire
 
 protocol NetworkClient {
-    func request(urlString: String, method: HTTPMethod) -> DataRequest
+    func request(urlString: String, method: HTTPMethod, parameters: Parameters?, headers: HTTPHeaders?) -> DataRequest
     func fetchData<T: Decodable>(urlString: String) async -> Result<T, AFError>
 }
 
-protocol AlamofirePrototype {
-    typealias RequestModifier = (inout URLRequest) throws -> Void
-    func request(_ convertible: URLConvertible,
-                 method: HTTPMethod,
-                 parameters: Parameters?,
-                 encoding: ParameterEncoding,
-                 headers: HTTPHeaders?,
-                 interceptor: RequestInterceptor?,
-                 requestModifier: RequestModifier?) -> DataRequest
-}
-
-extension Session: AlamofirePrototype {}
-
-struct NetworkManager: NetworkClient {
-    let alamofire: AlamofirePrototype
+final class NetworkManager: NetworkClient, ObservableObject {
+    let session: Session
     
-    func request(urlString: String, method: HTTPMethod) -> DataRequest {
-        return alamofire.request(urlString,
+    init(session: Session) {
+        self.session = session
+    }
+    
+}
+extension NetworkManager {
+    
+    func request(urlString: String, method: HTTPMethod, parameters: Parameters? = nil, headers: HTTPHeaders? = nil) -> DataRequest {
+        return session.request(urlString,
                            method: method,
-                           parameters: nil,
+                           parameters: parameters,
                            encoding: URLEncoding.default,
-                           headers: nil,
+                           headers: headers,
                            interceptor: nil,
                            requestModifier: nil)
     }

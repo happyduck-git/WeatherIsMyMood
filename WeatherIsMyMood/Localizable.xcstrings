@@ -39,6 +39,16 @@
         }
       }
     },
+    "%@-- count: %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@-- count: %2$lld"
+          }
+        }
+      }
+    },
     "%lf" : {
 
     },
@@ -63,6 +73,9 @@
           }
         }
       }
+    },
+    "Activities" : {
+
     },
     "Air quality" : {
       "localizations" : {
@@ -130,6 +143,12 @@
         }
       }
     },
+    "Background" : {
+
+    },
+    "Cancel" : {
+
+    },
     "Cannot bring air quality.." : {
       "localizations" : {
         "ko" : {
@@ -173,6 +192,9 @@
           }
         }
       }
+    },
+    "Change" : {
+
     },
     "City" : {
       "localizations" : {
@@ -1044,6 +1066,12 @@
         }
       }
     },
+    "Reset" : {
+
+    },
+    "Select Color" : {
+
+    },
     "Show less" : {
       "localizations" : {
         "ko" : {
@@ -1132,6 +1160,9 @@
         }
       }
     },
+    "System Color" : {
+
+    },
     "Tap on an icon you like \nand see how it looks on dynamic island!" : {
       "localizations" : {
         "ko" : {
@@ -1176,6 +1207,9 @@
           }
         }
       }
+    },
+    "Text" : {
+
     },
     "Today" : {
       "localizations" : {

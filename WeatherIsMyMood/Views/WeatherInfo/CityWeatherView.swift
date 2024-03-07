@@ -7,20 +7,14 @@
 
 import SwiftUI
 import WeatherKit
-import CoreLocation
 import Alamofire
 
 struct CityWeatherView: View {
-    
-    /* Data */
-    let fireStoreManager: FirestoreManager
     
     //MARK: - Properties
     @Binding var weather: Weather?
     @Binding var cityName: String
     @Binding var aqList: [AQList]
-    
-    @State var isFirstFlip: Bool = true
     
     /* View Degree */
     @State var backDegree = 0.0
@@ -50,10 +44,9 @@ struct CityWeatherView: View {
                 }
             }
             
-            CityCurrentWeatherView(fireStoreManager: self.fireStoreManager,
-                                   weather: self.$weather,
-                                   cityName: self.$cityName,
-                                   degree: $backDegree)
+            CityWeatherFrontView(weather: self.$weather,
+                                 cityName: self.$cityName,
+                                 degree: $backDegree)
         
             CityWeatherBackView(degree: $frontDegree,
                                 aqList: $aqList)

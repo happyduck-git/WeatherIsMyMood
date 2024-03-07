@@ -7,14 +7,17 @@
 
 import Foundation
 import ActivityKit
-import UIKit.UIImage
+import UIKit
+import SwiftUI
 
 struct WeatherAttributes: ActivityAttributes {
-//    typealias WeatherAttributes = ContentState
+
+    let isSystemSetting: Bool
+    let bgColor: Color
+    let textColor: Color
+    let icon: Data
     
     struct ContentState: Codable & Hashable {
-        // Live Activities Will be Updated Its View When Content State is Updated.
-        let icon: Data
         let temperature: String
     }
 }
