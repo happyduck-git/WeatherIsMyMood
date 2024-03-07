@@ -188,6 +188,7 @@
 		243465F22B5A69B600511D78 /* WeatherWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherWidget.swift; sourceTree = "<group>"; };
 		243465F42B5A69CD00511D78 /* WeatherAppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAppIntent.swift; sourceTree = "<group>"; };
 		243465F72B5A6EA300511D78 /* WeatherTimelineProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTimelineProvider.swift; sourceTree = "<group>"; };
+		243A98BA2B9989F80043DDC3 /* ci_post_clone.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_post_clone.sh; sourceTree = "<group>"; };
 		2457E9622B7C9FF60093BB2C /* BackgroundTimeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundTimeManager.swift; sourceTree = "<group>"; };
 		2457E9662B7EF8940093BB2C /* sun_color.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sun_color.json; sourceTree = "<group>"; };
 		2457E9672B7EF8940093BB2C /* sun.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sun.json; sourceTree = "<group>"; };
@@ -328,6 +329,7 @@
 		2430861C2B23FE86006C78E9 = {
 			isa = PBXGroup;
 			children = (
+				243A98B92B9984FE0043DDC3 /* ci_scripts */,
 				249138322B6FCA1800D2E744 /* WeatherIsMyMood.xctestplan */,
 				245871472B5BE94C00FB9BA1 /* WeatherWidgetExtension.entitlements */,
 				24A0CA702B4F916B00635FB8 /* README.md */,
@@ -404,6 +406,14 @@
 				243086452B23FE8A006C78E9 /* WeatherIsMyMoodUITestsLaunchTests.swift */,
 			);
 			path = WeatherIsMyMoodUITests;
+			sourceTree = "<group>";
+		};
+		243A98B92B9984FE0043DDC3 /* ci_scripts */ = {
+			isa = PBXGroup;
+			children = (
+				243A98BA2B9989F80043DDC3 /* ci_post_clone.sh */,
+			);
+			path = ci_scripts;
 			sourceTree = "<group>";
 		};
 		2457E9652B7EF8610093BB2C /* Lottie */ = {
