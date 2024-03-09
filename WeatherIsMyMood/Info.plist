@@ -7,14 +7,12 @@
 		<string>com.gghoneycomb.WeatherIsMyMood.bg_test</string>
 		<string>com.gghoneycomb.WeatherIsMyMood.bg_weather_update</string>
 	</array>
+	<key>NSUserActivityTypes</key>
+	<array>
+		<string>WeatherSelectionIntent</string>
+	</array>
 	<key>OPEN_WEATHER_API_KEY</key>
 	<string>$(OPEN_WEATHER_API_KEY)</string>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>fetch</string>
-		<string>location</string>
-		<string>processing</string>
-	</array>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
