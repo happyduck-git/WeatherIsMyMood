@@ -109,6 +109,7 @@
 		24A66E052B274ACB00B348CC /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 24A66E042B274ACB00B348CC /* FirebaseStorage */; };
 		24A66E072B274ACB00B348CC /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 24A66E062B274ACB00B348CC /* FirebaseStorageCombine-Community */; };
 		24A66E092B275FB200B348CC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24A66E082B275FB200B348CC /* GoogleService-Info.plist */; };
+		24A9C6E42B9C357B00E5E3A6 /* AirQualityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A9C6E32B9C357B00E5E3A6 /* AirQualityManager.swift */; };
 		24C561952B5C223A004BDEBB /* ExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C561942B5C223A004BDEBB /* ExtensionTests.swift */; };
 		24C7D98C2B26145000453434 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7D98B2B26145000453434 /* AppColors.swift */; };
 		24C7D98E2B26160E00453434 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7D98D2B26160E00453434 /* Color+Extension.swift */; };
@@ -244,6 +245,7 @@
 		24A66DF42B2711A600B348CC /* LiveActivityPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityPreviewView.swift; sourceTree = "<group>"; };
 		24A66E022B2749E900B348CC /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
 		24A66E082B275FB200B348CC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		24A9C6E32B9C357B00E5E3A6 /* AirQualityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirQualityManager.swift; sourceTree = "<group>"; };
 		24C561942B5C223A004BDEBB /* ExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionTests.swift; sourceTree = "<group>"; };
 		24C7D98B2B26145000453434 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
 		24C7D98D2B26160E00453434 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
@@ -536,6 +538,7 @@
 				2457E9622B7C9FF60093BB2C /* BackgroundTimeManager.swift */,
 				2457E9782B7F562E0093BB2C /* CoreDataManager.swift */,
 				248BEE642B81928E00C16082 /* NetworkManager.swift */,
+				24A9C6E32B9C357B00E5E3A6 /* AirQualityManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -812,6 +815,7 @@
 				240D07652B8DEAF900848FE0 /* UserAttributes.swift in Sources */,
 				24A66DED2B269F1400B348CC /* UIScreen+Extensions.swift in Sources */,
 				248BEE6A2B819BCF00C16082 /* EnvironmentConfig.swift in Sources */,
+				24A9C6E42B9C357B00E5E3A6 /* AirQualityManager.swift in Sources */,
 				248E3F472B25769E001B10C3 /* HourlyForcastView.swift in Sources */,
 				247213002B28C4AD009A6DE5 /* View+Extensions.swift in Sources */,
 				248E3F452B249369001B10C3 /* LocationManager.swift in Sources */,

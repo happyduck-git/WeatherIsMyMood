@@ -14,7 +14,7 @@ struct WeatherView: View {
     
     @EnvironmentObject private var locationManager: LocationManager
     @EnvironmentObject private var storageManager: FirestoreManager
-    @EnvironmentObject private var networkManager: NetworkManager
+    @EnvironmentObject private var networkManager: AirQualityManager
     private let weatherService = WeatherService.shared
     
     @State private var aqiList: [AQList] = []

@@ -9,20 +9,14 @@ import Foundation
 import Alamofire
 
 protocol NetworkClient {
+    var session: Session { get }
+    var baseURL: String { get }
     func request(urlString: String, method: HTTPMethod, parameters: Parameters?, headers: HTTPHeaders?) -> DataRequest
     func fetchData<T: Decodable>(urlString: String) async -> Result<T, AFError>
 }
 
-final class NetworkManager: NetworkClient, ObservableObject {
-    let session: Session
-    
-    init(session: Session) {
-        self.session = session
-    }
-    
-}
-extension NetworkManager {
-    
+extension NetworkClient {
+
     func request(urlString: String, method: HTTPMethod, parameters: Parameters? = nil, headers: HTTPHeaders? = nil) -> DataRequest {
         return session.request(urlString,
                            method: method,
