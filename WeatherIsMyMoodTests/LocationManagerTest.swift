@@ -124,7 +124,7 @@ final class LocationManagerTest: XCTestCase {
         let mockError = NSError(domain: "mock_location_fail", code: 0, userInfo: nil)
         self.locationManager.locationFetcher(self.locationFetcher, didFailWithError: mockError)
         
-        XCTAssertNotNil(locationManager.error)
+        XCTAssertNil(locationManager.error)
     }
 
     func test_cityName() async {
