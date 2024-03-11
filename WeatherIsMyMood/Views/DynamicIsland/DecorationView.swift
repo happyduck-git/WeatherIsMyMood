@@ -21,6 +21,7 @@ struct DecorationView: View {
     @EnvironmentObject private var storageManager: FirestoreManager
     private let weatherService = WeatherService.shared
     
+    @State private var loadStaus: LoadStatus = .notRequested
     @State private var isFirstLoading: Bool = true
     @State private var isLoading: Bool = false
     @State private var settingInProgress: Bool = false
@@ -38,17 +39,7 @@ struct DecorationView: View {
     
     var body: some View {
         NavigationView {
-            ZStack {
-                self.makeScrollView()
-                
-                if isLoading {
-                    LoadingView(filename: "sun_color")
-                }
-                
-                if settingInProgress {
-                    LoadingView(filename: "setting")
-                }
-            }
+            self.content
             .toolbarBackground(Color(ColorConstants.main), for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
             .toolbar {
@@ -94,6 +85,7 @@ struct DecorationView: View {
                     } else {
                         self.previousWeather = self.weather
                     }
+                    self.loadStaus = .loaded
                 }
                 catch {
                     print("Error fething weather from location -- \(error)")
@@ -115,6 +107,11 @@ struct DecorationView: View {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     self.settingInProgress = false
                 }
+            }
+        }
+        .onReceive(self.locationManager.$error) {
+            if let err = $0 {
+                self.loadStaus = .failed(err)
             }
         }
     }
@@ -161,9 +158,43 @@ extension DecorationView {
     }
 }
 
+//MARK: - UI Contents
 extension DecorationView {
+    @ViewBuilder
+    private var content: some View {
+        switch self.loadStaus {
+        case .notRequested:
+            notRequestedView
+        case .loaded:
+            loadedView
+        case let .failed(error):
+            errorView(error)
+        }
+    }
     
-    private func makeScrollView() -> some View {
+    var notRequestedView: some View {
+        Text("")
+    }
+    
+    var loadedView: some View {
+        ZStack {
+            mainView
+            if isLoading {
+                LoadingView(filename: "sun_color")
+            }
+            if settingInProgress {
+                LoadingView(filename: "setting")
+            }
+        }
+    }
+    
+    private func errorView(_ err: Error) -> some View {
+        ErrorView(error: err) {
+            self.isLoading = true
+        }
+    }
+    
+    private var mainView: some View {
         return ScrollView {
             
             LiveActivityToggleView(isSystemSetting: self.$isSystemSetting,

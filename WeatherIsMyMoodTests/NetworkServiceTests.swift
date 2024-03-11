@@ -11,13 +11,21 @@ import Alamofire
 
 final class NetworkManagerTests: XCTestCase {
 
-    var networkManager: NetworkClient!
-    let urlString = "https://api.openweathermap.org/data/2.5/air_pollution/forecast?lat=123&lon=123&appid=12345"
+    var networkManager: NetworkService!
+    class MockNetworkManager: NetworkService {
+        var session: Alamofire.Session
+        var baseURL: String = "https://api.openweathermap.org/data/2.5/air_pollution/forecast?lat=123&lon=123&appid=12345"
+        
+        init(session: Alamofire.Session) {
+            self.session = session
+        }
+    }
+    
     override func setUpWithError() throws {
         
         let sessionConfig = URLSessionConfiguration.default
         sessionConfig.protocolClasses = [MockURLProtocol.self]
-        networkManager = NetworkManager(session: Session(configuration: sessionConfig))
+        networkManager = MockNetworkManager(session: Session(configuration: sessionConfig))
     }
     
     override func tearDownWithError() throws {
@@ -27,7 +35,7 @@ final class NetworkManagerTests: XCTestCase {
     func test_fetchData() async {
         MockURLProtocol.responseWithStatusCode(code: 200)
         MockURLProtocol.responseWithDTO(type: .aqi)
-        let response: Result<AirQuality, AFError> = await networkManager.fetchData(urlString: urlString)
+        let response: Result<AirQuality, AFError> = await networkManager.fetchData(urlString: networkManager.baseURL)
         switch response {
         case .success(let success):
             XCTAssertEqual(success.list.count, 2)

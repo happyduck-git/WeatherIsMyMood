@@ -62,6 +62,8 @@ enum WeatherConstants {
     static let pm2_5 = String(localized: "PM-2.5")
     static let o3 = String(localized: "Ozone")
     static let co = String(localized: "Carbon monoxide")
+    static let retry = String(localized: "Retry")
+    static let locationError = String(localized: "We cannot use your location.\nPlease go to Settings \nand give permission to us\nso that we can provide you weather services!")
 }
 
 enum DecoConstants {

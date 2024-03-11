@@ -13,7 +13,7 @@
 		241A803E2B29E04100706BB8 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 241A803D2B29E04000706BB8 /* Localizable.xcstrings */; };
 		241A80432B2A156500706BB8 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 241A80422B2A156500706BB8 /* Launch Screen.storyboard */; };
 		241A80472B2A177F00706BB8 /* Muli-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 241A80462B2A177F00706BB8 /* Muli-Black.ttf */; };
-		2423779A2B8F5B2100CC8EF7 /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242377992B8F5B2100CC8EF7 /* NetworkManagerTests.swift */; };
+		2423779A2B8F5B2100CC8EF7 /* NetworkServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242377992B8F5B2100CC8EF7 /* NetworkServiceTests.swift */; };
 		2423779D2B8F88D700CC8EF7 /* aqi_mock_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 2423779C2B8F88D700CC8EF7 /* aqi_mock_response.json */; };
 		2423779E2B8F904100CC8EF7 /* aqi_mock_response.json in Resources */ = {isa = PBXBuildFile; fileRef = 2423779C2B8F88D700CC8EF7 /* aqi_mock_response.json */; };
 		242377A02B90C73A00CC8EF7 /* Optionial+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2423779F2B90C73A00CC8EF7 /* Optionial+Extensions.swift */; };
@@ -68,9 +68,11 @@
 		247212FB2B2841D5009A6DE5 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247212FA2B2841D5009A6DE5 /* UIImage+Extensions.swift */; };
 		247212FE2B28B2FA009A6DE5 /* StorageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247212FD2B28B2FA009A6DE5 /* StorageCacheManager.swift */; };
 		247213002B28C4AD009A6DE5 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247212FF2B28C4AD009A6DE5 /* View+Extensions.swift */; };
+		2474B47D2B9C8F89006F919D /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2474B47C2B9C8F89006F919D /* ErrorView.swift */; };
+		2474B47F2B9EBF86006F919D /* Loadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2474B47E2B9EBF85006F919D /* Loadable.swift */; };
 		247553ED2B8327E5007B92BB /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 249615462B831CD20059817E /* Config.xcconfig */; };
 		247553EE2B832816007B92BB /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 249615462B831CD20059817E /* Config.xcconfig */; };
-		248BEE652B81928E00C16082 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248BEE642B81928E00C16082 /* NetworkManager.swift */; };
+		248BEE652B81928E00C16082 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248BEE642B81928E00C16082 /* NetworkService.swift */; };
 		248BEE682B81941E00C16082 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 248BEE672B81941E00C16082 /* Alamofire */; };
 		248BEE6A2B819BCF00C16082 /* EnvironmentConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248BEE692B819BCF00C16082 /* EnvironmentConfig.swift */; };
 		248BEE6C2B819C5200C16082 /* AirQuality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248BEE6B2B819C5200C16082 /* AirQuality.swift */; };
@@ -109,6 +111,7 @@
 		24A66E052B274ACB00B348CC /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 24A66E042B274ACB00B348CC /* FirebaseStorage */; };
 		24A66E072B274ACB00B348CC /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 24A66E062B274ACB00B348CC /* FirebaseStorageCombine-Community */; };
 		24A66E092B275FB200B348CC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24A66E082B275FB200B348CC /* GoogleService-Info.plist */; };
+		24A9C6E42B9C357B00E5E3A6 /* AirQualityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A9C6E32B9C357B00E5E3A6 /* AirQualityManager.swift */; };
 		24C561952B5C223A004BDEBB /* ExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C561942B5C223A004BDEBB /* ExtensionTests.swift */; };
 		24C7D98C2B26145000453434 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7D98B2B26145000453434 /* AppColors.swift */; };
 		24C7D98E2B26160E00453434 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7D98D2B26160E00453434 /* Color+Extension.swift */; };
@@ -160,7 +163,7 @@
 		241A803D2B29E04000706BB8 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		241A80422B2A156500706BB8 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		241A80462B2A177F00706BB8 /* Muli-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Muli-Black.ttf"; sourceTree = "<group>"; };
-		242377992B8F5B2100CC8EF7 /* NetworkManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
+		242377992B8F5B2100CC8EF7 /* NetworkServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceTests.swift; sourceTree = "<group>"; };
 		2423779C2B8F88D700CC8EF7 /* aqi_mock_response.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = aqi_mock_response.json; sourceTree = "<group>"; };
 		2423779F2B90C73A00CC8EF7 /* Optionial+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optionial+Extensions.swift"; sourceTree = "<group>"; };
 		242377A12B915B4700CC8EF7 /* setting.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = setting.json; sourceTree = "<group>"; };
@@ -217,7 +220,9 @@
 		247212FA2B2841D5009A6DE5 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		247212FD2B28B2FA009A6DE5 /* StorageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageCacheManager.swift; sourceTree = "<group>"; };
 		247212FF2B28C4AD009A6DE5 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
-		248BEE642B81928E00C16082 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		2474B47C2B9C8F89006F919D /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		2474B47E2B9EBF85006F919D /* Loadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loadable.swift; sourceTree = "<group>"; };
+		248BEE642B81928E00C16082 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		248BEE692B819BCF00C16082 /* EnvironmentConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentConfig.swift; sourceTree = "<group>"; };
 		248BEE6B2B819C5200C16082 /* AirQuality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirQuality.swift; sourceTree = "<group>"; };
 		248BEE6F2B81FD4E00C16082 /* CityWeatherBackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityWeatherBackView.swift; sourceTree = "<group>"; };
@@ -244,6 +249,7 @@
 		24A66DF42B2711A600B348CC /* LiveActivityPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityPreviewView.swift; sourceTree = "<group>"; };
 		24A66E022B2749E900B348CC /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
 		24A66E082B275FB200B348CC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		24A9C6E32B9C357B00E5E3A6 /* AirQualityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirQualityManager.swift; sourceTree = "<group>"; };
 		24C561942B5C223A004BDEBB /* ExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionTests.swift; sourceTree = "<group>"; };
 		24C7D98B2B26145000453434 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
 		24C7D98D2B26160E00453434 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
@@ -392,7 +398,7 @@
 				24C561942B5C223A004BDEBB /* ExtensionTests.swift */,
 				243021482B5EA6D200580960 /* LocationManagerTest.swift */,
 				243021542B640F4200580960 /* NSCacheManagerTests.swift */,
-				242377992B8F5B2100CC8EF7 /* NetworkManagerTests.swift */,
+				242377992B8F5B2100CC8EF7 /* NetworkServiceTests.swift */,
 			);
 			path = WeatherIsMyMoodTests;
 			sourceTree = "<group>";
@@ -491,6 +497,7 @@
 			children = (
 				247212D62B2822E7009A6DE5 /* LoadingView.swift */,
 				2457E96A2B7EF8CB0093BB2C /* LottieView.swift */,
+				2474B47C2B9C8F89006F919D /* ErrorView.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -535,7 +542,8 @@
 				247212FD2B28B2FA009A6DE5 /* StorageCacheManager.swift */,
 				2457E9622B7C9FF60093BB2C /* BackgroundTimeManager.swift */,
 				2457E9782B7F562E0093BB2C /* CoreDataManager.swift */,
-				248BEE642B81928E00C16082 /* NetworkManager.swift */,
+				248BEE642B81928E00C16082 /* NetworkService.swift */,
+				24A9C6E32B9C357B00E5E3A6 /* AirQualityManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -571,6 +579,7 @@
 				24C7D98B2B26145000453434 /* AppColors.swift */,
 				241A803A2B29AD7800706BB8 /* WidgetConstants.swift */,
 				243021512B640C6600580960 /* StructWrapper.swift */,
+				2474B47E2B9EBF85006F919D /* Loadable.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -776,7 +785,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				248BEE652B81928E00C16082 /* NetworkManager.swift in Sources */,
+				248BEE652B81928E00C16082 /* NetworkService.swift in Sources */,
 				243021522B640C6600580960 /* StructWrapper.swift in Sources */,
 				2457E96B2B7EF8CB0093BB2C /* LottieView.swift in Sources */,
 				248E3F542B25B1DE001B10C3 /* SearchView.swift in Sources */,
@@ -786,6 +795,7 @@
 				247212DA2B282CBF009A6DE5 /* WeatherAttributes.swift in Sources */,
 				2457E9762B7F54980093BB2C /* WeatherConditionInfo+CoreDataClass.swift in Sources */,
 				24C7D98C2B26145000453434 /* AppColors.swift in Sources */,
+				2474B47D2B9C8F89006F919D /* ErrorView.swift in Sources */,
 				247212D72B2822E7009A6DE5 /* LoadingView.swift in Sources */,
 				249871712B2967F000580566 /* Double+Extensions.swift in Sources */,
 				247212F92B2837F0009A6DE5 /* LiveActivityToggleView.swift in Sources */,
@@ -804,6 +814,7 @@
 				2457E9792B7F562E0093BB2C /* CoreDataManager.swift in Sources */,
 				248E3F492B258120001B10C3 /* TenDayForcastView.swift in Sources */,
 				242377A02B90C73A00CC8EF7 /* Optionial+Extensions.swift in Sources */,
+				2474B47F2B9EBF86006F919D /* Loadable.swift in Sources */,
 				24C7D98E2B26160E00453434 /* Color+Extension.swift in Sources */,
 				248E3F562B25B3CC001B10C3 /* SunTimeView.swift in Sources */,
 				248BEE742B81FFA100C16082 /* CityWeatherView.swift in Sources */,
@@ -812,6 +823,7 @@
 				240D07652B8DEAF900848FE0 /* UserAttributes.swift in Sources */,
 				24A66DED2B269F1400B348CC /* UIScreen+Extensions.swift in Sources */,
 				248BEE6A2B819BCF00C16082 /* EnvironmentConfig.swift in Sources */,
+				24A9C6E42B9C357B00E5E3A6 /* AirQualityManager.swift in Sources */,
 				248E3F472B25769E001B10C3 /* HourlyForcastView.swift in Sources */,
 				247213002B28C4AD009A6DE5 /* View+Extensions.swift in Sources */,
 				248E3F452B249369001B10C3 /* LocationManager.swift in Sources */,
@@ -836,7 +848,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2423779A2B8F5B2100CC8EF7 /* NetworkManagerTests.swift in Sources */,
+				2423779A2B8F5B2100CC8EF7 /* NetworkServiceTests.swift in Sources */,
 				2430863A2B23FE8A006C78E9 /* WeatherIsMyMoodTests.swift in Sources */,
 				243021492B5EA6D200580960 /* LocationManagerTest.swift in Sources */,
 				24C561952B5C223A004BDEBB /* ExtensionTests.swift in Sources */,

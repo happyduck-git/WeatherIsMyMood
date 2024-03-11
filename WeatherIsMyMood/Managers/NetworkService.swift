@@ -1,5 +1,5 @@
 //
-//  NetworkManager.swift
+//  NetworkService.swift
 //  WeatherIsMyMood
 //
 //  Created by HappyDuck on 2/18/24.
@@ -8,21 +8,15 @@
 import Foundation
 import Alamofire
 
-protocol NetworkClient {
+protocol NetworkService {
+    var session: Session { get }
+    var baseURL: String { get }
     func request(urlString: String, method: HTTPMethod, parameters: Parameters?, headers: HTTPHeaders?) -> DataRequest
     func fetchData<T: Decodable>(urlString: String) async -> Result<T, AFError>
 }
 
-final class NetworkManager: NetworkClient, ObservableObject {
-    let session: Session
-    
-    init(session: Session) {
-        self.session = session
-    }
-    
-}
-extension NetworkManager {
-    
+extension NetworkService {
+
     func request(urlString: String, method: HTTPMethod, parameters: Parameters? = nil, headers: HTTPHeaders? = nil) -> DataRequest {
         return session.request(urlString,
                            method: method,

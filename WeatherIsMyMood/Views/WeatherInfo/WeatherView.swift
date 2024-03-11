@@ -9,14 +9,15 @@ import SwiftUI
 import WeatherKit
 import CoreLocation
 import Alamofire
+import Combine
 
 struct WeatherView: View {
     
     @EnvironmentObject private var locationManager: LocationManager
     @EnvironmentObject private var storageManager: FirestoreManager
-    @EnvironmentObject private var networkManager: NetworkManager
     private let weatherService = WeatherService.shared
     
+    @State private var loadStaus: LoadStatus = .loaded
     @State private var aqiList: [AQList] = []
     @State private var isFirstLoading = true
     @State private var isLoading = false
@@ -27,16 +28,12 @@ struct WeatherView: View {
     @State private var cityName: String = ""
     @State private var searchedCityName: String = ""
     @State private var locationFound: Bool = true
-
+    private var errorPublisher = PassthroughSubject<Error, Never>()
+    
+    //MARK: - UI
     var body: some View {
         NavigationView {
-            ZStack {
-                self.makeScrollView()
-                
-                if isLoading {
-                    LoadingView(filename: "sun_color")
-                }
-            }
+            self.content
             .toolbarBackground(Color(ColorConstants.main), for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
             .toolbar(content: {
@@ -56,37 +53,7 @@ struct WeatherView: View {
             }
         }
         .task(id: locationManager.currentLocation) {
-            self.location = locationManager.currentLocation
-            
-            if let location = self.location {
-                #if DEBUG
-                print("Loc on weatherView: \(location.coordinate.latitude)")
-                #endif
-                do {
-                    async let weather = weatherService.weather(for: location)
-                    async let attribution = weatherService.attribution
-                    async let cityName = locationManager.cityName(at: location)
-                    async let aqList = self.fetchAirQualityPrediction(location: location)
-                    
-                    self.weather = try await weather
-                    self.attribution = try await attribution
-                    self.hourlyWeatherData = self.filterHours(of: self.weather?.hourlyForecast, count: 24)
-                    self.aqiList = await aqList
-                    
-                    if let unwrappedCityName = await cityName {
-                        self.cityName = unwrappedCityName
-                    } else {
-                        self.locationFound = false
-                    }
-                    
-                    self.isLoading = false
-                }
-                catch {
-                    print(error)
-                }
-            } else {
-                print("Current location found to be nil!")
-            }
+            await self.fetchData()
         }
         .onTapGesture {
             self.endTextEditing()
@@ -94,13 +61,62 @@ struct WeatherView: View {
         .onChange(of: self.searchedCityName, perform: { _ in
             self.locationFound = true
         })
-        
+        .onChange(of: self.locationFound, perform: {
+            if !$0 {
+                self.isLoading = false
+            }
+        })
+        .onReceive(self.errorPublisher) {
+            self.loadStaus = .failed($0)
+        }
+        .onReceive(self.locationManager.$error) {
+            if let err = $0 {
+                self.loadStaus = .failed(err)
+            }
+        }
     }
     
 }
 
+//MARK: - UI Contents
 extension WeatherView {
-    private func makeScrollView() -> some View {
+    
+    @ViewBuilder
+    private var content: some View {
+        switch self.loadStaus {
+        case .notRequested:
+            notRequestedView
+        case .loaded:
+            loadedView
+        case let .failed(error):
+            errorView(error)
+        }
+    }
+    
+    private var notRequestedView: some View {
+        Text("")
+    }
+    
+    private var loadedView: some View {
+        ZStack {
+            mainView
+            if isLoading {
+                LoadingView(filename: "sun_color")
+            }
+        }
+    }
+    
+    private func errorView(_ err: Error) -> some View {
+        ErrorView(error: err) {
+            self.loadStaus = .loaded
+            self.isLoading = true
+            Task {
+                await self.fetchData()
+            }
+        }
+    }
+    
+    private var mainView: some View {
         ScrollView(.vertical) {
             LazyVStack(pinnedViews: [.sectionHeaders]) {
                 Section {
@@ -110,7 +126,7 @@ extension WeatherView {
                             .foregroundStyle(.red.opacity(0.9))
                             .padding()
                     }
-
+                    
                     if weather != nil {
                         CityWeatherView(weather: $weather,
                                         cityName: $cityName,
@@ -123,7 +139,7 @@ extension WeatherView {
                             .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
                         
                         //NOTE: Need to be delivered in the next version.
-//                        AirQualityView(aqList: $aqiList)
+                        //                        AirQualityView(aqList: $aqiList)
                         
                         HourlyPrecipitationChartView(hourWeatherList: self.$hourlyWeatherData)
                         
@@ -159,31 +175,43 @@ extension WeatherView {
     }
 }
 
+//MARK: - Fetch necessary data
 extension WeatherView {
     
-    /// Fetch air quality predictions
-    /// - Parameter location: Current location
-    /// - Returns: Air quality list
-    private func fetchAirQualityPrediction(location: CLLocation) async -> [AQList] {
-        let lat = location.coordinate.latitude
-        let lon = location.coordinate.longitude
+    private func fetchData() async {
+        self.location = locationManager.currentLocation
         
-        let urlString = "https://api.openweathermap.org/data/2.5/air_pollution/forecast?lat=\(lat)&lon=\(lon)&appid=\(EnvironmentConfig.openWeatherApiKey)"
-        let result: Result<AirQuality, AFError> = await self.networkManager.fetchData(urlString: urlString)
-        
-        switch result {
-        case .success(let result):
-            return result.list
-        case .failure(let failure):
-            #if DEBUG
-            print("Error: -- \(failure)")
-            #endif
-            return []
+        if let location = self.location {
+#if DEBUG
+            print("Loc on weatherView: \(location.coordinate.latitude)")
+#endif
+            do {
+                async let weather = weatherService.weather(for: location)
+                async let attribution = weatherService.attribution
+                async let cityName = locationManager.cityName(at: location)
+                
+                self.weather = try await weather
+                self.attribution = try await attribution
+                self.hourlyWeatherData = self.filterHours(of: self.weather?.hourlyForecast, count: 24)
+                
+                if let unwrappedCityName = await cityName {
+                    self.cityName = unwrappedCityName
+                } else {
+                    self.locationFound = false
+                }
+                
+                self.isLoading = false
+            }
+            catch {
+                self.errorPublisher.send(error)
+                self.isLoading = false
+                print("Catched weather error: \(error)")
+            }
+        } else {
+            print("Current location found to be nil!")
         }
     }
-}
-
-extension WeatherView {
+    
     private func updateLocationStatus(to city: String) async {
         if !city.isEmpty {
             self.isLoading = true
@@ -201,7 +229,7 @@ extension WeatherView {
         await self.locationManager.requestOnTimeLocation()
         await self.updateLocationStatus(to: self.locationManager.cityName ?? "Seoul")
     }
-
+    
     private func filterHours(of hourlyWeathers: Forecast<HourWeather>?, count: Int) -> [HourWeather] {
         guard let weathers = hourlyWeathers else { return [] }
         guard let roundedCurrentDate = roundDownToNearestHour(Date()) else { return [] }
@@ -212,13 +240,13 @@ extension WeatherView {
             }.prefix(count)
         )
     }
-        
-        // Round down to nearest hour (including current hour).
-        private func roundDownToNearestHour(_ date: Date) -> Date? {
-            let calendar = Calendar.current
-            let components = calendar.dateComponents([.year, .month, .day, .hour], from: date)
-            return calendar.date(from: components)
-        }
+    
+    // Round down to nearest hour (including current hour).
+    private func roundDownToNearestHour(_ date: Date) -> Date? {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.year, .month, .day, .hour], from: date)
+        return calendar.date(from: components)
+    }
 }
 
 #Preview {
