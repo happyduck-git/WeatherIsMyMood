@@ -125,7 +125,11 @@ extension WeatherIsMyMoodApp {
     //MARK: - Handle BG Task
     private func handleAppRefreshTask() async {
         self.scheduleBgAppRefreshTask()
-        guard let location = self.locationManager.currentLocation else { return }
+        guard let location = self.locationManager.currentLocation else {
+            print("Current location not found")
+            return
+        }
+        print("BG location: \(location.altitude)")
         do {
             let weather = try await WeatherService.shared.weather(for: location)
             NotificationCenter.default.post(name: Notification.Name(NotificationKeys.backgroundUpdate), object: weather)
@@ -143,10 +147,8 @@ extension WeatherIsMyMoodApp {
     private func checkSavedBackgroundTasks() {
         let savedCount = UserDefaults.standard.integer(forKey: "app_refresh_demo")
         let savedWeather = UserDefaults.standard.string(forKey: "app_refresh_weather")
-#if DEBUG
         print("Saved Count in BG: \(savedCount)")
         print("Saved weather in BG: \(String(describing: savedWeather))")
-#endif
     }
 }
 

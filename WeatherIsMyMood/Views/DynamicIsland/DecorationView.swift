@@ -35,12 +35,20 @@ struct DecorationView: View {
     @State private var newIcon: Data?
     @State private var updateNeeded: Bool = false
     @State private var isConfirmed: Bool = true
+    @State private var error: Error? = nil
     
     var body: some View {
         NavigationView {
             ZStack {
-                self.makeScrollView()
                 
+                if let err = self.error {
+                    ErrorView(error: err) {
+                        self.error = nil
+                    }
+                } else {
+                    self.makeScrollView()
+                }
+
                 if isLoading {
                     LoadingView(filename: "sun_color")
                 }
@@ -115,6 +123,12 @@ struct DecorationView: View {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     self.settingInProgress = false
                 }
+            }
+        }
+        .onReceive(self.locationManager.$error) {
+            self.error = $0
+            if $0 != nil {
+                self.isLoading = false
             }
         }
     }

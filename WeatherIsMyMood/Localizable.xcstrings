@@ -1110,6 +1110,9 @@
         }
       }
     },
+    "Retry" : {
+
+    },
     "Select Color" : {
       "localizations" : {
         "ko" : {
@@ -1419,6 +1422,9 @@
           }
         }
       }
+    },
+    "We cannot use your location.\nPlease go to Settings \nand give permission to us\nso that we can provide you weather services!" : {
+
     },
     "Weather" : {
       "localizations" : {

@@ -60,9 +60,6 @@ extension WeatherCondition {
     
     
     static func getWeatherIconName(of condition: String) -> String {
-        #if DEBUG
-        print("Condition: \(condition)")
-        #endif
         guard let condition = WeatherCondition(rawValue: condition) else {
             return "sunny"
         }

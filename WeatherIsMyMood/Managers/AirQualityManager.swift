@@ -9,9 +9,9 @@ import SwiftUI
 import CoreLocation
 import Alamofire
 
-final class AirQualityManager: NetworkClient, ObservableObject {
+final class AirQualityManager: NetworkService, ObservableObject {
     var session: Session
-    var baseURL: String = "https://api.openweathermap.org/data/2.5/air_pollution/forecast?lat=%d&lon=%d&appid=\(EnvironmentConfig.openWeatherApiKey)"
+    var baseURL: String = "https://api.openweathermap.org/data/2.5/air_pollution/forecast?lat=%f&lon=%f&appid=\(EnvironmentConfig.openWeatherApiKey)"
     
     init(session: Session) {
         self.session = session
@@ -23,7 +23,7 @@ extension AirQualityManager {
     /// Fetch air quality predictions
     /// - Parameter location: Current location
     /// - Returns: Air quality list
-    private func fetchAirQualityPrediction(location: CLLocation) async -> [AQList] {
+    func fetchAirQualityPrediction(location: CLLocation) async -> [AQList] {
         let lat = location.coordinate.latitude
         let lon = location.coordinate.longitude
         

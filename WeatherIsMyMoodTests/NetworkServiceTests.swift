@@ -11,8 +11,8 @@ import Alamofire
 
 final class NetworkManagerTests: XCTestCase {
 
-    var networkManager: NetworkClient!
-    class MockNetworkManager: NetworkClient {
+    var networkManager: NetworkService!
+    class MockNetworkManager: NetworkService {
         var session: Alamofire.Session
         var baseURL: String = "https://api.openweathermap.org/data/2.5/air_pollution/forecast?lat=123&lon=123&appid=12345"
         

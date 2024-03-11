@@ -23,6 +23,7 @@ protocol LocationFetcher {
 protocol LocationFetcherDelegate: AnyObject {
     func locationFetcher(_ fetcher: LocationFetcher, didUpdateLocations locations: [CLLocation])
     func locationFetcher(_ fetcher: LocationFetcher, didFailWithError error: Error)
+    func locationFetcher(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus)
 }
 
 protocol GeoCoder {
@@ -99,17 +100,29 @@ extension LocationManager: CLLocationManagerDelegate {
         #endif
         self.locationFetcher(manager, didFailWithError: error)
     }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        self.locationFetcher(manager, didChangeAuthorization: status)
+    }
 
 }
 
 extension LocationManager: LocationFetcherDelegate {
+    func locationFetcher(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .restricted, .denied:
+            self.error = LocationError.notAuthorized
+        default:
+            self.error = nil
+        }
+    }
+    
     func locationFetcher(_ fetcher: LocationFetcher, didUpdateLocations locations: [CLLocation]) {
         self.currentLocation = locations.last
-//        print("Current Loction value: \(self.currentLocation?.coordinate.latitude)")
     }
     
     func locationFetcher(_ fetcher: LocationFetcher, didFailWithError error: Error) {
-        self.error = error
+        print("Location Error: \(error)")
     }
     
 }
@@ -123,3 +136,8 @@ extension CLLocationManager: LocationFetcher {
 }
 
 extension CLGeocoder: GeoCoder {}
+
+enum LocationError: Error {
+    case notAuthorized
+}
+
