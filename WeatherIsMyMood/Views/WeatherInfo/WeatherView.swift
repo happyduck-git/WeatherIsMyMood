@@ -15,9 +15,9 @@ struct WeatherView: View {
     
     @EnvironmentObject private var locationManager: LocationManager
     @EnvironmentObject private var storageManager: FirestoreManager
-    @EnvironmentObject private var aqiManager: AirQualityManager
     private let weatherService = WeatherService.shared
     
+    @State private var loadStaus: LoadStatus = .loaded
     @State private var aqiList: [AQList] = []
     @State private var isFirstLoading = true
     @State private var isLoading = false
@@ -28,29 +28,12 @@ struct WeatherView: View {
     @State private var cityName: String = ""
     @State private var searchedCityName: String = ""
     @State private var locationFound: Bool = true
-    @State private var error: Error? = nil
     private var errorPublisher = PassthroughSubject<Error, Never>()
     
     //MARK: - UI
     var body: some View {
         NavigationView {
-            ZStack {
-                if let err = self.error {
-                    ErrorView(error: err) {
-                        self.error = nil
-                        self.isLoading = true
-                        Task {
-                            await self.fetchData()
-                        }
-                    }
-                } else {
-                    self.makeScrollView()
-                }
-                
-                if isLoading {
-                    LoadingView(filename: "sun_color")
-                }
-            }
+            self.content
             .toolbarBackground(Color(ColorConstants.main), for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
             .toolbar(content: {
@@ -84,20 +67,55 @@ struct WeatherView: View {
             }
         })
         .onReceive(self.errorPublisher) {
-            self.error = $0
+            self.loadStaus = .failed($0)
         }
         .onReceive(self.locationManager.$error) {
-            self.error = $0
-            if $0 != nil {
-                self.isLoading = false
+            if let err = $0 {
+                self.loadStaus = .failed(err)
             }
         }
     }
     
 }
 
+//MARK: - UI Contents
 extension WeatherView {
-    private func makeScrollView() -> some View {
+    
+    @ViewBuilder
+    private var content: some View {
+        switch self.loadStaus {
+        case .notRequested:
+            notRequestedView
+        case .loaded:
+            loadedView
+        case let .failed(error):
+            errorView(error)
+        }
+    }
+    
+    private var notRequestedView: some View {
+        Text("")
+    }
+    
+    private var loadedView: some View {
+        ZStack {
+            mainView
+            if isLoading {
+                LoadingView(filename: "sun_color")
+            }
+        }
+    }
+    
+    private func errorView(_ err: Error) -> some View {
+        ErrorView(error: err) {
+            self.isLoading = true
+            Task {
+                await self.fetchData()
+            }
+        }
+    }
+    
+    private var mainView: some View {
         ScrollView(.vertical) {
             LazyVStack(pinnedViews: [.sectionHeaders]) {
                 Section {
@@ -156,6 +174,7 @@ extension WeatherView {
     }
 }
 
+//MARK: - Fetch necessary data
 extension WeatherView {
     
     private func fetchData() async {
@@ -169,12 +188,10 @@ extension WeatherView {
                 async let weather = weatherService.weather(for: location)
                 async let attribution = weatherService.attribution
                 async let cityName = locationManager.cityName(at: location)
-                async let aqList = self.aqiManager.fetchAirQualityPrediction(location: location)
                 
                 self.weather = try await weather
                 self.attribution = try await attribution
                 self.hourlyWeatherData = self.filterHours(of: self.weather?.hourlyForecast, count: 24)
-                self.aqiList = await aqList
                 
                 if let unwrappedCityName = await cityName {
                     self.cityName = unwrappedCityName

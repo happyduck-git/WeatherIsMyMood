@@ -112,6 +112,7 @@ extension LocationManager: LocationFetcherDelegate {
         switch status {
         case .restricted, .denied:
             self.error = LocationError.notAuthorized
+            self.currentLocation = nil
         default:
             self.error = nil
         }

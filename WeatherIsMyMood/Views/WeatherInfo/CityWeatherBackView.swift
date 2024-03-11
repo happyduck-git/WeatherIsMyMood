@@ -9,29 +9,44 @@ import SwiftUI
 
 struct CityWeatherBackView: View {
     
+    @EnvironmentObject private var locationManager: LocationManager
+    @EnvironmentObject private var aqiManager: AirQualityManager
+    
     @Binding var degree : Double
     @Binding var aqList: [AQList]
     @State private var todayAqResources: AQICategory.Resources?
     @State private var todayAqComponentsResources: [Pollutant: AQICategory.Resources] = [:]
+    @State private var isLoading: Bool = false
     
     var body: some View {
         ZStack {
             Circle()
                 .fill(.skyblue)
                 .opacity(0.3)
+            
             VStack(alignment: .center) {
                 Text(WeatherConstants.airQuality)
                     .font(.title)
                     .fontWeight(.semibold)
-                
-                self.makeAqVieq()
-                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
-                self.makePollutantsView()
+                if isLoading {
+                    ProgressView()
+                } else {
+                    self.makeAqVieq()
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
+                    self.makePollutantsView()
+                }
             }
         }
         .rotation3DEffect(Angle(degrees: degree), axis: (x: 0, y: 1, z: 0))
         .modify{
             if #available(iOS 17.0, *) {
+                $0.onChange(of: self.degree) {
+                    if $0 == 0 { //When the back view is showing.
+                        Task {
+                            await self.fetchAqiData()
+                        }
+                    }
+                }
                 $0.onChange(of: aqList) {
                     self.todayAqResources = getCategoryResources()
                     self.todayAqComponentsResources = getPollutantsResources()
@@ -117,6 +132,22 @@ extension CityWeatherBackView {
                 }
             }
             
+        }
+    }
+}
+
+extension CityWeatherBackView {
+    private func fetchAqiData() async {
+        self.isLoading = true
+        if let location = locationManager.currentLocation {
+#if DEBUG
+            print("Loc on weatherView: \(location.coordinate.latitude)")
+#endif
+            do {
+                async let aqList = self.aqiManager.fetchAirQualityPrediction(location: location)
+                self.aqList = await aqList
+                self.isLoading = false
+            }
         }
     }
 }
