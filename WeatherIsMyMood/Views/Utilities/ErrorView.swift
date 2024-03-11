@@ -26,7 +26,7 @@ extension ErrorView {
                 Image(.surprised)
                     .resizable()
                     .frame(width: 50, height: 50)
-                Text("We cannot use your location.\nPlease go to Settings \nand give permission to us\nso that we can provide you weather services!")
+                Text(WeatherConstants.locationError)
                     .font(.callout)
                     .multilineTextAlignment(.center)
                     .padding()
@@ -40,7 +40,7 @@ extension ErrorView {
                     .font(.callout)
                     .multilineTextAlignment(.center)
                     .padding(.bottom, 40).padding()
-                Button(action: retryAction, label: { Text("Retry").bold() })
+                Button(action: retryAction, label: { Text(WeatherConstants.retry).bold() })
             }
   
         }

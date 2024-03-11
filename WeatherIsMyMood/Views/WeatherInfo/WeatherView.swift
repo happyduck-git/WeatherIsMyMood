@@ -108,6 +108,7 @@ extension WeatherView {
     
     private func errorView(_ err: Error) -> some View {
         ErrorView(error: err) {
+            self.loadStaus = .loaded
             self.isLoading = true
             Task {
                 await self.fetchData()

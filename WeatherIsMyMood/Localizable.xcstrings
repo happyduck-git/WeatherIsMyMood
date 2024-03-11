@@ -1111,7 +1111,26 @@
       }
     },
     "Retry" : {
-
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "다시 시도"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Повторить попытку"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重试"
+          }
+        }
+      }
     },
     "Select Color" : {
       "localizations" : {
@@ -1424,7 +1443,26 @@
       }
     },
     "We cannot use your location.\nPlease go to Settings \nand give permission to us\nso that we can provide you weather services!" : {
-
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "사용자 위치 정보가 허용되지 않았습니다. 핸드폰의 \"설정\"에서 위치 서비스 이용을 허용해주시기 바랍니다."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Мы не можем использовать ваше местоположение.\nПожалуйста, перейдите в Настройки\nи дайте разрешение на размещение."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不接受用户位置信息。请在手机的“设置”中允许使用定位服务。"
+          }
+        }
+      }
     },
     "Weather" : {
       "localizations" : {
